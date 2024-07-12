@@ -1,5 +1,5 @@
 const { bold, inlineCode } = require("discord.js");
-const lark = require("../utils/lark.js");
+const lark = require("../../utils/lark");
 require("dotenv").config();
 
 module.exports = {
