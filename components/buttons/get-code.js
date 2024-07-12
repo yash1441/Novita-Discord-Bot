@@ -26,7 +26,7 @@ module.exports = {
 			});
 
 		if (response.total) {
-			const code = response.items[0]["Activation Code"];
+			const code = response.items[0].fields["Activation Code"];
 			if (!code)
 				return await interaction.editReply({
 					content:

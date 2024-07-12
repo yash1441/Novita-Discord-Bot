@@ -27,7 +27,7 @@ module.exports = {
 				content:
 					"You are already registered! Please use the " +
 					bold("Get Code") +
-					"button once the code distribution has started to get your code.",
+					" button once the code distribution has started to get your code.",
 			});
 
 		const success = await lark.createRecord(
@@ -41,7 +41,7 @@ module.exports = {
 				content:
 					"You have been registered! Please use the " +
 					bold("Get Code") +
-					"button once the code distribution has started to get your code.",
+					" button once the code distribution has started to get your code.",
 			});
 		else
 			return await interaction.editReply({
