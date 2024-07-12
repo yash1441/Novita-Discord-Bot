@@ -35,6 +35,10 @@ module.exports = {
 			return await interaction.editReply({
 				content: "Your activation code is " + inlineCode(code),
 			});
-		}
+		} else
+			return await interaction.editReply({
+				content:
+					"The code distribution hasn't begun. Please try again later.",
+			});
 	},
 };
