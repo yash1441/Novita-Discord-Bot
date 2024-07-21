@@ -8,9 +8,10 @@ module.exports = {
 		name: "belowprocessor",
 	},
 	async execute(interaction) {
-		await interaction.deferUpdate();
-		const discordId = interaction.user.id;
+		await interaction.deferReply({ ephemeral : true });
+        await interaction.deleteReply();
 
+		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.CODES_TABLE,
