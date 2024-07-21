@@ -8,8 +8,7 @@ module.exports = {
 		name: "belowprocessor",
 	},
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral: true });
-		await interaction.message.edit({ content: "-", components: [] });
+        await interaction.update({ content: "Please wait...", components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
@@ -28,7 +27,7 @@ module.exports = {
 		const success = await lark.updateRecord(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.CODES_TABLE,
-			response.items[0].recordId,
+			response.items[0].record_id,
 			{
 				fields: {
 					Processor: "Below Intel Core i7-8700K/AMD Ryzen 5 3600",
@@ -37,14 +36,14 @@ module.exports = {
 		);
 
 		if (success)
-			await interaction.editReply({
+			await interaction.followUp({
 				content:
 					"You have been registered! Please use the " +
 					bold("Get Code") +
 					" button once the code distribution has started to get your code.",
 			});
 		else
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content: "An error has occured. Please try again later.",
 			});
 	},

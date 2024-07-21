@@ -13,8 +13,7 @@ module.exports = {
 		name: "belowgpu",
 	},
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral: true });
-		await interaction.message.edit({ content: "-", components: [] });
+        await interaction.update({ content: "Please wait...", components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
@@ -33,7 +32,7 @@ module.exports = {
 		const success = await lark.updateRecord(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.CODES_TABLE,
-			response.items[0].recordId,
+			response.items[0].record_id,
 			{ fields: { Graphics: "Below NVIDIA GeForce GTX 1660 Ti 6GB" } }
 		);
 
@@ -53,12 +52,12 @@ module.exports = {
 		);
 
 		if (success)
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content: "Please choose your processor:",
 				components: [row],
 			});
 		else
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content: "An error has occured. Please try again later.",
 			});
 	},

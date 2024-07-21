@@ -8,7 +8,7 @@ module.exports = {
 		name: "aboveprocessor",
 	},
 	async execute(interaction) {
-		await interaction.update({ components: [] });
+        await interaction.update({ content: "Please wait...", components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
@@ -27,7 +27,7 @@ module.exports = {
 		const success = await lark.updateRecord(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.CODES_TABLE,
-			response.items[0].recordId,
+			response.items[0].record_id,
 			{
 				fields: {
 					Processor: "Above Intel Core i7-8700K/AMD Ryzen 5 3600",
