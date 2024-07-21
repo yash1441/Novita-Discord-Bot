@@ -2,7 +2,7 @@ const {
 	bold,
 	ButtonBuilder,
 	ButtonStyle,
-	ComponentType,
+	ActionRowBuilder,
 } = require("discord.js");
 const lark = require("../../utils/lark");
 require("dotenv").config();
