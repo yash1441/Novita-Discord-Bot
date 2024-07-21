@@ -8,7 +8,7 @@ module.exports = {
 		name: "belowprocessor",
 	},
 	async execute(interaction) {
-        await interaction.update({ content: "Please wait...", components: [] });
+		await interaction.update({ content: "Please wait...", components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
@@ -17,11 +17,12 @@ module.exports = {
 		);
 
 		if (!response || !response.total)
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content:
 					"You aren't registered. Please use the " +
 					bold("Register") +
 					" button to register.",
+				ephemeral: true,
 			});
 
 		const success = await lark.updateRecord(
@@ -41,10 +42,12 @@ module.exports = {
 					"You have been registered! Please use the " +
 					bold("Get Code") +
 					" button once the code distribution has started to get your code.",
+				ephemeral: true,
 			});
 		else
 			return await interaction.followUp({
 				content: "An error has occured. Please try again later.",
+				ephemeral: true,
 			});
 	},
 };

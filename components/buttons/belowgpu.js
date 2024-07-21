@@ -13,7 +13,7 @@ module.exports = {
 		name: "belowgpu",
 	},
 	async execute(interaction) {
-        await interaction.update({ content: "Please wait...", components: [] });
+		await interaction.update({ content: "Please wait...", components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
@@ -22,11 +22,12 @@ module.exports = {
 		);
 
 		if (!response || !response.total)
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content:
 					"You aren't registered. Please use the " +
 					bold("Register") +
 					" button to register.",
+				ephemeral: true,
 			});
 
 		const success = await lark.updateRecord(
@@ -37,12 +38,12 @@ module.exports = {
 		);
 
 		const processorButton1 = new ButtonBuilder()
-			.setCustomId("above1660ti")
+			.setCustomId("aboveprocessor")
 			.setLabel("Above Intel Core i7-8700K/AMD Ryzen 5 3600")
 			.setStyle(ButtonStyle.Success);
 
 		const processorButton2 = new ButtonBuilder()
-			.setCustomId("below1660ti")
+			.setCustomId("belowprocessor")
 			.setLabel("Below Intel Core i7-8700K/AMD Ryzen 5 3600")
 			.setStyle(ButtonStyle.Danger);
 
@@ -55,10 +56,12 @@ module.exports = {
 			return await interaction.followUp({
 				content: "Please choose your processor:",
 				components: [row],
+				ephemeral: true,
 			});
 		else
 			return await interaction.followUp({
 				content: "An error has occured. Please try again later.",
+				ephemeral: true,
 			});
 	},
 };
