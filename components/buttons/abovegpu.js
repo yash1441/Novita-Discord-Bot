@@ -13,7 +13,6 @@ module.exports = {
 		name: "abovegpu",
 	},
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral: true });
 		await interaction.update({ components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
@@ -23,7 +22,7 @@ module.exports = {
 		);
 
 		if (!response || !response.total)
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content:
 					"You aren't registered. Please use the " +
 					bold("Register") +
@@ -53,12 +52,12 @@ module.exports = {
 		);
 
 		if (success)
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content: "Please choose your processor:",
 				components: [row],
 			});
 		else
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content: "An error has occured. Please try again later.",
 			});
 	},

@@ -8,8 +8,7 @@ module.exports = {
 		name: "aboveprocessor",
 	},
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral: true });
-		await interaction.message.edit({ content: "-", components: [] });
+		await interaction.update({ components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
@@ -18,7 +17,7 @@ module.exports = {
 		);
 
 		if (!response || !response.total)
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content:
 					"You aren't registered. Please use the " +
 					bold("Register") +
@@ -37,14 +36,14 @@ module.exports = {
 		);
 
 		if (success)
-			await interaction.editReply({
+			await interaction.followUp({
 				content:
 					"You have been registered! Please use the " +
 					bold("Get Code") +
 					" button once the code distribution has started to get your code.",
 			});
 		else
-			return await interaction.editReply({
+			return await interaction.followUp({
 				content: "An error has occured. Please try again later.",
 			});
 	},
