@@ -14,7 +14,7 @@ module.exports = {
 	},
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
-		await interaction.message.edit({ content: "-", components: [] });
+		await interaction.update({ components: [] });
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
