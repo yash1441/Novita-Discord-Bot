@@ -13,9 +13,6 @@ module.exports = {
 		name: "abovegpu",
 	},
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral : true });
-        await interaction.deleteReply();
-
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
