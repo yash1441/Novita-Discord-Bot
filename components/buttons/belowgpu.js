@@ -13,6 +13,7 @@ module.exports = {
 		name: "belowgpu",
 	},
 	async execute(interaction) {
+        await interaction.deferUpdate();
 		const discordId = interaction.user.id;
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
