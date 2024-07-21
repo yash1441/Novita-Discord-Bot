@@ -36,12 +36,12 @@ module.exports = {
 			});
 
 		const gpuButton1 = new ButtonBuilder()
-			.setCustomId("above1660ti")
+			.setCustomId("abovegpu")
 			.setLabel("Above NVIDIA GeForce GTX 1660 Ti 6GB")
 			.setStyle(ButtonStyle.Success);
 
 		const gpuButton2 = new ButtonBuilder()
-			.setCustomId("below1660ti")
+			.setCustomId("belowgpu")
 			.setLabel("Below NVIDIA GeForce GTX 1660 Ti 6GB")
 			.setStyle(ButtonStyle.Danger);
 
