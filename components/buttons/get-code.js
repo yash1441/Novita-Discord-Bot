@@ -1,4 +1,4 @@
-const { bold, inlineCode } = require("discord.js");
+const { bold, inlineCode, hyperlink } = require("discord.js");
 const lark = require("../../utils/lark");
 require("dotenv").config();
 
@@ -33,7 +33,7 @@ module.exports = {
 						"You currently have no code assigned to you or the code distribution hasn't begun. Please try again later.",
 				});
 			return await interaction.editReply({
-				content: "Your activation code is " + inlineCode(code),
+				content: "Your activation code is " + inlineCode(code) + "\n" + hyperlink("Redeem on Steam", "https://store.steampowered.com/account/registerkey"),
 			});
 		} else
 			return await interaction.editReply({
