@@ -46,7 +46,6 @@ async function listRecords(app_token, table_id, parameters = null, id = process.
     if (response && response.data.code === 0) {
         return response.data.data;
     } else {
-        console.log(response);
         return false;
     }
 }
