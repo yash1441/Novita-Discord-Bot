@@ -17,8 +17,6 @@ module.exports = {
 			{ filter: 'CurrentValue.[Discord ID] = "' + discordId + '"' }
 		);
 
-		console.log(response);
-
 		if (!response)
 			return await interaction.editReply({
 				content:
