@@ -27,17 +27,17 @@ module.exports = {
 
 		if (response.total) {
 			const code = response.items[0].fields["Activation Code"];
-			const eligibility = response.items[0].fields["Eligibility"][0].text;
-			if (!code && eligibility === "Eligible")
+			// const eligibility = response.items[0].fields["Eligibility"][0].text;
+			if (!code /*&& eligibility === "Eligible"*/)
 				return await interaction.editReply({
 					content:
 						"You currently have no code assigned to you or the code distribution hasn't begun. Please try again later.",
 				});
-			else if (eligibility === "Ineligible")
-				return await interaction.editReply({
-					content:
-						"Unfortunately, you do not meet the hardware requirements needed for this test. We apologize for any inconvenience and thank you for your interest. Please stay tuned for future opportunities.",
-				});
+			// else if (eligibility === "Ineligible")
+			// 	return await interaction.editReply({
+			// 		content:
+			// 			"Unfortunately, you do not meet the hardware requirements needed for this test. We apologize for any inconvenience and thank you for your interest. Please stay tuned for future opportunities.",
+			// 	});
 			return await interaction.editReply({
 				content:
 					"Your activation code is " +
