@@ -28,6 +28,7 @@ module.exports = {
 		if (response.total) {
 			const code = response.items[0].fields["Activation Code"];
 			const eligibility = response.items[0].fields["Eligibility"].text;
+			console.log({ code, eligibility });
 			if (!code && eligibility === "Eligible")
 				return await interaction.editReply({
 					content:
