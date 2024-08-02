@@ -33,7 +33,7 @@ module.exports = {
 					content:
 						"You currently have no code assigned to you or the code distribution hasn't begun. Please try again later.",
 				});
-			else if (!code && eligibility === "Ineligible")
+			else if (eligibility === "Ineligible")
 				return await interaction.editReply({
 					content:
 						"Unfortunately, you do not meet the hardware requirements needed for this test. We apologize for any inconvenience and thank you for your interest. Please stay tuned for future opportunities.",
