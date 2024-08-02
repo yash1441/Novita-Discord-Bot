@@ -27,13 +27,26 @@ module.exports = {
 
 		if (response.total) {
 			const code = response.items[0].fields["Activation Code"];
-			if (!code)
+			const eligibility = response.items[0].fields["Eligibility"];
+			if (!code && eligibility === "Eligible")
 				return await interaction.editReply({
 					content:
 						"You currently have no code assigned to you or the code distribution hasn't begun. Please try again later.",
 				});
+			else if (!code && eligibility === "Ineligible")
+				return await interaction.editReply({
+					content:
+						"Unfortunately, you do not meet the hardware requirements needed for this test. We apologize for any inconvenience and thank you for your interest. Please stay tuned for future opportunities.",
+				});
 			return await interaction.editReply({
-				content: "Your activation code is " + inlineCode(code) + "\n" + hyperlink("Redeem on Steam", "https://store.steampowered.com/account/registerkey"),
+				content:
+					"Your activation code is " +
+					inlineCode(code) +
+					"\n" +
+					hyperlink(
+						"Redeem on Steam",
+						"https://store.steampowered.com/account/registerkey"
+					),
 			});
 		} else
 			return await interaction.editReply({
