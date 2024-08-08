@@ -31,7 +31,7 @@ module.exports = {
 			if (!code && eligibility === "Eligible")
 				return await interaction.editReply({
 					content:
-						"You currently have no code assigned to you or the code distribution hasn't begun. Please try again later.",
+						"You currently have no code assigned to you. Please try again later.",
 				});
 			else if (eligibility === "Ineligible")
 				return await interaction.editReply({
@@ -51,7 +51,7 @@ module.exports = {
 		} else
 			return await interaction.editReply({
 				content:
-					"The code distribution hasn't begun. Please try again later.",
+					"You have not registered yet. Please register first and then try again later.",
 			});
 	},
 };
