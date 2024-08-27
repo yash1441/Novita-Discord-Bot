@@ -13,10 +13,6 @@ module.exports = {
 		const username = interaction.user.username;
 		const serverId = interaction.guildId;
 
-		server.id == process.env.GUILD_ID
-			? (server.region = "EN")
-			: (server.region = "JP");
-
 		const response = await lark.listRecords(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.CODES_TABLE,
