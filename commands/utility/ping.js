@@ -9,6 +9,6 @@ module.exports = {
 	async execute(interaction) {
 		const reply = await interaction.deferReply({ ephemeral: true, fetchReply: true });
 
-		await interaction.editReply({ content: 'API Latency: ' + interaction.client.ws.ping + 'ms\nClient Ping: ' + (reply.createdTimestamp - interaction.createdTimestamp).toString() + 'ms'})
+		await interaction.editReply({ content: 'API Latency: ' + interaction.client.ws.ping + 'ms\nClient Ping: ' + (reply.createdTimestamp - interaction.createdTimestamp).toString() + 'ms'});
 	},
 };
