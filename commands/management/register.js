@@ -53,6 +53,9 @@ module.exports = {
 		),
 	async autcomplete(interaction) {
 		const focusedOption = interaction.options.getFocused(true);
+		const focusedValue = interaction.options.getFocused();
+
+		console.log(focusedOption, focusedValue);
 
 		const pcCpuAmdChoices = [
 			"Ryzen 9 7950X3D",
