@@ -1,7 +1,4 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { execute } = require("../utility/ping");
-
-let choices = null;
 
 module.exports = {
 	cooldown: 60,
@@ -160,7 +157,36 @@ module.exports = {
 		];
 		const test = ["A", "B"];
 
-		const filtered = choices.filter((choice) => {
+		const device = interaction.options.getString("device") ?? "PC";
+		const cpu = interaction.options.getString("cpu") ?? "Intel";
+		const gpu = interaction.options.getString("gpu") ?? "NVIDIA";
+
+		const choices = {
+			PC: {
+				"cpu-model": {
+					AMD: pcCpuAmdChoices,
+					Intel: pcCpuIntelChoices,
+				},
+				"gpu-model": {
+					NVIDIA: test,
+					AMD: test,
+				},
+			},
+			Laptop: {
+				"cpu-model": {
+					AMD: laptopCpuAmdChoices,
+					Intel: laptopCpuIntelChoices,
+				},
+				"gpu-model": {
+					NVIDIA: test,
+					AMD: test,
+				},
+			},
+		};
+
+		const filtered = choices[device][focusedOption.name][
+			focusedOption.name.includes("cpu") ? cpu : gpu
+		].filter((choice) => {
 			const choiceLower = choice.toLowerCase();
 			return (
 				words.every((word) => choiceLower.includes(word)) ||
@@ -189,30 +215,9 @@ module.exports = {
 			options = filtered;
 		}
 
-		if (focusedOption.name === "cpu-model") {
-			if (
-				interaction.options.getString("device") === "PC" &&
-				interaction.options.getString("cpu") === "AMD"
-			)
-				await interaction.respond(pcCpuAmdChoices.map(mapped));
-			else if (
-				interaction.options.getString("device") === "PC" &&
-				interaction.options.getString("cpu") === "Intel"
-			)
-				await interaction.respond(pcCpuIntelChoices.map(mapped));
-			else if (
-				interaction.options.getString("device") === "Laptop" &&
-				interaction.options.getString("cpu") === "AMD"
-			)
-				await interaction.respond(laptopCpuAmdChoices.map(mapped));
-			else if (
-				interaction.options.getString("device") === "Laptop" &&
-				interaction.options.getString("cpu") === "Intel"
-			)
-				await interaction.respond(laptopCpuIntelChoices.map(mapped));
-		} else if (focusedOption.name === "gpu-model") {
-			await interaction.respond(test.map(mapped));
-		}
+		await interaction.respond(
+			options.map((choice) => ({ name: choice, value: choice }))
+		);
 	},
 	async execute(interaction) {
 		const device = interaction.options.getString("device");
