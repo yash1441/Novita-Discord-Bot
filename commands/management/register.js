@@ -207,5 +207,5 @@ module.exports = {
 };
 
 function mapped(choice, index) {
-	return { name: choice, value: index };
+	return { name: choice, value: (index + 1).toString() };
 }
