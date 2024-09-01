@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { execute } = require("../utility/ping");
 
+let choices = null;
+
 module.exports = {
 	cooldown: 60,
 	category: "management",
@@ -54,8 +56,7 @@ module.exports = {
 	async autocomplete(interaction) {
 		const focusedOption = interaction.options.getFocused(true);
 		const focusedValue = interaction.options.getFocused();
-
-		console.log(focusedOption, focusedValue);
+		const words = focusedValue.toLowerCase().split(" ");
 
 		const pcCpuAmdChoices = [
 			"Ryzen 9 7950X3D",
@@ -158,6 +159,35 @@ module.exports = {
 			"Others",
 		];
 		const test = ["A", "B"];
+
+		const filtered = choices.filter((choice) => {
+			const choiceLower = choice.toLowerCase();
+			return (
+				words.every((word) => choiceLower.includes(word)) ||
+				words.some((word) => choiceLower.includes(word))
+			);
+		});
+
+		filtered.sort((a, b) => {
+			const aScore = words.reduce(
+				(score, word) =>
+					score + (a.toLowerCase().includes(word) ? 1 : 0),
+				0
+			);
+			const bScore = words.reduce(
+				(score, word) =>
+					score + (b.toLowerCase().includes(word) ? 1 : 0),
+				0
+			);
+			return bScore - aScore;
+		});
+
+		let options;
+		if (filtered.length > 25) {
+			options = filtered.slice(0, 25);
+		} else {
+			options = filtered;
+		}
 
 		if (focusedOption.name === "cpu-model") {
 			if (
