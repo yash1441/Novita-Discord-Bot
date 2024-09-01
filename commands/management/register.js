@@ -29,7 +29,9 @@ module.exports = {
 		.addStringOption((option) =>
 			option
 				.setName("cpu-model")
-				.setDescription("Which model is your CPU?")
+				.setDescription(
+					"Which model is your CPU? Start typing for more options."
+				)
 				.setRequired(true)
 				.setAutocomplete(true)
 		)
@@ -46,7 +48,9 @@ module.exports = {
 		.addStringOption((option) =>
 			option
 				.setName("gpu-model")
-				.setDescription("Which model is your GPU?")
+				.setDescription(
+					"Which model is your GPU? Start typing for more options."
+				)
 				.setRequired(true)
 				.setAutocomplete(true)
 		),
@@ -155,6 +159,66 @@ module.exports = {
 			"Core Ultra 7 155H",
 			"Others",
 		];
+		const pcGpuAmdChoices = ["AMD"];
+		const pcGpuNvidiaChoices = [
+			"RTX 4090",
+			"RTX 4090D",
+			"RTX 4080 SUPER",
+			"RTX 4080",
+			"RTX 4070 Ti SUPER",
+			"RTX 4070 Ti",
+			"RTX 4070 SUPER",
+			"RTX 3090 Ti",
+			"RTX 3090",
+			"RTX 3080 Ti",
+			"RTX 3080 12GB",
+			"RTX 3080",
+			"RTX 3070 Ti",
+			"RTX 3070",
+			"RTX 3060",
+			"RTX 2080 Ti",
+			"RTX 2080 SUPER",
+			"RTX 2080",
+			"RTX 2070 SUPER",
+			"RTX 2070",
+			"RTX 2060 SUPER",
+			"RTX 2060",
+			"GTX 1080 Ti",
+			"GTX 1080",
+			"GTX 1070 Ti",
+			"GTX 1070",
+			"GTX 1660 Ti",
+			"GTX 1660 SUPER",
+			"GTX 1660",
+			"Titan RTX",
+			"Titan V",
+			"Titan Xp",
+			"GTX Titan Z",
+			"Titan X",
+			"GTX Titan X",
+			"Others",
+		];
+		const laptopGpuAmdChoices = ["AMD"];
+		const laptopGpuNvidiaChoices = [
+			"RTX 4090",
+			"RTX 4080",
+			"RTX 4070",
+			"RTX 4060",
+			"RTX 4050",
+			"RTX 3080 Ti",
+			"RTX 3080",
+			"RTX 3070 Ti",
+			"RTX 3070",
+			"RTX 3060",
+			"RTX 2080 Super Max-Q",
+			"RTX 2080 Max-Q",
+			"RTX 2080 Super",
+			"RTX 2080",
+			"RTX 2070 Super Max-Q",
+			"GTX 1080 Max-Q",
+			"GTX 1080",
+			"Others",
+		];
 		const test = ["A", "B"];
 
 		const device = interaction.options.getString("device") ?? "PC";
@@ -168,8 +232,8 @@ module.exports = {
 					Intel: pcCpuIntelChoices,
 				},
 				"gpu-model": {
-					NVIDIA: test,
-					AMD: test,
+					NVIDIA: pcGpuNvidiaChoices,
+					AMD: pcGpuAmdChoices,
 				},
 			},
 			Laptop: {
@@ -178,8 +242,8 @@ module.exports = {
 					Intel: laptopCpuIntelChoices,
 				},
 				"gpu-model": {
-					NVIDIA: test,
-					AMD: test,
+					NVIDIA: laptopGpuAmdChoices,
+					AMD: laptopGpuAmdChoices,
 				},
 			},
 		};
