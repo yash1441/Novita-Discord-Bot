@@ -455,7 +455,7 @@ module.exports = {
 			if (serverId === process.env.GUILD_ID)
 				await interaction.editReply({
 					content:
-						"Unfortunately, you do not meet the hardware requirements needed for this test.  However, you can visit" +
+						"Unfortunately, you do not meet the hardware requirements needed for this test.  However, you can visit " +
 						hyperlink("this link", "https://bit.ly/fttnsteam") +
 						", and click " +
 						bold("Request Access") +
