@@ -414,6 +414,8 @@ module.exports = {
 		);
 	},
 	async execute(interaction) {
+		await interaction.deferReply({ ephemeral: true });
+
 		const device = interaction.options.getString("device");
 		const cpu = interaction.options.getString("cpu");
 		const cpuModel = interaction.options.getString("cpu-model");
@@ -423,7 +425,7 @@ module.exports = {
 
 		if (gpu === "AMD" || gpuModel === "Others") {
 			if (serverId === process.env.GUILD_ID)
-				return await interaction.reply({
+				await interaction.editReply({
 					content:
 						"Unfortunately, you do not meet the hardware requirements needed for this test.  However, you can visit" +
 						hyperlink("this link", "https://bit.ly/fttnsteam") +
@@ -432,18 +434,15 @@ module.exports = {
 						" under " +
 						bold("Join Fate Trigger: The Novita Playtest") +
 						" to sign up for future opportunities. We will get back to you asap. We apologize for any inconvenience and thank you for your interest.",
-					ephemeral: true,
 				});
 			else
-				return await interaction.reply({
+				await interaction.editReply({
 					content:
 						"申し訳ありませんが、このテストに必要なハードウェア要件を満たしていません。「運命のトリガー：The Novita」のSteamストアページを訪れ、「アクセスをリクエスト」をクリックして、登録してください。できるだけ早くご連絡いたします。ご不便をおかけしますが、ご理解いただきありがとうございます",
-					ephemeral: true,
 				});
 		}
-
-		if (serverId === process.env.GUILD_ID)
-			await interaction.reply({
+		else if (serverId === process.env.GUILD_ID)
+			await interaction.editReply({
 				content:
 					"Congratulations, your specs are ready to go! Tired of waiting in line? There are two ways to get the alpha key for early access:\n1. " +
 					bold("Application:") +
@@ -453,7 +452,7 @@ module.exports = {
 				ephemeral: true,
 			});
 		else
-			await interaction.reply({
+			await interaction.editReply({
 				content:
 					"おめでとうございます、あなたのスペックは問題ありません！長時間の待機に疲れたら、早期アクセス用のアクティベーションコードを取得する2つの方法があります：\n1. 公式サイトでの応募：公式サイト<官网链接>のアンケートに情報を記入すると、参加資格を得るチャンスがあります。\n2. Discordでの抽選：公式Discordのイベントに参加すると、抽選で参加資格を得るチャンスがあります。",
 				ephemeral: true,
