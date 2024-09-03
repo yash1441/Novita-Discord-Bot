@@ -86,6 +86,7 @@ module.exports = {
 			"Ryzen 5 3600",
 			"Ryzen 5 3500X",
 			"Ryzen 5 3400G",
+			"Others",
 			"Ryzen 5 2600X",
 			"Ryzen 5 2600",
 			"Ryzen 5 2500X",
@@ -94,7 +95,6 @@ module.exports = {
 			"Ryzen 5 1500X",
 			"Ryzen 3 3300X",
 			"Ryzen 3 3100",
-			"Others",
 		];
 		const pcCpuIntelChoices = [
 			"Xeon W-3175X",
@@ -121,6 +121,7 @@ module.exports = {
 			"i5-9500",
 			"i5-9400F",
 			"i5-9 400",
+			"Others",
 			"i5-8600K",
 			"i5-8600",
 			"i5-8500",
@@ -136,7 +137,6 @@ module.exports = {
 			"i3-9300",
 			"i3-9100",
 			"i3-8350K",
-			"Others",
 		];
 		const laptopCpuAmdChoices = [
 			"Ryzen 9 7945HX3D",
@@ -163,6 +163,7 @@ module.exports = {
 			"Ryzen 7 4980U Surface",
 			"Ryzen 7 5700U",
 			"Ryzen 7 5800HS",
+			"Others",
 			"Ryzen 7 5800U",
 			"Ryzen 7 6800U",
 			"Ryzen 7 7730U",
@@ -176,7 +177,6 @@ module.exports = {
 			"Ryzen 9 7940HS",
 			"Ryzen 9 7945HX",
 			"Ryzen 9 8945HS",
-			"Others",
 		];
 		const laptopCpuIntelChoices = [
 			"i3-10110U",
@@ -203,6 +203,7 @@ module.exports = {
 			"i5-1340P",
 			"i5-13 45U",
 			"i5-13500HX",
+			"Others",
 			"i5-8257U",
 			"i5-8259U",
 			"i5-8265U",
@@ -278,7 +279,6 @@ module.exports = {
 			"Ultra 7 165H",
 			"Ultra 7 165U",
 			"Ultra 9 185H",
-			"Others",
 		];
 		const pcGpuAmdChoices = ["AMD"];
 		const pcGpuNvidiaChoices = [
@@ -306,6 +306,7 @@ module.exports = {
 			"Titan X",
 			"RTX 3060",
 			"GTX 1080 Ti",
+			"Others",
 			"RTX 2080 Super",
 			"RTX 2070 Super",
 			"RTX 2080",
@@ -324,7 +325,6 @@ module.exports = {
 			"RTX 3050",
 			"GTX 1660 Super",
 			"RTX 4050",
-			"Others",
 		];
 		const laptopGpuAmdChoices = ["AMD"];
 		const laptopGpuNvidiaChoices = [
