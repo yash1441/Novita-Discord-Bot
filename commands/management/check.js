@@ -5,8 +5,8 @@ module.exports = {
 	cooldown: 60,
 	category: "management",
 	data: new SlashCommandBuilder()
-		.setName("register")
-		.setDescription("Registration for the game.")
+		.setName("check")
+		.setDescription("Check your specs.")
 		.addStringOption((option) =>
 			option
 				.setName("device")
