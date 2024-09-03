@@ -421,7 +421,7 @@ module.exports = {
 		const cpuModel = interaction.options.getString("cpu-model");
 		const gpu = interaction.options.getString("gpu");
 		const gpuModel = interaction.options.getString("gpu-model");
-		const discordId = interaction;
+		const discordId = interaction.user.id;
 		const serverId = interaction.guildId;
 
 		const response = await lark.listRecords(
