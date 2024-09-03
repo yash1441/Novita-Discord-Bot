@@ -26,7 +26,7 @@ module.exports = {
             "Discord Name": embed.data.author.name
         };
 
-        const success = await lark.createRecord(process.env.FEEDBACK_POOL_BASE, process.env.SUGGESTIONS_TABLE, { fields: data })
+        const success = await lark.createRecord(process.env.FEEDBACK_POOL_BASE, process.env.SUGGESTIONS_TABLE, { fields: data });
 
         if (!success) console.log("Failed to create record in lark");
     }
