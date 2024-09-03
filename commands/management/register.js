@@ -380,15 +380,17 @@ module.exports = {
 		});
 
 		filtered.sort((a, b) => {
-			const aS = words.reduce(
-				(score, word) => s + (a.toLowerCase().includes(word) ? 1 : 0),
+			const aScore = words.reduce(
+				(score, word) =>
+					score + (a.toLowerCase().includes(word) ? 1 : 0),
 				0
 			);
-			const bS = words.reduce(
-				(score, word) => s + (b.toLowerCase().includes(word) ? 1 : 0),
+			const bScore = words.reduce(
+				(score, word) =>
+					score + (b.toLowerCase().includes(word) ? 1 : 0),
 				0
 			);
-			return bS - aScore;
+			return bScore - aScore;
 		});
 
 		let options;
