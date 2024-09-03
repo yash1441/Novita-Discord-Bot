@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, bold, hyperlink } = require("discord.js");
+const lark = require("../utils/lark.js");
 require("dotenv").config();
 
 module.exports = {
@@ -441,16 +442,40 @@ module.exports = {
 				});
 		}
 
-		if (serverId === process.env.GUILD_ID) await interaction.reply({
-			content:
-				"Congratulations, your specs are ready to go! Tired of waiting in line? There are two ways to get the alpha key for early access:\n1. " + bold("Application:") + " Complete the application on https://bit.ly/fttn by filling out the survey.\n2. " + bold("Discord Drops:") + " Visit our Discord https://discord.gg/fatetrigger for a chance to win an alpha key.",
-			ephemeral: true,
-		});
-		else await interaction.reply({
-			content:
-				"おめでとうございます、あなたのスペックは問題ありません！長時間の待機に疲れたら、早期アクセス用のアクティベーションコードを取得する2つの方法があります：\n1. 公式サイトでの応募：公式サイト<官网链接>のアンケートに情報を記入すると、参加資格を得るチャンスがあります。\n2. Discordでの抽選：公式Discordのイベントに参加すると、抽選で参加資格を得るチャンスがあります。",
-			ephemeral: true,
-		});
+		if (serverId === process.env.GUILD_ID)
+			await interaction.reply({
+				content:
+					"Congratulations, your specs are ready to go! Tired of waiting in line? There are two ways to get the alpha key for early access:\n1. " +
+					bold("Application:") +
+					" Complete the application on https://bit.ly/fttn by filling out the survey.\n2. " +
+					bold("Discord Drops:") +
+					" Visit our Discord https://discord.gg/fatetrigger for a chance to win an alpha key.",
+				ephemeral: true,
+			});
+		else
+			await interaction.reply({
+				content:
+					"おめでとうございます、あなたのスペックは問題ありません！長時間の待機に疲れたら、早期アクセス用のアクティベーションコードを取得する2つの方法があります：\n1. 公式サイトでの応募：公式サイト<官网链接>のアンケートに情報を記入すると、参加資格を得るチャンスがあります。\n2. Discordでの抽選：公式Discordのイベントに参加すると、抽選で参加資格を得るチャンスがあります。",
+				ephemeral: true,
+			});
+
+		const data = {
+			"Discord ID": interaction.user.id,
+			"Discord Username": interaction.user.username,
+			Server: serverId,
+			Device: device,
+			CPU: cpu,
+			"CPU Model": cpuModel,
+			GPU: gpu,
+			"GPU Model": gpuModel,
+		};
+
+		const success = await lark.createRecord(
+			process.env.FEEDBACK_POOL_BASE,
+			process.env.SPEC_TABLE,
+			{ fields: data }
+		);
+		if (!success) console.log("Failed to create record in lark");
 	},
 };
 
