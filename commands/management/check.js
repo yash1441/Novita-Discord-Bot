@@ -421,7 +421,35 @@ module.exports = {
 		const cpuModel = interaction.options.getString("cpu-model");
 		const gpu = interaction.options.getString("gpu");
 		const gpuModel = interaction.options.getString("gpu-model");
+		const discordId = interaction;
 		const serverId = interaction.guildId;
+
+		const response = await lark.listRecords(
+			process.env.FEEDBACK_POOL_BASE,
+			process.env.SPEC_TABLE,
+			{ filter: 'CurrentValue.[Discord ID] = "' + discordId + '"' }
+		);
+
+		if (response && response.total) {
+			return await interaction.editReply({
+				content:
+					"You have already checked your specs. These are your specs:\n\n" +
+					bold("Device: ") +
+					response.items[0].fields.Device +
+					"\n" +
+					bold("CPU: ") +
+					response.items[0].fields["CPU"] +
+					"\n" +
+					bold("CPU Model: ") +
+					response.items[0].fields["CPU Model"] +
+					"\n" +
+					bold("GPU: ") +
+					response.items[0].fields["GPU"] +
+					"\n" +
+					bold("GPU Model: ") +
+					response.items[0].fields["GPU Model"],
+			});
+		}
 
 		if (gpu === "AMD" || gpuModel === "Others") {
 			if (serverId === process.env.GUILD_ID)
@@ -440,8 +468,7 @@ module.exports = {
 					content:
 						"申し訳ありませんが、このテストに必要なハードウェア要件を満たしていません。「運命のトリガー：The Novita」のSteamストアページを訪れ、「アクセスをリクエスト」をクリックして、登録してください。できるだけ早くご連絡いたします。ご不便をおかけしますが、ご理解いただきありがとうございます",
 				});
-		}
-		else if (serverId === process.env.GUILD_ID)
+		} else if (serverId === process.env.GUILD_ID)
 			await interaction.editReply({
 				content:
 					"Congratulations, your specs are ready to go! Tired of waiting in line? There are two ways to get the alpha key for early access:\n1. " +
@@ -459,7 +486,7 @@ module.exports = {
 			});
 
 		const data = {
-			"Discord ID": interaction.user.id,
+			"Discord ID": discordId,
 			"Discord Username": interaction.user.username,
 			Server: serverId,
 			Device: device,
