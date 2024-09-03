@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, bold, hyperlink } = require("discord.js");
-const lark = require("../utils/lark.js");
+const lark = require("../../utils/lark.js");
 require("dotenv").config();
 
 module.exports = {
