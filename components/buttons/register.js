@@ -1,4 +1,4 @@
-const { bold, inlineCode, hyperlink } = require("discord.js");
+const { inlineCode } = require("discord.js");
 const lark = require("../../utils/lark");
 require("dotenv").config();
 
