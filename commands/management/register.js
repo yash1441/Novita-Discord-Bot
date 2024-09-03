@@ -1,4 +1,5 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, bold, hyperlink } = require("discord.js");
+require("dotenv").config();
 
 module.exports = {
 	cooldown: 60,
@@ -315,7 +316,7 @@ module.exports = {
 			"GTX 1080",
 			"GTX 1070 Ti",
 			"RTX 3050",
-			"GTX Titan X", 
+			"GTX Titan X",
 			"GTX 1070",
 			"RTX 2060",
 			"GTX 1660 Ti",
@@ -417,18 +418,37 @@ module.exports = {
 		const cpuModel = interaction.options.getString("cpu-model");
 		const gpu = interaction.options.getString("gpu");
 		const gpuModel = interaction.options.getString("gpu-model");
+		const serverId = interaction.guildId;
 
 		if (gpu === "AMD" || gpuModel === "Others") {
-			return await interaction.reply({
-				content:
-					"Unfortunately, you do not meet the hardware requirements needed for this test.  However, you can visit [this link](https://bit.ly/fttnsteam), and click **Request Access** under **Join Fate Trigger: The Novita Playtest** to sign up for future opportunities. We will get back to you asap. We apologize for any inconvenience and thank you for your interest.\n\n申し訳ありませんが、このテストに必要なハードウェア要件を満たしていません。「運命のトリガー：The Novita」のSteamストアページを訪れ、「アクセスをリクエスト」をクリックして、登録してください。できるだけ早くご連絡いたします。ご不便をおかけしますが、ご理解いただきありがとうございます",
-				ephemeral: true,
-			});
+			if (serverId === process.env.GUILD_ID)
+				return await interaction.reply({
+					content:
+						"Unfortunately, you do not meet the hardware requirements needed for this test.  However, you can visit" +
+						hyperlink("this link", "https://bit.ly/fttnsteam") +
+						", and click " +
+						bold("Request Access") +
+						" under " +
+						bold("Join Fate Trigger: The Novita Playtest") +
+						" to sign up for future opportunities. We will get back to you asap. We apologize for any inconvenience and thank you for your interest.",
+					ephemeral: true,
+				});
+			else
+				return await interaction.reply({
+					content:
+						"申し訳ありませんが、このテストに必要なハードウェア要件を満たしていません。「運命のトリガー：The Novita」のSteamストアページを訪れ、「アクセスをリクエスト」をクリックして、登録してください。できるだけ早くご連絡いたします。ご不便をおかけしますが、ご理解いただきありがとうございます",
+					ephemeral: true,
+				});
 		}
 
-		await interaction.reply({
+		if (serverId === process.env.GUILD_ID) await interaction.reply({
 			content:
-				"Congratulations, your specs are ready to go! Tired of waiting in line? There are two ways to get the alpha key for early access:\n1. **Application:** Complete the application on https://bit.ly/fttn by filling out the survey.\n2. **Discord Drops:** Visit our Discord https://discord.gg/fatetrigger for a chance to win an alpha key.\n\nおめでとうございます、あなたのスペックは問題ありません！長時間の待機に疲れたら、早期アクセス用のアクティベーションコードを取得する2つの方法があります：\n1. 公式サイトでの応募：公式サイト<官网链接>のアンケートに情報を記入すると、参加資格を得るチャンスがあります。\n2. Discordでの抽選：公式Discordのイベントに参加すると、抽選で参加資格を得るチャンスがあります。",
+				"Congratulations, your specs are ready to go! Tired of waiting in line? There are two ways to get the alpha key for early access:\n1. " + bold("Application:") + " Complete the application on https://bit.ly/fttn by filling out the survey.\n2. " + bold("Discord Drops:") + " Visit our Discord https://discord.gg/fatetrigger for a chance to win an alpha key.",
+			ephemeral: true,
+		});
+		else await interaction.reply({
+			content:
+				"おめでとうございます、あなたのスペックは問題ありません！長時間の待機に疲れたら、早期アクセス用のアクティベーションコードを取得する2つの方法があります：\n1. 公式サイトでの応募：公式サイト<官网链接>のアンケートに情報を記入すると、参加資格を得るチャンスがあります。\n2. Discordでの抽選：公式Discordのイベントに参加すると、抽選で参加資格を得るチャンスがあります。",
 			ephemeral: true,
 		});
 	},
