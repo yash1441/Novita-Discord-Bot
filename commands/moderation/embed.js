@@ -41,6 +41,12 @@ module.exports = {
 				.setName("thumbnail")
 				.setDescription("The thumbnail of the embed")
 				.setRequired(false)
+		)
+		.addStringOption((option) =>
+			option
+				.setName("image")
+				.setDescription("The image of the embed")
+				.setRequired(false)
 		),
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
@@ -51,12 +57,14 @@ module.exports = {
 		const color =
 			interaction.options.getString("color") ?? process.env.EMBED_COLOR;
 		const thumbnail = interaction.options.getString("thumbnail") ?? null;
+		const image = interaction.options.getString("image") ?? null;
 
 		const embed = new EmbedBuilder()
 			.setTitle(title)
 			.setDescription(description.split("\\n").join("\n"))
 			.setColor(color);
 
+		image && embed.setImage(image);
 		thumbnail && embed.setThumbnail(thumbnail);
 
 		await interaction.channel.send({ embeds: [embed] });
