@@ -77,7 +77,7 @@ module.exports = {
 			(submit.fields.getTextInputValue("title")) ? newEmbed.setTitle(submit.fields.getTextInputValue("title")) : newEmbed.setTitle(embed.title);
 			(submit.fields.getTextInputValue("description")) ? newEmbed.setDescription(submit.fields.getTextInputValue("description")) : newEmbed.setDescription(embed.description);
 			(submit.fields.getTextInputValue("color")) ? newEmbed.setColor(submit.fields.getTextInputValue("color")) : newEmbed.setColor(embed.color);
-			(submit.fields.getTextInputValue("image")) ? newEmbed.setImage(submit.fields.getTextInputValue("image")) : null;
+			(submit.fields.getTextInputValue("image")) ? newEmbed.setImage(submit.fields.getTextInputValue("image")) : newEmbed.setImage(embed.image);
 
 			if (message.id == submit.customId.substring(9)) {
 				await message.edit({ embeds: [newEmbed] });
