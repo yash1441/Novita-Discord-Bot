@@ -51,6 +51,8 @@ module.exports = {
 			.setComponents(
 				new ActionRowBuilder().setComponents(fields.title),
 				new ActionRowBuilder().setComponents(fields.description)
+				new ActionRowBuilder().setComponents(fields.image)
+				new ActionRowBuilder().setComponents(fields.color)
 			);
 
 		await interaction.showModal(modal);
