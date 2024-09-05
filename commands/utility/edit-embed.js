@@ -38,11 +38,11 @@ module.exports = {
 			image: new TextInputBuilder()
 				.setCustomId("image")
 				.setStyle(TextInputStyle.Short)
-				.setLabel("Description"),
+				.setLabel("Image"),
 			color: new TextInputBuilder()
 				.setCustomId("color")
 				.setStyle(TextInputStyle.Short)
-				.setLabel("Description"),
+				.setLabel("Color"),
 		};
 
 		const modal = new ModalBuilder()
@@ -80,7 +80,7 @@ module.exports = {
 				});
 			}
 		} else {
-			await interaction.reply({ content: "Timed out.", ephemeral: true });
+			await interaction.editReply({ content: "Timed out.", ephemeral: true });
 		}
 	},
 };
