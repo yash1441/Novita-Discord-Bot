@@ -425,7 +425,7 @@ module.exports = {
 		const serverId = interaction.guildId;
 
 		const response = await lark.listRecords(
-			process.env.FEEDBACK_POOL_BASE,
+			process.env.COMMUNITY_POOL_BASE,
 			process.env.SPEC_TABLE,
 			{ filter: 'CurrentValue.[Discord ID] = "' + discordId + '"' }
 		);
@@ -497,7 +497,7 @@ module.exports = {
 		};
 
 		const success = await lark.createRecord(
-			process.env.FEEDBACK_POOL_BASE,
+			process.env.COMMUNITY_POOL_BASE,
 			process.env.SPEC_TABLE,
 			{ fields: data }
 		);
