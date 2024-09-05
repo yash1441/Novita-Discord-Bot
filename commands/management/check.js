@@ -475,7 +475,7 @@ module.exports = {
 					bold("Application:") +
 					" Complete the application on https://bit.ly/fttn by filling out the survey.\n2. " +
 					bold("Discord Drops:") +
-					" Visit our Discord https://discord.gg/fatetrigger for a chance to win an alpha key.",
+					" Stay tuned for <#1280845688305090570> for a chance to win an Alpha key.",
 				ephemeral: true,
 			});
 		else
