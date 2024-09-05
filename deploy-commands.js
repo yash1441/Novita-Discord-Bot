@@ -34,17 +34,17 @@ const rest = new REST().setToken(process.env.BOT_TOKEN);
 			`Started refreshing ${commands.length} application (/) commands.`
 		);
 
-		rest.put(
-			Routes.applicationGuildCommands(
-				process.env.BOT_ID,
-				process.env.GUILD_ID
-			),
-			{
-				body: [],
-			}
-		)
-			.then(() => console.log("Successfully deleted all guild commands."))
-			.catch(console.error);
+		// rest.put(
+		// 	Routes.applicationGuildCommands(
+		// 		process.env.BOT_ID,
+		// 		process.env.GUILD_ID
+		// 	),
+		// 	{
+		// 		body: [],
+		// 	}
+		// )
+		// 	.then(() => console.log("Successfully deleted all guild commands."))
+		// 	.catch(console.error);
 
 		const data = await rest.put(
 			Routes.applicationCommands(process.env.BOT_ID),
