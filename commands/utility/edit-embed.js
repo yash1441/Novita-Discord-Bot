@@ -6,7 +6,7 @@ const {
 	ActionRowBuilder,
 	TextInputBuilder,
 	TextInputStyle,
-	PermissionFlagsBits
+	PermissionFlagsBits,
 } = require("discord.js");
 
 module.exports = {
@@ -35,6 +35,14 @@ module.exports = {
 				.setCustomId("description")
 				.setStyle(TextInputStyle.Paragraph)
 				.setLabel("Description"),
+			image: new TextInputBuilder()
+				.setCustomId("image")
+				.setStyle(TextInputStyle.Short)
+				.setLabel("Description"),
+			color: new TextInputBuilder()
+				.setCustomId("color")
+				.setStyle(TextInputStyle.Short)
+				.setLabel("Description"),
 		};
 
 		const modal = new ModalBuilder()
@@ -49,7 +57,7 @@ module.exports = {
 
 		const submit = await interaction
 			.awaitModalSubmit({
-				time: 60000,
+				time: 60_000,
 				filter: (i) => i.user.id === interaction.user.id,
 			})
 			.catch((error) => {
@@ -60,10 +68,9 @@ module.exports = {
 		if (submit) {
 			let newEmbed = new EmbedBuilder()
 				.setTitle(submit.fields.getTextInputValue("title"))
-				.setDescription(
-					submit.fields.getTextInputValue("description")
-				)
-				.setColor(embed.color);
+				.setDescription(submit.fields.getTextInputValue("description"))
+				.setImage(submit.fields.getTextInputValue("image"))
+				.setColor(submit.fields.getTextInputValue("color"));
 
 			if (message.id == submit.customId.substring(9)) {
 				await message.edit({ embeds: [newEmbed] });
