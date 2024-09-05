@@ -80,7 +80,7 @@ module.exports = {
 				});
 			}
 		} else {
-			await interaction.editReply({ content: "Timed out.", ephemeral: true });
+			await interaction.reply({ content: "Timed out.", ephemeral: true });
 		}
 	},
 };
