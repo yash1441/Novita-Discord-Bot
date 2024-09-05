@@ -30,19 +30,23 @@ module.exports = {
 			title: new TextInputBuilder()
 				.setCustomId("title")
 				.setStyle(TextInputStyle.Short)
-				.setLabel("Title"),
+				.setLabel("Title")
+				.setRequired(false),
 			description: new TextInputBuilder()
 				.setCustomId("description")
 				.setStyle(TextInputStyle.Paragraph)
-				.setLabel("Description"),
+				.setLabel("Description")
+				.setRequired(false),
 			image: new TextInputBuilder()
 				.setCustomId("image")
 				.setStyle(TextInputStyle.Short)
-				.setLabel("Image"),
+				.setLabel("Image")
+				.setRequired(false),
 			color: new TextInputBuilder()
 				.setCustomId("color")
 				.setStyle(TextInputStyle.Short)
-				.setLabel("Color"),
+				.setLabel("Color")
+				.setRequired(false),
 		};
 
 		const modal = new ModalBuilder()
@@ -50,8 +54,8 @@ module.exports = {
 			.setTitle("Edit Embed")
 			.setComponents(
 				new ActionRowBuilder().setComponents(fields.title),
-				new ActionRowBuilder().setComponents(fields.description)
-				new ActionRowBuilder().setComponents(fields.image)
+				new ActionRowBuilder().setComponents(fields.description),
+				new ActionRowBuilder().setComponents(fields.image),
 				new ActionRowBuilder().setComponents(fields.color)
 			);
 
@@ -68,11 +72,12 @@ module.exports = {
 			});
 
 		if (submit) {
-			let newEmbed = new EmbedBuilder()
-				.setTitle(submit.fields.getTextInputValue("title"))
-				.setDescription(submit.fields.getTextInputValue("description"))
-				.setImage(submit.fields.getTextInputValue("image"))
-				.setColor(submit.fields.getTextInputValue("color"));
+			let newEmbed = new EmbedBuilder();
+
+			(submit.fields.getTextInputValue("title")) ? newEmbed.setTitle(submit.fields.getTextInputValue("title")) : newEmbed.setTitle(embed.title);
+			(submit.fields.getTextInputValue("description")) ? newEmbed.setDescription(submit.fields.getTextInputValue("description")) : newEmbed.setDescription(embed.description);
+			(submit.fields.getTextInputValue("color")) ? newEmbed.setColor(submit.fields.getTextInputValue("color")) : newEmbed.setColor(embed.color);
+			(submit.fields.getTextInputValue("image")) ? newEmbed.setImage(submit.fields.getTextInputValue("image")) : null;
 
 			if (message.id == submit.customId.substring(9)) {
 				await message.edit({ embeds: [newEmbed] });
