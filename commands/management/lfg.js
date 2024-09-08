@@ -45,19 +45,15 @@ module.exports = {
 		if (!response) return console.log("Failed to fetch LFG");
 
 		let found = response.items.some((record) => {
-			return teamIds.some(
-				(discordId) =>
-					teamCalls.some(
-						(field) => record.fields[field] === discordId
-					)
+			return teamIds.some((discordId) =>
+				teamCalls.some((field) => record.fields[field] === discordId)
 			);
 		});
 
-		found
-			? await interaction.editReply({
-					content: "You have already submitted LFG details.",
-			  })
-			: null;
+		if (found)
+			return await interaction.editReply({
+				content: "You have already submitted LFG details.",
+			});
 
 		const success = await lark.createRecord(
 			process.env.COMMUNITY_POOL_BASE,
