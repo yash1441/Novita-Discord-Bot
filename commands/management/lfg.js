@@ -70,7 +70,7 @@ module.exports = {
 			}
 		);
 
-        if (success) await interaction.editReply({ content: "LFG details submitted successfully. Team members are:\n" + userMention(captain.id) + "\n" + userMention(member1) + "\n" + userMention(member2) + "\n" + userMention(member3) });
+        if (success) await interaction.editReply({ content: "LFG details submitted successfully. Team members are:\n" + userMention(captain.id) + "\n" + userMention(member1.id) + "\n" + userMention(member2.id) + "\n" + userMention(member3.id) });
 
         else console.log("Error submitting LFG details");
 	},
