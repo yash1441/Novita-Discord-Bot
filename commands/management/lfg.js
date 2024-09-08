@@ -34,27 +34,31 @@ module.exports = {
 		const member2 = interaction.options.getUser("member-2");
 		const member3 = interaction.options.getUser("member-3");
 
-        const teamIds = [captain.id, member1.id, member2.id, member3.id];
-        const teamCalls = ["Captain", "Member 1", "Member 2", "Member 3"];
+		const teamIds = [captain.id, member1.id, member2.id, member3.id];
+		const teamCalls = ["Captain", "Member 1", "Member 2", "Member 3"];
 
 		const response = await lark.listRecords(
 			process.env.COMMUNITY_POOL_BASE,
 			process.env.LFG_TABLE
 		);
 
-        if (!response) return console.log("Failed to fetch LFG");
+		if (!response) return console.log("Failed to fetch LFG");
 
-        let found = false;
+		let found = response.items.some((record) => {
+			return teamIds.some(
+				(discordId) =>
+					teamCalls.some(
+						(field) => record.fields[field] === discordId
+					)
+			);
+		});
 
-        for (const record in response.items) {
-            if (record.fields.Captain === captain.id || record.fields.Captain === member1.id || record.fields.Captain === member2.id || record.fields.Captain === member3.id || record.fields["Member 1"] === captain.id || record.fields["Member 1"] === member1.id || record.fields["Member 1"] === member2.id || record.fields["Member 1"] === member3.id || record.fields["Member 2"] === captain.id || record.fields["Member 2"] === member1.id || record.fields["Member 2"] === member2.id || record.fields["Member 2"] === member3.id || record.fields["Member 3"] === captain.id || record.fields["Member 3"] === member1.id || record.fields["Member 3"] === member2.id || record.fields["Member 3"] === member3.id || ) {
-                found = true;
-                break;
-            }
-        }
+		found
+			? await interaction.editReply({
+					content: "You have already submitted LFG details.",
+			  })
+			: null;
 
-        found ? await interaction.editReply({ content: "You have already submitted LFG details." }) : null;
-			
 		const success = await lark.createRecord(
 			process.env.COMMUNITY_POOL_BASE,
 			process.env.LFG_TABLE,
