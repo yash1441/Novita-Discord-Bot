@@ -34,29 +34,27 @@ module.exports = {
 		const member2 = interaction.options.getUser("member-2");
 		const member3 = interaction.options.getUser("member-3");
 
+        const teamIds = [captain.id, member1.id, member2.id, member3.id];
+        const teamCalls = ["Captain", "Member 1", "Member 2", "Member 3"];
+
 		const response = await lark.listRecords(
 			process.env.COMMUNITY_POOL_BASE,
-			process.env.LFG_TABLE,
-			{
-				filter:
-					'OR(CurrentValue.[Captain] = "' +
-					captain.id +
-					'", CurrentValue.[Member 1] = "' +
-					member1.id +
-					'", CurrentValue.[Member 2] = "' +
-					member2.id +
-					'", CurrentValue.[Member 3] = "' +
-					member3.id +
-					'")',
-			}
+			process.env.LFG_TABLE
 		);
 
-		if (response.total)
-			return await interaction.editReply({
-				content:
-					"You or one of your team members have already submitted LFG details. Please recheck and try again.",
-			});
+        if (!response) return console.log("Failed to fetch LFG");
 
+        let found = false;
+
+        for (const record in response.items) {
+            if (record.fields.Captain === captain.id || record.fields.Captain === member1.id || record.fields.Captain === member2.id || record.fields.Captain === member3.id || record.fields["Member 1"] === captain.id || record.fields["Member 1"] === member1.id || record.fields["Member 1"] === member2.id || record.fields["Member 1"] === member3.id || record.fields["Member 2"] === captain.id || record.fields["Member 2"] === member1.id || record.fields["Member 2"] === member2.id || record.fields["Member 2"] === member3.id || record.fields["Member 3"] === captain.id || record.fields["Member 3"] === member1.id || record.fields["Member 3"] === member2.id || record.fields["Member 3"] === member3.id || ) {
+                found = true;
+                break;
+            }
+        }
+
+        found ? await interaction.editReply({ content: "You have already submitted LFG details." }) : null;
+			
 		const success = await lark.createRecord(
 			process.env.COMMUNITY_POOL_BASE,
 			process.env.LFG_TABLE,
@@ -70,8 +68,18 @@ module.exports = {
 			}
 		);
 
-        if (success) await interaction.editReply({ content: "LFG details submitted successfully. Team members are:\n" + userMention(captain.id) + "\n" + userMention(member1.id) + "\n" + userMention(member2.id) + "\n" + userMention(member3.id) });
-
-        else console.log("Error submitting LFG details");
+		if (success)
+			await interaction.editReply({
+				content:
+					"LFG details submitted successfully. Team members are:\n" +
+					userMention(captain.id) +
+					"\n" +
+					userMention(member1.id) +
+					"\n" +
+					userMention(member2.id) +
+					"\n" +
+					userMention(member3.id),
+			});
+		else console.log("Error submitting LFG details");
 	},
 };
