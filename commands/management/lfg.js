@@ -34,6 +34,12 @@ module.exports = {
 		const member2 = interaction.options.getUser("member-2");
 		const member3 = interaction.options.getUser("member-3");
 
+        if (captain.id === member1.id || captain.id === member2.id || captain.id === member3.id ||
+            member1.id === member2.id || member1.id === member3.id ||
+            member2.id === member3.id) {
+          console.log("You entered duplicate users. Please try again.");
+        }
+
 		const teamIds = [captain.id, member1.id, member2.id, member3.id];
 		const teamCalls = ["Captain", "Member 1", "Member 2", "Member 3"];
 
