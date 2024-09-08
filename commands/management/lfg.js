@@ -39,13 +39,13 @@ module.exports = {
 			process.env.LFG_TABLE,
 			{
 				filter:
-					'OR(CurrentValue.[Discord ID] = "' +
+					'OR(CurrentValue.[Captain] = "' +
 					captain.id +
-					'", CurrentValue.[Discord ID] = "' +
+					'", CurrentValue.[Member 1] = "' +
 					member1.id +
-					'", CurrentValue.[Discord ID] = "' +
+					'", CurrentValue.[Member 2] = "' +
 					member2.id +
-					'", CurrentValue.[Discord ID] = "' +
+					'", CurrentValue.[Member 3] = "' +
 					member3.id +
 					'")',
 			}
