@@ -87,7 +87,7 @@ module.exports = {
 					"Member 2 Username": member2.username,
 					"Member 3": member3.id,
 					"Member 3 Username": member3.username,
-					Message: messageLink,
+					Message: { text: "Message Link", link: messageLink },
 					Server: serverId,
 				},
 			}
