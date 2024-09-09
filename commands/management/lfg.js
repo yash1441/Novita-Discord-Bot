@@ -25,6 +25,12 @@ module.exports = {
 				.setName("member-3")
 				.setDescription("Choose a member (3)")
 				.setRequired(true)
+		)
+		.addStringOption((option) =>
+			option
+				.setName("message-link")
+				.setDescription("Enter your message link for LFG")
+				.setRequired(true)
 		),
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
@@ -33,12 +39,18 @@ module.exports = {
 		const member1 = interaction.options.getUser("member-1");
 		const member2 = interaction.options.getUser("member-2");
 		const member3 = interaction.options.getUser("member-3");
+		const messageLink = interaction.options.getString("message-link");
 
-        if (captain.id === member1.id || captain.id === member2.id || captain.id === member3.id ||
-            member1.id === member2.id || member1.id === member3.id ||
-            member2.id === member3.id) {
-          console.log("You entered duplicate users. Please try again.");
-        }
+		if (
+			captain.id === member1.id ||
+			captain.id === member2.id ||
+			captain.id === member3.id ||
+			member1.id === member2.id ||
+			member1.id === member3.id ||
+			member2.id === member3.id
+		) {
+			console.log("You entered duplicate users. Please try again.");
+		}
 
 		const teamIds = [captain.id, member1.id, member2.id, member3.id];
 		const teamCalls = ["Captain", "Member 1", "Member 2", "Member 3"];
@@ -70,6 +82,7 @@ module.exports = {
 					"Member 1": member1.id,
 					"Member 2": member2.id,
 					"Member 3": member3.id,
+					Message: messageLink,
 				},
 			}
 		);
@@ -84,7 +97,9 @@ module.exports = {
 					"\n" +
 					userMention(member2.id) +
 					"\n" +
-					userMention(member3.id),
+					userMention(member3.id) +
+					"\n" +
+					messageLink,
 			});
 		else console.log("Error submitting LFG details");
 	},
