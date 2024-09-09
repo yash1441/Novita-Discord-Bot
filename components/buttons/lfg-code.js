@@ -10,6 +10,7 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
 		const discordId = interaction.user.id;
+        const serverId = interaction.guildId;
 
 		const response = await lark.listRecords(
 			process.env.COMMUNITY_POOL_BASE,
