@@ -10,7 +10,7 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
 		const discordId = interaction.user.id;
-        const serverId = interaction.guildId;
+		const serverId = interaction.guildId;
 
 		const response = await lark.listRecords(
 			process.env.COMMUNITY_POOL_BASE,
@@ -79,7 +79,7 @@ module.exports = {
 		else if (!code && serverId === process.env.GUILD_ID)
 			return await interaction.editReply({
 				content:
-					"At the moment, you have no Alpha key assigned to you. Please try again later."
+					"At the moment, you have no Alpha key assigned to you. Please try again later.",
 			});
 	},
 };
