@@ -75,5 +75,10 @@ module.exports = {
 					) +
 					"、ゲームを追加しましょう！",
 			});
+		else if (!code && serverId === process.env.GUILD_ID)
+			return await interaction.editReply({
+				content:
+					"At the moment, you have no Alpha key assigned to you. Please try again later."
+			});
 	},
 };
