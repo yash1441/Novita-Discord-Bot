@@ -40,6 +40,7 @@ module.exports = {
 		const member2 = interaction.options.getUser("member-2");
 		const member3 = interaction.options.getUser("member-3");
 		const messageLink = interaction.options.getString("message-link");
+		const serverId = interaction.guildId;
 
 		if (
 			captain.id === member1.id ||
@@ -79,10 +80,15 @@ module.exports = {
 			{
 				fields: {
 					Captain: captain.id,
+					"Captain Username": captain.username,
 					"Member 1": member1.id,
+					"Member 1 Username": member1.username,
 					"Member 2": member2.id,
+					"Member 2 Username": member2.username,
 					"Member 3": member3.id,
+					"Member 3 Username": member3.username,
 					Message: messageLink,
+					Server: serverId,
 				},
 			}
 		);
