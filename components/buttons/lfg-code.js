@@ -29,24 +29,22 @@ module.exports = {
 		for (const record of response.items) {
 			if (record.fields["Captain"] === discordId) {
 				found = true;
-				field = record.fields["Captain Code"];
+				code = record.fields["Captain Code"];
 				break;
 			} else if (record.fields["Member 1"] === discordId) {
 				found = true;
-				field = record.fields["Member 1 Code"];
+				code = record.fields["Member 1 Code"];
 				break;
 			} else if (record.fields["Member 2"] === discordId) {
 				found = true;
-				field = record.fields["Member 2 Code"];
+				code = record.fields["Member 2 Code"];
 				break;
 			} else if (record.fields["Member 3"] === discordId) {
 				found = true;
-				field = record.fields["Member 3 Code"];
+				code = record.fields["Member 3 Code"];
 				break;
 			}
 		}
-
-        console.log(found, code);
 
 		if (!found)
 			return await interaction.editReply({
