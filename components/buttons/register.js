@@ -40,7 +40,7 @@ module.exports = {
 
 		await interaction.editReply({
 			content:
-				"You have been registered successfully. Please click the Code Drop button to check if you have received a code later.",
+				"You have been registered successfully. Please click the Key Drop button to check if you have received a code later.",
 		});
 	},
 };
