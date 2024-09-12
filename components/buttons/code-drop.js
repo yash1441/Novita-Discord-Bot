@@ -10,7 +10,6 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ ephemeral: true });
 		const discordId = interaction.user.id;
-		const username = interaction.user.username;
 		const serverId = interaction.guildId;
 
 		const response = await lark.listRecords(
@@ -60,28 +59,11 @@ module.exports = {
 						channelMention("1266229105083420783") +
 						" をチェックして、次回の資格配布をお待ちください。または、https://bit.ly/fttnsteam にアクセスし、『運命のトリガー: The Novita』の『アクセスをリクエスト』をクリックし、登録しましょう。",
 				});
-		}
-
-		const success = await lark.createRecord(
-			process.env.COMMUNITY_POOL_BASE,
-			process.env.CODES_TABLE,
-			{
-				fields: {
-					"Discord ID": discordId,
-					"Discord Username": username,
-					Server: serverId,
-				},
-			}
-		);
-
-		if (!success)
+		} else {
 			return await interaction.editReply({
-				content: "Failed to register. Please try again later.",
+				content:
+					"Please register first.",
 			});
-
-		await interaction.editReply({
-			content:
-				"You have been registered successfully. Please click this button to check if you have received a code later.",
-		});
+		}
 	},
 };
