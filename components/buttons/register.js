@@ -19,7 +19,10 @@ module.exports = {
 			{ filter: 'CurrentValue.[Discord ID] = "' + discordId + '"' }
 		);
 
-        if (response.total) return await interaction.editReply({ content: "You have already registered." });
+		if (response.total)
+			return await interaction.editReply({
+				content: "You have already registered.",
+			});
 
 		const success = await lark.createRecord(
 			process.env.COMMUNITY_POOL_BASE,
@@ -38,9 +41,14 @@ module.exports = {
 				content: "Failed to register. Please try again later.",
 			});
 
-		await interaction.editReply({
-			content:
-				"You have been registered successfully. Please click the Key Drop button to check if you have received a code later.",
-		});
+		serverId === process.env.GUILD_ID
+			? await interaction.editReply({
+					content:
+						"You have been registered successfully. Please click the Key Drop button to check if you have received a code later.",
+			  })
+			: await interaction.editReply({
+					content:
+						"  応募完了しました！9月23日以降に「抽選結果確認」ボタンを押して、抽選結果を確認してください！",
+			  });
 	},
 };
