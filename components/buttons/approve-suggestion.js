@@ -22,7 +22,7 @@ module.exports = {
 };
 
 async function sendSuggestionVote(interaction, embedData) {
-    const channel = await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID);
+    const channel = (interaction.guildId === process.env.GUILD_ID) ? await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID) : await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID_JP);
     const availableTags = channel.availableTags;
     let tagId;
 

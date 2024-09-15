@@ -60,7 +60,7 @@ module.exports = {
 
             await modalReply.deleteReply();
 
-            await interaction.editReply({ content: 'Your suggestion has been submitted. Please wait for an admin to approve or deny it. If approved, it should be visible in ' + channelMention(process.env.VOTE_SUGGESTION_ID) + ' shortly.\n\n' + bold(modal.data.title) + '\n' + codeBlock((modalReply.fields.getTextInputValue('description').length < 2000) ? modalReply.fields.getTextInputValue('description') : (modalReply.fields.getTextInputValue('description').slice(0, 1000) + '...') )  });
+            await interaction.editReply({ content: 'Your suggestion has been submitted. Please wait for an admin to approve or deny it. If approved, it should be visible in ' + channelMention(channel.id) + ' shortly.\n\n' + bold(modal.data.title) + '\n' + codeBlock((modalReply.fields.getTextInputValue('description').length < 2000) ? modalReply.fields.getTextInputValue('description') : (modalReply.fields.getTextInputValue('description').slice(0, 1000) + '...') )  });
 
             collector.stop();
 
@@ -101,6 +101,6 @@ async function sendSuggestionAdmin(interaction, category) {
     
     const row = new ActionRowBuilder().addComponents(approveButton, denyButton);
 
-    const channel = await interaction.client.channels.fetch(process.env.DECIDE_SUGGESTION_ID);
+    const channel = (interaction.guildId === process.env.GUILD_ID) ? await interaction.client.channels.fetch(process.env.DECIDE_SUGGESTION_ID) : await interaction.client.channels.fetch(process.env.DECIDE_SUGGESTION_ID_JP);;
     await channel.send({ embeds: [embed], components: [row] });
 }
