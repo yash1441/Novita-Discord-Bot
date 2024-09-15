@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.deferReply({ ephemeral: true });
 
-        const channel = await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID);
+        const channel = (interaction.guildId === process.env.GUILD_ID) ? await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID) : await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID_JP);
         const availableTags = channel.availableTags;
 
         const selectMenu = new StringSelectMenuBuilder()
