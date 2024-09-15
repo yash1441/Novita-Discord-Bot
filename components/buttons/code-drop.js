@@ -55,9 +55,9 @@ module.exports = {
 			else if (!code)
 				return await interaction.editReply({
 					content:
-						"今回は参加資格を取得できませんでした。" +
+						"今回『運命のトリガー: The Novita』クローズドαテストの参加資格に応募いただきありがとうございました。申し訳ありませんが、抽選の結果落選となりました。" +
 						channelMention("1266229105083420783") +
-						" をチェックして、次回の資格配布をお待ちください。または、https://bit.ly/fttnsteam にアクセスし、『運命のトリガー: The Novita』の『アクセスをリクエスト』をクリックし、登録しましょう。",
+						" をチェックして、次回のテストの参加抽選をお待ちください。または、https://bit.ly/fttnsteam  にアクセスし、『運命のトリガー: The Novita』の『アクセスをリクエスト』をクリックし、登録しましょう",
 				});
 		} else {
 			return await interaction.editReply({
