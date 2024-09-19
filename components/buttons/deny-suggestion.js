@@ -2,7 +2,6 @@ const { EmbedBuilder, userMention } = require('discord.js');
 require('dotenv').config();
 
 module.exports = {
-    cooldown: 10,
     data: {
         name: 'deny-suggestion',
     },
