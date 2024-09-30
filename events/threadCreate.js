@@ -1,35 +1,45 @@
-const { Events, ChannelType } = require('discord.js');
-const lark = require('../utils/lark.js');
-require('dotenv').config();
+const { Events, ChannelType } = require("discord.js");
+const lark = require("../utils/lark.js");
+require("dotenv").config();
 
 module.exports = {
-    name: Events.ThreadCreate,
-    async execute(thread) {
-        if (thread.parent.type != ChannelType.GuildForum || thread.parentId != process.env.VOTE_SUGGESTION_ID || thread.parentId != process.env.VOTE_SUGGESTION_ID_JP) return;
+	name: Events.ThreadCreate,
+	async execute(thread) {
+		console.log(thread.name, thread.parentId);
+		if (
+			thread.parent.type != ChannelType.GuildForum ||
+			thread.parentId != process.env.VOTE_SUGGESTION_ID ||
+			thread.parentId != process.env.VOTE_SUGGESTION_ID_JP
+		)
+			return;
 
-        console.log(thread.name);
+		const message = await thread.fetchStarterMessage();
+		const embed = await message.embeds[0];
 
-        const message = await thread.fetchStarterMessage();
-        const embed = await message.embeds[0];
+		if (!embed) return;
 
-        if (!embed) return;
+		await message.react("✅").then(message.react("❌"));
 
-        await message.react('✅').then(message.react('❌'));
+		const tag = thread.parent.availableTags.find(
+			(tag) => tag.id == thread.appliedTags[0]
+		);
 
-        const tag = thread.parent.availableTags.find(tag => tag.id == thread.appliedTags[0]);
+		const data = {
+			"Suggestion Title": thread.name,
+			"Suggestion Details": embed.data.description,
+			Category: tag.name,
+			"✅": 0,
+			"❌": 0,
+			"Discord ID": embed.data.footer.text,
+			"Discord Name": embed.data.author.name,
+		};
 
-        const data = {
-            "Suggestion Title": thread.name,
-            "Suggestion Details": embed.data.description,
-            "Category": tag.name,
-            "✅": 0,
-            "❌": 0,
-            "Discord ID": embed.data.footer.text,
-            "Discord Name": embed.data.author.name
-        };
+		const success = await lark.createRecord(
+			process.env.FEEDBACK_POOL_BASE,
+			process.env.SUGGESTIONS_TABLE,
+			{ fields: data }
+		);
 
-        const success = await lark.createRecord(process.env.FEEDBACK_POOL_BASE, process.env.SUGGESTIONS_TABLE, { fields: data });
-
-        if (!success) console.log("Failed to create record in lark");
-    }
+		if (!success) console.log("Failed to create record in lark");
+	},
 };
