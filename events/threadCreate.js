@@ -5,7 +5,7 @@ require('dotenv').config();
 module.exports = {
     name: Events.ThreadCreate,
     async execute(thread) {
-        if (thread.parent.type != ChannelType.GuildForum || thread.parentId != process.env.VOTE_SUGGESTION_ID) return;
+        if (thread.parent.type != ChannelType.GuildForum || thread.parentId != process.env.VOTE_SUGGESTION_ID || thread.parentId != process.env.VOTE_SUGGESTION_ID_JP) return;
 
         const message = await thread.fetchStarterMessage();
         const embed = await message.embeds[0];
