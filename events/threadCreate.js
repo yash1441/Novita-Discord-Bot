@@ -6,9 +6,8 @@ module.exports = {
 	name: Events.ThreadCreate,
 	async execute(thread) {
 		if (thread.parent.type != ChannelType.GuildForum) return;
-		console.log(process.env.VOTE_SUGGESTION_ID_JP, thread.parentId);
 		if (
-			thread.parentId != process.env.VOTE_SUGGESTION_ID ||
+			thread.parentId != process.env.VOTE_SUGGESTION_ID &&
 			thread.parentId != process.env.VOTE_SUGGESTION_ID_JP
 		)
 			return;
