@@ -7,6 +7,8 @@ module.exports = {
     async execute(thread) {
         if (thread.parent.type != ChannelType.GuildForum || thread.parentId != process.env.VOTE_SUGGESTION_ID || thread.parentId != process.env.VOTE_SUGGESTION_ID_JP) return;
 
+        console.log(thread.name);
+
         const message = await thread.fetchStarterMessage();
         const embed = await message.embeds[0];
 
