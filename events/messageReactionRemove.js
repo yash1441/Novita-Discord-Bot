@@ -13,7 +13,7 @@ module.exports = {
             }
         }
 
-        if (user.id == process.env.BOT_ID || (reaction.emoji.name != '✅' && reaction.emoji.name != '❌') || reaction.message.channel.parentId != process.env.VOTE_SUGGESTION_ID) return;
+        if (user.id == process.env.BOT_ID || (reaction.emoji.name != '✅' && reaction.emoji.name != '❌') || (reaction.message.channel.parentId != process.env.VOTE_SUGGESTION_ID && reaction.message.channel.parentId != process.env.VOTE_SUGGESTION_ID_JP)) return;
 
         const acceptCount = reaction.message.reactions.cache.get('✅').count - 1;
         const rejectCount = reaction.message.reactions.cache.get('❌').count - 1;
