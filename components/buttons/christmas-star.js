@@ -98,15 +98,13 @@ module.exports = {
 		};
 
 		const response = await lark.listRecords(
-			process.env.FEEDBACK_POOL_BASE,
+			process.env.COMMUNITY_POOL_BASE,
 			process.env.CHRISTMAS_TABLE,
 			{
 				filter:
 					'CurrentValue.[Discord ID] = "' + data["Discord ID"] + '"',
 			}
 		);
-
-		console.log(data, response);
 
 		if (response && response.total)
 			return await modalReply.editReply({
