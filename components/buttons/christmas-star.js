@@ -70,7 +70,7 @@ module.exports = {
 		const email = modalReply.fields.getTextInputValue("email");
 		const region = modalReply.fields.getTextInputValue("region") ?? "/";
 
-		if (isNaN(number) || num < 0 || num > 999) {
+		if (isNaN(number) || number < 0 || number > 999) {
 			return await modalReply.reply({
 				content: "Invalid number",
 				ephemeral: true,
