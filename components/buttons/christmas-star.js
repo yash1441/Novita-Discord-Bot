@@ -106,7 +106,9 @@ module.exports = {
 			}
 		);
 
-		if (response.total)
+		console.log(data, response);
+
+		if (response && response.total)
 			return await modalReply.editReply({
 				content:
 					"You have already submitted your data. Your lucky  number is " +
