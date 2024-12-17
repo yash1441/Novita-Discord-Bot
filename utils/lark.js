@@ -71,6 +71,8 @@ async function createRecord(app_token, table_id, body, parameters = null, id = p
 
     const response = await axios(options).catch((error) => console.error(error));
 
+    console.log(response.data);
+
     if (response && response.data.code === 0) {
         return response.data.data;
     } else {
