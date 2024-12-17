@@ -1,4 +1,5 @@
 const {
+	EmbedBuilder,
 	ModalBuilder,
 	TextInputBuilder,
 	TextInputStyle,
@@ -16,6 +17,14 @@ module.exports = {
 	},
 	async execute(interaction) {
 		const serverId = interaction.guildId;
+		const channel =
+			serverId === process.env.GUILD_ID
+				? await interaction.client.channels.fetch(
+						process.env.DECIDE_SUGGESTION_ID
+				  )
+				: await interaction.client.channels.fetch(
+						process.env.DECIDE_SUGGESTION_ID_JP
+				  );
 
 		const modal = new ModalBuilder()
 			.setCustomId("christmas-star-modal")
@@ -109,7 +118,7 @@ module.exports = {
 		if (response && response.total)
 			return await modalReply.editReply({
 				content:
-					"You have already submitted your data. Your lucky  number is " +
+					"You have already submitted your data. Your lucky number is " +
 					inlineCode(response.items[0].fields.Number) +
 					'.\nPlease click the "Check" button after <t:1735401540:d>(localized) to view the results!',
 			});
@@ -120,21 +129,39 @@ module.exports = {
 			{ fields: data }
 		);
 
-		if (success)
+		if (!success)
 			return await modalReply.editReply({
 				content:
-					bold("Your data is submitted.") +
-					"\n\n" +
-					inlineCode(number.toString()) +
-					"\n" +
-					inlineCode(email) +
-					"\n" +
-					inlineCode(region),
+					"Failed to submit your data. Please contact an administrator.",
 			});
 
 		await modalReply.editReply({
 			content:
-				"Failed to submit your data. Please contact an administrator.",
+				bold("Your data is submitted.") +
+				"\n\n" +
+				inlineCode(number.toString()) +
+				"\n" +
+				inlineCode(email) +
+				"\n" +
+				inlineCode(region),
 		});
+		const embed = new EmbedBuilder()
+			.setTitle(data["Discord Username"])
+			.setThumbnail(interaction.user.displayAvatarURL({ dynamic: true }))
+			.setColor(process.env.EMBED_COLOR);
+
+		serverId === process.env.GUILD_ID
+			? embed.setDescription(
+					"Your lucky number is " +
+						inlineCode(data.Number) +
+						'.\nPlease click the "Check" button after <t:1735401540:d>(localized) to view the results!'
+			  )
+			: embed.setDescription(
+					"あなた幸運の星の数字は " +
+						inlineCode(data.Number) +
+						"です.\n※12月28日（土）以降に「結果確認」ボタンを押して、結果を確認してください！"
+			  );
+
+		await channel.send({ embeds: [embed] });
 	},
 };
