@@ -3,7 +3,8 @@ const {
 	TextInputBuilder,
 	TextInputStyle,
 	ActionRowBuilder,
-    inlineCode,
+	inlineCode,
+	bold,
 } = require("discord.js");
 require("dotenv").config();
 
@@ -13,8 +14,6 @@ module.exports = {
 		name: "christmas-star",
 	},
 	async execute(interaction) {
-		console.log(process.env.FEEDBACK_POOL_BASE);
-		console.log(process.env.COMMUNITY_POOL_BASE);
 		const serverId = interaction.guildId;
 
 		const modal = new ModalBuilder()
@@ -71,8 +70,9 @@ module.exports = {
 
 		const number = parseInt(modalReply.fields.getTextInputValue("number"));
 		const email = modalReply.fields.getTextInputValue("email");
-        let region = "Japan";
-        if (modalReply.fields.fields.has("region")) region = modalReply.fields.getTextInputValue("region");
+		let region = "Japan";
+		if (modalReply.fields.fields.has("region"))
+			region = modalReply.fields.getTextInputValue("region");
 
 		if (isNaN(number) || number < 0 || number > 999) {
 			return await modalReply.reply({
@@ -87,7 +87,14 @@ module.exports = {
 		}
 
 		await modalReply.reply({
-			content: inlineCode(number.toString()) + "\n" + inlineCode(email) + "\n" + inlineCode(region),
+			content:
+				bold("Submitting your data...") +
+				"\n\n" +
+				inlineCode(number.toString()) +
+				"\n" +
+				inlineCode(email) +
+				"\n" +
+				inlineCode(region),
 			ephemeral: true,
 		});
 	},
