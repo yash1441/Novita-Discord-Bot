@@ -3,6 +3,7 @@ const {
 	TextInputBuilder,
 	TextInputStyle,
 	ActionRowBuilder,
+    inlineCode,
 } = require("discord.js");
 require("dotenv").config();
 
@@ -68,7 +69,7 @@ module.exports = {
 
 		const number = parseInt(modalReply.fields.getTextInputValue("number"));
 		const email = modalReply.fields.getTextInputValue("email");
-        let region = "/";
+        let region = "Japan";
         if (modalReply.fields.fields.has("region")) region = modalReply.fields.getTextInputValue("region");
 
 		if (isNaN(number) || number < 0 || number > 999) {
@@ -84,7 +85,7 @@ module.exports = {
 		}
 
 		await modalReply.reply({
-			content: number + email + region,
+			content: inlineCode(number.toString()) + "\n" + inlineCode(email) + inlineCode(region),
 			ephemeral: true,
 		});
 	},
