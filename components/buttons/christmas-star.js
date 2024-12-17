@@ -85,7 +85,7 @@ module.exports = {
 		}
 
 		await modalReply.reply({
-			content: inlineCode(number.toString()) + "\n" + inlineCode(email) + inlineCode(region),
+			content: inlineCode(number.toString()) + "\n" + inlineCode(email) + "\n" + inlineCode(region),
 			ephemeral: true,
 		});
 	},
