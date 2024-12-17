@@ -6,6 +6,7 @@ const {
 	inlineCode,
 	bold,
 } = require("discord.js");
+const lark = require("../utils/lark.js");
 require("dotenv").config();
 
 module.exports = {
@@ -86,16 +87,54 @@ module.exports = {
 			});
 		}
 
-		await modalReply.reply({
+		await modalReply.deferReply({ ephemeral: true });
+
+		const data = {
+			"Discord ID": interaction.user.id,
+			"Discord Username": interaction.user.username,
+			Region: region,
+			Number: number,
+			Email: email,
+		};
+
+		const response = await lark.listRecords(
+			process.env.FEEDBACK_POOL_BASE,
+			process.env.CHRISTMAS_TABLE,
+			{
+				filter:
+					'CurrentValue.[Discord ID] = "' + data["Discord ID"] + '"',
+			}
+		);
+
+		if (response.total)
+			return await modalReply.editReply({
+				content:
+					"You have already submitted your data. Your lucky  number is " +
+					inlineCode(response.items[0].fields.Number) +
+					'.\nPlease click the "Check" button after <t:1735401540:d>(localized) to view the results!',
+			});
+
+		const success = await lark.createRecord(
+			process.env.FEEDBACK_POOL_BASE,
+			process.env.CHRISTMAS_TABLE,
+			{ fields: data }
+		);
+
+		if (success)
+			return await modalReply.editReply({
+				content:
+					bold("Your data is submitted.") +
+					"\n\n" +
+					inlineCode(number.toString()) +
+					"\n" +
+					inlineCode(email) +
+					"\n" +
+					inlineCode(region),
+			});
+
+		await modalReply.editReply({
 			content:
-				bold("Submitting your data...") +
-				"\n\n" +
-				inlineCode(number.toString()) +
-				"\n" +
-				inlineCode(email) +
-				"\n" +
-				inlineCode(region),
-			ephemeral: true,
+				"Failed to submit your data. Please contact an administrator.",
 		});
 	},
 };
