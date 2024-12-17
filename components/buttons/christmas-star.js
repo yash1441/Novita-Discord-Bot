@@ -68,7 +68,8 @@ module.exports = {
 
 		const number = parseInt(modalReply.fields.getTextInputValue("number"));
 		const email = modalReply.fields.getTextInputValue("email");
-		const region = modalReply.fields?.getTextInputValue("region") ?? "/";
+        let region = "/";
+        if (modalReply.fields.fields.has("region")) region = modalReply.fields.getTextInputValue("region");
 
 		if (isNaN(number) || number < 0 || number > 999) {
 			return await modalReply.reply({
