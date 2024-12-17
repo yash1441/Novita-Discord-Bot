@@ -20,10 +20,10 @@ module.exports = {
 		const channel =
 			serverId === process.env.GUILD_ID
 				? await interaction.client.channels.fetch(
-						process.env.DECIDE_SUGGESTION_ID
+						process.env.CHRISTMAS_CHANNEL
 				  )
 				: await interaction.client.channels.fetch(
-						process.env.DECIDE_SUGGESTION_ID_JP
+						process.env.CHRISTMAS_CHANNEL_JP
 				  );
 
 		const modal = new ModalBuilder()
