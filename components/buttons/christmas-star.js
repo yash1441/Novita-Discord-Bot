@@ -13,6 +13,8 @@ module.exports = {
 		name: "christmas-star",
 	},
 	async execute(interaction) {
+		console.log(process.env.FEEDBACK_POOL_BASE);
+		console.log(process.env.COMMUNITY_POOL_BASE);
 		const serverId = interaction.guildId;
 
 		const modal = new ModalBuilder()
