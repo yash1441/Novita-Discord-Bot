@@ -114,6 +114,11 @@ module.exports = {
 					'.\nPlease click the "Check" button after <t:1735401540:d>(localized) to view the results!',
 			});
 
+		console.log(
+			process.env.FEEDBACK_POOL_BASE,
+			process.env.CHRISTMAS_TABLE
+		);
+
 		const success = await lark.createRecord(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.CHRISTMAS_TABLE,
