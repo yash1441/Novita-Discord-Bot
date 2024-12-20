@@ -44,7 +44,7 @@ module.exports = {
 			return await interaction.editReply({
 				content:
 					"おめでとうございます！正解または最も近い数字を答えた上位10名の一人です！\n\nこの度は「クリスマススター伝説」にご参加いただき、誠にありがとうございました。\n当選内容： Amazonギフト券：1,225円分 \nギフトコード： " +
-					inlineCode(response.items[0].fields["Steam Card Code"]) +
+					inlineCode(response.items[0].fields["Amazon Gift Card"]) +
 					"\n\n※参加資格はβテスト開始前に入力したメールアドレスに送られます。 参加資格を送る際に使うアドレスを参加資格送付の前にお知らせしますので、そのアドレスからのメールを受け取れるよう設定をお願いいたします。",
 			});
 
