@@ -87,7 +87,7 @@ async function sendRegionSelect(client, record) {
 				.setValue("Others")
 		);
 
-	const row = ActionRowBuilder().addComponents(stringSelectMenu);
+	const row = new ActionRowBuilder().addComponents(stringSelectMenu);
 
 	await thread.send({
 		content: "Please select your region:",
