@@ -10,6 +10,7 @@ module.exports = {
 
 		await interaction.update({
 			content: "Region selected!" + "\n" + bold(region),
+			row: [],
 		});
 
 		const discordId = interaction.user.id;
