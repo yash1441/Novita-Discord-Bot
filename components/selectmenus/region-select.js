@@ -36,5 +36,9 @@ module.exports = {
 				},
 			}
 		);
+
+        setTimeout(function() {
+            interaction.channel.delete();
+          }, 2_000);
 	},
 };
