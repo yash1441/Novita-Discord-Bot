@@ -23,7 +23,7 @@ module.exports = {
 			}
 		);
 
-		if (!records.data.total || !records) return;
+		if (!records.total || !records) return;
 
 		await lark.updateRecord(
 			process.env.COMMUNITY_POOL_BASE,
