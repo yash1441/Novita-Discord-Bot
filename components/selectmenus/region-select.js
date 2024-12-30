@@ -12,7 +12,7 @@ module.exports = {
 
 		await interaction.update({
 			content: "Region selected!" + "\n" + bold(region),
-			row: [],
+			components: [],
 		});
 
 		const records = await lark.listRecords(
