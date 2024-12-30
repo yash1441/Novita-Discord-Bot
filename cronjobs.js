@@ -118,3 +118,7 @@ async function sendRegionSelect(client, record) {
 		}
 	);
 }
+
+async function sendReward(client, record) {
+	return;
+}
