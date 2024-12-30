@@ -31,7 +31,7 @@ module.exports = async (client) => {
 async function sendRegionSelect(client, record) {
 	const discordId = record.fields["Discord ID"];
 	const channel = await client.channels.fetch("1323108564922925127");
-	const thread = await channel.thread.create({
+	const thread = await channel.threads.create({
 		name: "Region: " + discordId,
 		autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
 		type: ChannelType.PrivateThread,
