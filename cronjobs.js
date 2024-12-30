@@ -49,40 +49,52 @@ async function sendRegionSelect(client, record) {
 		.addOptions(
 			new StringSelectMenuOptionBuilder()
 				.setLabel("United States")
-				.setValue("United States"),
+				.setValue("United States")
+				.setEmoji("🇺🇸"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Canada")
-				.setValue("Canada"),
+				.setValue("Canada")
+				.setEmoji("🇨🇦"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Japan")
-				.setValue("Japan"),
+				.setValue("Japan")
+				.setEmoji("🇯🇵"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Brazil")
-				.setValue("Brazil"),
+				.setValue("Brazil")
+				.setEmoji("🇧🇷"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Mexico")
-				.setValue("Mexico"),
+				.setValue("Mexico")
+				.setEmoji("🇲🇽"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Thailand")
-				.setValue("Thailand"),
+				.setValue("Thailand")
+				.setEmoji("🇹🇭"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Indonesia")
-				.setValue("Indonesia"),
+				.setValue("Indonesia")
+				.setEmoji("🇮🇩"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Russia")
-				.setValue("Russia"),
+				.setValue("Russia")
+				.setEmoji("🇷🇺"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Philippines")
-				.setValue("Philippines"),
+				.setValue("Philippines")
+				.setEmoji("🇵🇭"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Vietnam")
-				.setValue("Vietnam"),
+				.setValue("Vietnam")
+				.setEmoji("🇻🇳"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Germany")
-				.setValue("Germany"),
+				.setValue("Germany")
+				.setEmoji("🇩🇪"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Finland")
-				.setValue("Finland"),
+				.setValue("Finland")
+				.setEmoji("🇫🇮"),
 			new StringSelectMenuOptionBuilder()
 				.setLabel("Others")
 				.setValue("Others")

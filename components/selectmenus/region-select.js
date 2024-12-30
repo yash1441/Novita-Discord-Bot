@@ -1,4 +1,4 @@
-const {} = require("discord.js");
+const { bold } = require("discord.js");
 require("dotenv").config();
 
 module.exports = {
@@ -6,10 +6,12 @@ module.exports = {
 		name: "region-select",
 	},
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral: true });
+		const region = interaction.values[0];
+
+		await interaction.update({
+			content: "Region selected!" + "\n" + bold(region),
+		});
 
 		const discordId = interaction.user.id;
-
-		await interaction.editReply({ content: "Region selected!" });
 	},
 };
