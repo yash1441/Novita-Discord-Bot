@@ -117,6 +117,33 @@ module.exports = {
 					});
 				}
 			}
+		} else if (interaction.isStringSelectMenu()) {
+			const stringSelectMenu = interaction.client.selectmenus.get(interaction.customId);
+
+			if (!stringSelectMenu) {
+				return console.error(
+					`No select menu matching ${interaction.customId} was found.`
+				);
+			}
+
+			try {
+				await stringSelectMenu.execute(interaction);
+			} catch (error) {
+				console.error(error);
+				if (interaction.replied || interaction.deferred) {
+					await interaction.followUp({
+						content:
+							"There was an error while executing this select menu!",
+						ephemeral: true,
+					});
+				} else {
+					await interaction.reply({
+						content:
+							"There was an error while executing this select menu!",
+						ephemeral: true,
+					});
+				}
+			}
 		} else if (interaction.isAutocomplete()) {
 			const command = interaction.client.commands.get(
 				interaction.commandName

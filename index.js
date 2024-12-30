@@ -24,6 +24,7 @@ const client = new Client({
 
 client.commands = new Collection();
 client.buttons = new Collection();
+client.selectmenus = new Collection();
 client.cooldowns = new Collection();
 
 const foldersPath = path.join(__dirname, "commands");
@@ -67,6 +68,22 @@ for (const folder of componentFolders) {
 			} else {
 				console.log(
 					`[WARNING] The button at ${filePath} is missing a required "data" or "execute" property.`
+				);
+			}
+		}
+	} else if (folder === "selectmenus") {
+		const selectMenuFiles = fs
+			.readdirSync(componentPath)
+			.filter((file) => file.endsWith(".js"));
+		for (const file of selectMenuFiles) {
+			const filePath = path.join(componentPath, file);
+			const stringSelectMenu = require(filePath);
+			if ("data" in stringSelectMenu && "execute" in stringSelectMenu) {
+				client.selectmenus.set(stringSelectMenu.data.name, stringSelectMenu);
+				console.log(`[INFO] Select menu ${stringSelectMenu.data.name} loaded.`);
+			} else {
+				console.log(
+					`[WARNING] The select menu at ${filePath} is missing a required "data" or "execute" property.`
 				);
 			}
 		}
