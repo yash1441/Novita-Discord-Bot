@@ -14,7 +14,7 @@ module.exports = async (client) => {
 		process.env.COMMUNITY_POOL_BASE,
 		process.env.REWARD_TABLE,
 		{
-			filter: 'CurrentValue.[Status] != "Reward Sent"',
+			filter: 'OR(CurrentValue.[Status] = "Start", CurrentValue.[Status] = "Ready to Send")',
 		}
 	);
 
@@ -22,7 +22,7 @@ module.exports = async (client) => {
 		return console.log("No pending rewards found.");
 
 	for (const record of records.items) {
-		if (!record.fields.Status) sendRegionSelect(client, record);
+		if (record.fields.Status === "Start") sendRegionSelect(client, record);
 		else if (record.fields.Status === "Ready to Send")
 			sendReward(client, record);
 	}
