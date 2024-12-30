@@ -30,6 +30,7 @@ module.exports = async (client) => {
 
 async function sendRegionSelect(client, record) {
 	const discordId = record.fields["Discord ID"];
+	const recordId = record.record_id;
 	const channel = await client.channels.fetch("1323108564922925127");
 	const thread = await channel.threads.create({
 		name: "Region: " + discordId,
@@ -93,4 +94,15 @@ async function sendRegionSelect(client, record) {
 		content: "Please select your region:",
 		components: [row],
 	});
+
+	await lark.updateRecord(
+		process.env.COMMUNITY_POOL_BASE,
+		process.env.REWARD_TABLE,
+		recordId,
+		{
+			fields: {
+				Status: "Region Required",
+			},
+		}
+	);
 }
