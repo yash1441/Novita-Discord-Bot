@@ -1,4 +1,10 @@
-const { bold } = require("discord.js");
+const {
+	bold,
+	ModalBuilder,
+	TextInputBuilder,
+	ActionRowBuilder,
+	TextInputStyle,
+} = require("discord.js");
 const lark = require("../../utils/lark");
 require("dotenv").config();
 
@@ -7,8 +13,43 @@ module.exports = {
 		name: "region-select",
 	},
 	async execute(interaction) {
-		const region = interaction.values[0];
+		let region = interaction.values[0];
 		const discordId = interaction.user.id;
+
+		if (region === "Others") {
+			const modal = new ModalBuilder()
+				.setCustomId("region-modal")
+				.setTitle("Region");
+
+			const regionInput = new TextInputBuilder()
+				.setCustomId("region-input")
+				.setLabel("Please enter your region")
+				.setStyle(TextInputStyle.Short);
+
+			const row = new ActionRowBuilder().addComponents(regionInput);
+			modal.addComponents(row);
+
+			await interaction.showModal(modal);
+
+			const submit = await interaction
+				.awaitModalSubmit({
+					time: 60_000,
+					filter: (i) => i.user.id === interaction.user.id,
+				})
+				.catch((error) => {
+					console.log(error);
+					return null;
+				});
+
+			if (submit) {
+				region = submit.fields.getTextInputValue("region-input");
+			} else {
+				return await interaction.followUp({
+					content: "Timed out.",
+					ephemeral: true,
+				});
+			}
+		}
 
 		await interaction.update({
 			content: "Region selected!" + "\n" + bold(region),
@@ -32,13 +73,13 @@ module.exports = {
 			{
 				fields: {
 					Region: region,
-                    Status: "Reward Required",
+					Status: "Reward Required",
 				},
 			}
 		);
 
-        setTimeout(function() {
-            interaction.channel.delete();
-          }, 2_000);
+		setTimeout(function () {
+			interaction.channel.delete();
+		}, 2_000);
 	},
 };
