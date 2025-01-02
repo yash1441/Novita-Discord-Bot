@@ -43,8 +43,13 @@ module.exports = {
 
 			if (submit) {
 				region = submit.fields.getTextInputValue("region-input");
+				await submit.reply({
+					content: "Submitted",
+					ephemeral: true,
+				});
+				await submit.deleteReply();
 			} else {
-				return await interaction.followUp({
+				return await submit.reply({
 					content: "Timed out.",
 					ephemeral: true,
 				});
