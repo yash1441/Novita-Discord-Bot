@@ -51,7 +51,7 @@ module.exports = {
 			}
 		}
 
-		await interaction.update({
+		await interaction.message.edit({
 			content: "Region selected!" + "\n" + bold(region),
 			components: [],
 		});
