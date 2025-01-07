@@ -127,8 +127,9 @@ async function sendReward(client, record) {
     const channel = await client.channels.fetch("1323108564922925127");
     const reward = record.fields.Reward;
     const rewardType = record.fields["Reward Type"];
+    const eventName = record.fields["Event Name"];
     const thread = await channel.threads.create({
-        name: "Reward: " + discordId,
+        name: eventName + " Reward: " + discordId,
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
         type: ChannelType.PrivateThread,
         inviteable: false,
@@ -141,7 +142,9 @@ async function sendReward(client, record) {
     await thread.send({
         content:
             userMention(discordId) +
-            ", please check your reward below:\n\n" +
+            "\nCongratulations on winning the " +
+            inlineCode(eventName) +
+            ". Please check your reward below:\n\n" +
             inlineCode(reward) +
             "\n" +
             bold(rewardType),
