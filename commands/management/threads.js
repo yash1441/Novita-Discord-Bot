@@ -1,7 +1,4 @@
-const {
-    SlashCommandBuilder,
-    PermissionFlagsBits,
-} = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
     cooldown: 5,
@@ -9,7 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("threads")
         .setDescription("Manage threads in the current channel")
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("delete")
