@@ -162,6 +162,10 @@ async function sendReward(client, record) {
         {
             fields: {
                 Status: "Reward Sent",
+                Thread: {
+                    link: thread.url,
+                    text: "Visit Channel",
+                },
             },
         }
     );
