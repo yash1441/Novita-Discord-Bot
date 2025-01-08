@@ -34,8 +34,9 @@ async function sendRegionSelect(client, record) {
     const discordId = record.fields["Discord ID"];
     const recordId = record.record_id;
     const channel = await client.channels.fetch("1323108564922925127");
+    const user = await client.users.fetch(discordId);
     const thread = await channel.threads.create({
-        name: "Region: " + discordId,
+        name: "Region: " + user.username,
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
         type: ChannelType.PrivateThread,
         inviteable: false,
@@ -115,6 +116,7 @@ async function sendRegionSelect(client, record) {
         recordId,
         {
             fields: {
+                "Discord Username": user.username,
                 Status: "Region Required",
             },
         }
