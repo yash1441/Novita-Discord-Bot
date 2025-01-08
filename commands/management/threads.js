@@ -16,6 +16,7 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "delete") {
+            await interaction.deferReply({ ephemeral: true });
             const channel = interaction.channel;
 
             if (!channel.isText()) {
@@ -33,7 +34,9 @@ module.exports = {
                 await thread.delete();
             }
 
-            await interaction.reply("All threads have been deleted.");
+            await interaction.editReply({
+                content: "All threads have been deleted.",
+            });
         }
     },
 };
