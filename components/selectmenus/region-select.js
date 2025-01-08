@@ -43,7 +43,7 @@ module.exports = {
 
         const submit = await interaction
             .awaitModalSubmit({
-                time: 60_000,
+                time: 300_000,
                 filter: (i) => i.user.id === interaction.user.id,
             })
             .catch((error) => {
