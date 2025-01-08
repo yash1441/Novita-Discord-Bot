@@ -35,6 +35,7 @@ async function sendRegionSelect(client, record) {
     const recordId = record.record_id;
     const channel = await client.channels.fetch("1323108564922925127");
     const user = await client.users.fetch(discordId);
+
     const thread = await channel.threads.create({
         name: "Region: " + user.username,
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
@@ -130,8 +131,10 @@ async function sendReward(client, record) {
     const reward = record.fields.Reward;
     const rewardType = record.fields["Reward Type"];
     const eventName = record.fields["Event Name"];
+    const user = await client.users.fetch(discordId);
+
     const thread = await channel.threads.create({
-        name: eventName + " Reward: " + discordId,
+        name: eventName + " Reward: " + user.username,
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
         type: ChannelType.PrivateThread,
         inviteable: false,
