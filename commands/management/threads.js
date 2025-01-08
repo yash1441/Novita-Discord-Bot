@@ -1,4 +1,7 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+const {
+    SlashCommandBuilder,
+    PermissionFlagsBits,
+} = require("@discordjs/builders");
 
 module.exports = {
     cooldown: 5,
