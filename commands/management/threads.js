@@ -19,7 +19,7 @@ module.exports = {
             await interaction.deferReply({ ephemeral: true });
             const channel = interaction.channel;
 
-            if (!channel.isText()) {
+            if (!channel.isTextBased()) {
                 return interaction.reply(
                     "This command can only be used in text channels."
                 );
