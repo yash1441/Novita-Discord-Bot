@@ -16,13 +16,17 @@ module.exports = {
         let email = "abc@xyz.com";
         let region = interaction.values[0];
         const discordId = interaction.user.id;
+        const serverId = interaction.guildId;
 
         const modal = new ModalBuilder().setCustomId("email-modal");
 
         const emailInput = new TextInputBuilder()
             .setCustomId("email-input")
-            .setLabel("Please enter your email")
             .setStyle(TextInputStyle.Short);
+
+        serverId === process.env.process.env.GUILD_ID
+            ? emailInput.setLabel("Your Email")
+            : emailInput.setLabel("メールアドレス");
 
         const firstRow = new ActionRowBuilder().addComponents(emailInput);
 
