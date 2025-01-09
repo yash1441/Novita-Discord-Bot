@@ -33,9 +33,17 @@ module.exports = async (client) => {
 async function sendRegionSelect(client, record) {
     const discordId = record.fields["Discord ID"];
     const recordId = record.record_id;
-    const channel = await client.channels.fetch(process.env.REWARD_CHANNEL);
     const user = await client.users.fetch(discordId);
     const eventName = record.fields["Event Name"];
+    const region = record.fields.Region;
+    const channel =
+        region === "Japan"
+            ? await interaction.client.channels.fetch(
+                  process.env.REWARD_CHANNEL_JP
+              )
+            : await interaction.client.channels.fetch(
+                  process.env.REWARD_CHANNEL
+              );
 
     const thread = await channel.threads.create({
         name: "Region: " + user.username,
@@ -107,11 +115,15 @@ async function sendRegionSelect(client, record) {
 
     const row = new ActionRowBuilder().addComponents(stringSelectMenu);
 
+    const threadContent =
+        region === "Japan"
+            ? "お手数ですが、住んでいる国・地域の情報を教えてください"
+            : "Congrats on winning the " +
+              bold(eventName) +
+              "! Please choose your region so we can get you the right gift card.";
+
     await thread.send({
-        content:
-            "Congrats on winning the " +
-            bold(eventName) +
-            "! Please choose your region so we can get you the right gift card.",
+        content: threadContent,
         components: [row],
     });
 
@@ -131,14 +143,42 @@ async function sendRegionSelect(client, record) {
 async function sendReward(client, record) {
     const discordId = record.fields["Discord ID"];
     const recordId = record.record_id;
-    const channel = await client.channels.fetch(process.env.REWARD_CHANNEL);
     const reward = record.fields.Reward;
     const rewardType = record.fields["Reward Type"];
     const eventName = record.fields["Event Name"];
     const user = await client.users.fetch(discordId);
+    const channel =
+        region === "Japan"
+            ? await interaction.client.channels.fetch(
+                  process.env.REWARD_CHANNEL_JP
+              )
+            : await interaction.client.channels.fetch(
+                  process.env.REWARD_CHANNEL
+              );
+    const threadName =
+        region === "Japan"
+            ? "報酬: " + user.username
+            : "Reward: " + user.username;
+
+    const threadContent =
+        region === "Japan"
+            ? "Well done! " +
+              userMention(discordId) +
+              " 様は当選されました！\nおめでとうございます！\n賞品内容：" +
+              bold(rewardType) +
+              ": " +
+              inlineCode(reward)
+            : "Well done! " +
+              userMention(discordId) +
+              " You have won the " +
+              inlineCode(eventName) +
+              ".\n\nPlease check your " +
+              bold(rewardType) +
+              ": " +
+              inlineCode(reward);
 
     const thread = await channel.threads.create({
-        name: eventName + " Reward: " + user.username,
+        name: threadName,
         autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
         type: ChannelType.PrivateThread,
         inviteable: false,
@@ -149,14 +189,7 @@ async function sendReward(client, record) {
     await thread.members.add(discordId);
 
     await thread.send({
-        content:
-            userMention(discordId) +
-            "\nCongratulations on winning the " +
-            inlineCode(eventName) +
-            ". Please check your reward below:\n\n" +
-            inlineCode(reward) +
-            "\n" +
-            bold(rewardType),
+        content: threadContent,
     });
 
     await lark.updateRecord(
