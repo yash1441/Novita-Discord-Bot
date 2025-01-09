@@ -38,12 +38,8 @@ async function sendRegionSelect(client, record) {
     const region = record.fields.Region;
     const channel =
         region === "Japan"
-            ? await interaction.client.channels.fetch(
-                  process.env.REWARD_CHANNEL_JP
-              )
-            : await interaction.client.channels.fetch(
-                  process.env.REWARD_CHANNEL
-              );
+            ? await client.channels.fetch(process.env.REWARD_CHANNEL_JP)
+            : await client.channels.fetch(process.env.REWARD_CHANNEL);
 
     const thread = await channel.threads.create({
         name: "Region: " + user.username,
@@ -149,12 +145,8 @@ async function sendReward(client, record) {
     const user = await client.users.fetch(discordId);
     const channel =
         region === "Japan"
-            ? await interaction.client.channels.fetch(
-                  process.env.REWARD_CHANNEL_JP
-              )
-            : await interaction.client.channels.fetch(
-                  process.env.REWARD_CHANNEL
-              );
+            ? await client.channels.fetch(process.env.REWARD_CHANNEL_JP)
+            : await client.channels.fetch(process.env.REWARD_CHANNEL);
     const threadName =
         region === "Japan"
             ? "報酬: " + user.username
