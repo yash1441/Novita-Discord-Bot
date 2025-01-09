@@ -4,6 +4,7 @@ const {
     TextInputBuilder,
     ActionRowBuilder,
     TextInputStyle,
+    MessageFlags,
 } = require("discord.js");
 const lark = require("../../utils/lark");
 require("dotenv").config();
@@ -61,13 +62,13 @@ module.exports = {
                 region = submit.fields.getTextInputValue("region-input");
             await submit.reply({
                 content: "Submitted",
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
             await submit.deleteReply();
         } else {
             return await submit.reply({
                 content: "Timed out.",
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
 
