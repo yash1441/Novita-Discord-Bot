@@ -33,8 +33,9 @@ module.exports = async (client) => {
 async function sendRegionSelect(client, record) {
     const discordId = record.fields["Discord ID"];
     const recordId = record.record_id;
-    const channel = await client.channels.fetch(process.env.REWRAD_CHANNEL);
+    const channel = await client.channels.fetch(process.env.REWARD_CHANNEL);
     const user = await client.users.fetch(discordId);
+    const eventName = record.fields["Event Name"];
 
     const thread = await channel.threads.create({
         name: "Region: " + user.username,
@@ -107,7 +108,10 @@ async function sendRegionSelect(client, record) {
     const row = new ActionRowBuilder().addComponents(stringSelectMenu);
 
     await thread.send({
-        content: "Please select your region:",
+        content:
+            "Congrats on winning the " +
+            bold(eventName) +
+            "! Please choose your region so we can get you the right gift card.",
         components: [row],
     });
 
@@ -127,7 +131,7 @@ async function sendRegionSelect(client, record) {
 async function sendReward(client, record) {
     const discordId = record.fields["Discord ID"];
     const recordId = record.record_id;
-    const channel = await client.channels.fetch(process.env.REWRAD_CHANNEL);
+    const channel = await client.channels.fetch(process.env.REWARD_CHANNEL);
     const reward = record.fields.Reward;
     const rewardType = record.fields["Reward Type"];
     const eventName = record.fields["Event Name"];
