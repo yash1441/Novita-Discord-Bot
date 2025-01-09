@@ -155,8 +155,7 @@ async function sendReward(client, record) {
 
     const threadContent =
         region === "Japan"
-            ? "Well done! " +
-              userMention(discordId) +
+            ? userMention(discordId) +
               " 様は当選されました！\nおめでとうございます！\n賞品内容：" +
               bold(rewardType) +
               ": " +
