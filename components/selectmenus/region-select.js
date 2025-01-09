@@ -24,7 +24,7 @@ module.exports = {
             .setCustomId("email-input")
             .setStyle(TextInputStyle.Short);
 
-        serverId === process.env.process.env.GUILD_ID
+        serverId === process.env.GUILD_ID
             ? emailInput.setLabel("Your Email")
             : emailInput.setLabel("メールアドレス");
 
