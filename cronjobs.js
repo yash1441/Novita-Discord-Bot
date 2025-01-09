@@ -143,6 +143,7 @@ async function sendReward(client, record) {
     const rewardType = record.fields["Reward Type"];
     const eventName = record.fields["Event Name"];
     const user = await client.users.fetch(discordId);
+    const region = record.fields.Region;
     const channel =
         region === "Japan"
             ? await client.channels.fetch(process.env.REWARD_CHANNEL_JP)
