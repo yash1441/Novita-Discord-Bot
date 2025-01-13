@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
         const reply = await interaction.deferReply({
             flags: MessageFlags.Ephemeral,
-            fetchReply: true,
+            withResponse: true,
         });
 
         await interaction.editReply({
