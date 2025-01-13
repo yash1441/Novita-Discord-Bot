@@ -12,7 +12,7 @@ module.exports = {
             withResponse: true,
         });
 
-        console.log(reply.createdTimestamp);
+        console.log(reply.createdTimestamp, interaction.client.ping);
 
         await interaction.editReply({
             content:
