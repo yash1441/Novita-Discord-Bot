@@ -7,11 +7,10 @@ module.exports = {
         .setName("ping")
         .setDescription("Replies with Pong!"),
     async execute(interaction) {
-        await interaction.deferReply({
+        const reply = await interaction.deferReply({
             flags: MessageFlags.Ephemeral,
+            withResponse: true,
         });
-
-        const reply = await interaction.fetchReply();
 
         await interaction.editReply({
             content:
@@ -19,7 +18,8 @@ module.exports = {
                 interaction.client.ws.ping +
                 "ms\nClient Ping: " +
                 (
-                    reply.createdTimestamp - interaction.createdTimestamp
+                    reply.resource.message.createdTimestamp -
+                    interaction.createdTimestamp
                 ).toString() +
                 "ms",
         });
