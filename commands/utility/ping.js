@@ -12,6 +12,8 @@ module.exports = {
             withResponse: true,
         });
 
+        console.log(reply);
+
         await interaction.editReply({
             content:
                 "API Latency: " +
