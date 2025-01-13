@@ -19,8 +19,7 @@ module.exports = {
                 interaction.client.ws.ping +
                 "ms\nClient Ping: " +
                 (
-                    reply.interaction.createdTimestamp -
-                    interaction.createdTimestamp
+                    reply.createdTimestamp - interaction.createdTimestamp
                 ).toString() +
                 "ms",
         });
