@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const {
+    SlashCommandBuilder,
+    PermissionFlagsBits,
+    MessageFlags,
+} = require("discord.js");
 const cronjobs = require("../../cronjobs");
 
 module.exports = {
@@ -10,7 +14,7 @@ module.exports = {
     async execute(interaction) {
         await interaction.reply({
             content: "Started reward delivery system...",
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
         });
 
         cronjobs(interaction.client);

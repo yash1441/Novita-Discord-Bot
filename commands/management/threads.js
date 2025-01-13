@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const {
+    SlashCommandBuilder,
+    PermissionFlagsBits,
+    MessageFlags,
+} = require("discord.js");
 
 module.exports = {
     cooldown: 5,
@@ -16,7 +20,7 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand === "delete") {
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: MessageFlags.Ephemeral });
             const channel = interaction.channel;
 
             if (!channel.isTextBased()) {
