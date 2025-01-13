@@ -7,11 +7,12 @@ module.exports = {
         .setName("ping")
         .setDescription("Replies with Pong!"),
     async execute(interaction) {
-        const reply = await interaction.reply({
-            content: "Pinging...",
+        const reply = await interaction.deferReply({
             flags: MessageFlags.Ephemeral,
             withResponse: true,
         });
+
+        console.log(reply.createdTimestamp);
 
         await interaction.editReply({
             content:
