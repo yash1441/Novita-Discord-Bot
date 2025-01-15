@@ -116,7 +116,9 @@ async function sendRegionSelect(client, record) {
             ? "お手数ですが、住んでいる国・地域の情報を教えてください"
             : "Congrats on winning the " +
               bold(eventName) +
-              "! Please choose your region so we can get you the right gift card.";
+              "! Your reward is " +
+              bold(record.fields["Reward Type"]) +
+              ".\nPlease choose your region so we can get you the right gift card.";
 
     await thread.send({
         content: threadContent,
