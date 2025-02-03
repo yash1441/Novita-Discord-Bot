@@ -44,17 +44,25 @@ module.exports = {
 
 		const modal = new ModalBuilder().setCustomId("pickup-line-modal");
 
-		const modalRow = new ActionRowBuilder().addComponents(
+		const modalRow1 = new ActionRowBuilder().addComponents(
+			new TextInputBuilder()
+				.setCustomId("title")
+				.setLabel("Title")
+				.setStyle(TextInputStyle.Short)
+				.setPlaceholder("Give your pick-up line a title")
+		);
+
+		const modalRow2 = new ActionRowBuilder().addComponents(
 			new TextInputBuilder()
 				.setCustomId("line")
 				.setLabel("Pick-up Line")
-				.setStyle(TextInputStyle.Short)
+				.setStyle(TextInputStyle.Paragraph)
 				.setPlaceholder(
 					"Example - Camille: Is your HP low? Cause you make my heart rate spike"
 				)
 		);
 
-		modal.addComponents(modalRow);
+		modal.addComponents(modalRow1, modalRow2);
 
 		await interaction.editReply({
 			content: "**Who are you trying to talk to?**",
@@ -147,6 +155,7 @@ module.exports = {
 
 async function sendPickupVote(interaction, character, channel) {
 	const user = interaction.user;
+	const title = interaction.fields.getTextInputValue("title");
 	const line = interaction.fields.getTextInputValue("line");
 
 	const availableTags = channel.availableTags;
@@ -158,8 +167,8 @@ async function sendPickupVote(interaction, character, channel) {
 		}
 	}
 
-	const thread = channel.threads.create({
-		name: user.username + "'s Pick-up Line",
+	const thread = await channel.threads.create({
+		name: title,
 		message: { content: line },
 		appliedTags: [tagId],
 	});
