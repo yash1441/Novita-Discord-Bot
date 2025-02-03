@@ -163,5 +163,9 @@ async function sendPickupVote(interaction, character, channel) {
 		message: { content: line },
 		appliedTags: [tagId],
 	});
-	return thread;
+
+	const message = await thread.fetchStarterMessage();
+	await message.react("❤️").then(() => message.react("💔"));
+
+	return message;
 }
