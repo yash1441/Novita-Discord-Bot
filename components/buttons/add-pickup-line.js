@@ -169,6 +169,7 @@ async function sendPickupVote(interaction, character, channel) {
 
 	const thread = await channel.threads.create({
 		name: title,
+		reason: "Submitted by " + user.username,
 		message: { content: line },
 		appliedTags: [tagId],
 	});
