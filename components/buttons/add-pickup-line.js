@@ -16,6 +16,8 @@ const {
 } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
+const lark = require("../../utils/lark.js");
+const { send } = require("process");
 require("dotenv").config();
 
 const utils = path.join(__dirname, "../../utils");
@@ -94,7 +96,6 @@ module.exports = {
 
 		collector.on("collect", async (selectMenuInteraction) => {
 			const character = selectMenuInteraction.values[0];
-			console.log(characters[character].thumbnail);
 			data.character = {
 				name: character,
 				thumbnail: characters[character].thumbnail,
@@ -166,11 +167,9 @@ async function sendPickupVote(data) {
 	const title = data.modal.fields.getTextInputValue("title");
 	const line = data.modal.fields.getTextInputValue("line");
 
-	let tagId;
-
 	for (const tag of data.tags) {
 		if (tag.name == data.character.name) {
-			tagId = tag.id;
+			data.character.id = tag.id;
 		}
 	}
 
@@ -188,11 +187,32 @@ async function sendPickupVote(data) {
 		name: title,
 		reason: "Submitted by " + user.username,
 		message: { embeds: [embed] },
-		appliedTags: [tagId],
+		appliedTags: [data.character.id],
 	});
 
 	const message = await thread.fetchStarterMessage();
 	await message.react("❤️").then(() => message.react("💔"));
+
+	await lark.createRecord(
+		process.env.COMMUNITY_POOL_BASE,
+		process.env.LINE_TABLE,
+		{
+			fields: {
+				"Discord ID": user.id,
+				"Discord Username": user.username,
+				Character: data.character.name,
+				Title: title,
+				Line: line,
+				Thread: {
+					link: messageLink(
+						pickupMessage.channel.id,
+						pickupMessage.id
+					),
+					text: "View",
+				},
+			},
+		}
+	);
 
 	return message;
 }
