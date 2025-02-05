@@ -138,14 +138,7 @@ module.exports = {
 
 			data.modal = modalReply;
 
-			const pickupMessage = await sendPickupVote(data);
-
-			await interaction.editReply({
-				content:
-					"Your pick-up line has been submitted. It should be visible in " +
-					messageLink(pickupMessage.channel.id, pickupMessage.id) +
-					" shortly.\n\n",
-			});
+			await sendPickupVote(data);
 
 			collector.stop();
 		});
@@ -192,6 +185,13 @@ async function sendPickupVote(data) {
 
 	const message = await thread.fetchStarterMessage();
 	await message.react("❤️").then(() => message.react("💔"));
+
+	await data.interaction.editReply({
+		content:
+			"Your pick-up line has been submitted. It should be visible in " +
+			messageLink(message.channel.id, message.id) +
+			" shortly.\n\n",
+	});
 
 	await lark.createRecord(
 		process.env.COMMUNITY_POOL_BASE,
