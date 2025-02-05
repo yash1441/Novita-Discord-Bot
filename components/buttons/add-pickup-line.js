@@ -184,7 +184,7 @@ async function sendPickupVote(data) {
 		.setFooter({ text: user.id })
 		.setThumbnail(data.character.thumbnail);
 
-	const thread = await channel.threads.create({
+	const thread = await data.channel.threads.create({
 		name: title,
 		reason: "Submitted by " + user.username,
 		message: { embeds: [embed] },
