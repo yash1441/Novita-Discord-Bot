@@ -6,6 +6,7 @@ const {
 	ModalBuilder,
 	TextInputBuilder,
 	TextInputStyle,
+	EmbedBuilder,
 	bold,
 	inlineCode,
 	codeBlock,
@@ -35,6 +36,12 @@ module.exports = {
 		);
 		const availableTags = channel.availableTags;
 
+		const data = {
+			interaction: interaction,
+			channel: channel,
+			tags: availableTags,
+		};
+
 		const selectMenu = new StringSelectMenuBuilder()
 			.setCustomId("pickup-line-character")
 			.setPlaceholder("Select a character");
@@ -49,7 +56,9 @@ module.exports = {
 
 		const row = new ActionRowBuilder().addComponents(selectMenu);
 
-		const modal = new ModalBuilder().setCustomId("pickup-line-modal");
+		const modal = new ModalBuilder()
+			.setTitle("Deadly Pick-up Lines")
+			.setCustomId("pickup-line-modal");
 
 		const modalRow1 = new ActionRowBuilder().addComponents(
 			new TextInputBuilder()
@@ -86,7 +95,10 @@ module.exports = {
 		collector.on("collect", async (selectMenuInteraction) => {
 			const character = selectMenuInteraction.values[0];
 			console.log(characters[character].thumbnail);
-			modal.setTitle(character);
+			data.character = {
+				name: character,
+				thumbnail: characters[character].thumbnail,
+			};
 
 			await interaction.editReply({
 				content:
@@ -117,33 +129,21 @@ module.exports = {
 			if (!modalReply) return;
 
 			await modalReply.reply({
-				content: bold(modal.data.title),
+				content: bold(data.character.name),
 				flags: MessageFlags.Ephemeral,
 			});
 
 			await modalReply.deleteReply();
 
-			const pickupMessage = await sendPickupVote(
-				modalReply,
-				modal.data.title,
-				channel
-			);
+			data.modal = modalReply;
+
+			const pickupMessage = await sendPickupVote(data);
 
 			await interaction.editReply({
 				content:
 					"Your pick-up line has been submitted. It should be visible in " +
 					messageLink(pickupMessage.channel.id, pickupMessage.id) +
-					" shortly.\n\n" +
-					bold(modal.data.title) +
-					"\n" +
-					codeBlock(
-						modalReply.fields.getTextInputValue("line").length <
-							2000
-							? modalReply.fields.getTextInputValue("line")
-							: modalReply.fields
-									.getTextInputValue("line")
-									.slice(0, 1000) + "..."
-					),
+					" shortly.\n\n",
 			});
 
 			collector.stop();
@@ -161,24 +161,33 @@ module.exports = {
 	},
 };
 
-async function sendPickupVote(interaction, character, channel) {
-	const user = interaction.user;
-	const title = interaction.fields.getTextInputValue("title");
-	const line = interaction.fields.getTextInputValue("line");
+async function sendPickupVote(data) {
+	const user = data.modal.user;
+	const title = data.modal.fields.getTextInputValue("title");
+	const line = data.modal.fields.getTextInputValue("line");
 
-	const availableTags = channel.availableTags;
 	let tagId;
 
-	for (const tag of availableTags) {
-		if (tag.name == character) {
+	for (const tag of data.tags) {
+		if (tag.name == data.character.name) {
 			tagId = tag.id;
 		}
 	}
 
+	const embed = new EmbedBuilder()
+		.setAuthor({
+			name: user.username,
+			iconURL: user.displayAvatarURL(),
+		})
+		.setDescription(codeBlock(line))
+		.setColor(process.env.EMBED_COLOR)
+		.setFooter({ text: user.id })
+		.setThumbnail(data.character.thumbnail);
+
 	const thread = await channel.threads.create({
 		name: title,
 		reason: "Submitted by " + user.username,
-		message: { content: line },
+		message: { embeds: [embed] },
 		appliedTags: [tagId],
 	});
 
