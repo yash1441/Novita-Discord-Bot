@@ -13,7 +13,14 @@ const {
 	MessageFlags,
 	messageLink,
 } = require("discord.js");
+const fs = require("fs");
+const path = require("path");
 require("dotenv").config();
+
+const utils = path.join(__dirname, "../../utils");
+const characters = JSON.parse(
+	fs.readFileSync(path.join(utils, "characters.json"))
+);
 
 module.exports = {
 	cooldown: 10,
@@ -78,6 +85,7 @@ module.exports = {
 
 		collector.on("collect", async (selectMenuInteraction) => {
 			const character = selectMenuInteraction.values[0];
+			console.log(characters[character].thumbnail);
 			modal.setTitle(character);
 
 			await interaction.editReply({
