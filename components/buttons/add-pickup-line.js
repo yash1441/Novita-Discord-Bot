@@ -204,10 +204,7 @@ async function sendPickupVote(data) {
 				Title: title,
 				Line: line,
 				Thread: {
-					link: messageLink(
-						pickupMessage.channel.id,
-						pickupMessage.id
-					),
+					link: messageLink(message.channel.id, message.id),
 					text: "View",
 				},
 			},
