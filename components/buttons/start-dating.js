@@ -22,21 +22,31 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+		const flowers = Object.values(characters).map(
+			(character) => character.flower.name
+		);
+		const chocolates = Object.values(characters).map(
+			(character) => character.chocolate
+		);
+		const dates = Object.values(characters).map(
+			(character) => character.date
+		);
+
 		const questions = [
 			{
-				customId: "question1",
-				placeholder: "Select an option for Question 1",
-				options: ["A", "B", "C"],
+				customId: "chocolate",
+				placeholder: "What's your favorite chocolate flavor?",
+				options: chocolates,
 			},
 			{
-				customId: "question2",
-				placeholder: "Select an option for Question 2",
-				options: ["A", "B", "C"],
+				customId: "flower",
+				placeholder: "Pick a flower:",
+				options: flowers,
 			},
 			{
-				customId: "question3",
-				placeholder: "Select an option for Question 3",
-				options: ["A", "B", "C"],
+				customId: "date",
+				placeholder: "Where's your dream date spot?",
+				options: dates,
 			},
 		];
 
@@ -78,7 +88,7 @@ module.exports = {
 		}
 
 		await interaction.followUp({
-			content: `You selected:\nQuestion 1: ${responses.question1}\nQuestion 2: ${responses.question2}\nQuestion 3: ${responses.question3}`,
+			content: `You selected:\nFlower: ${responses.chocolate}\nChocolate: ${responses.flower}\nDate Location: ${responses.date}`,
 			flags: MessageFlags.Ephemeral,
 		});
 	},
