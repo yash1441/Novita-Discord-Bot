@@ -203,8 +203,12 @@ module.exports = {
 
 		await interaction.editReply({
 			content:
-				"Your date setup has been sent to the dating channel! You can check it out at " +
-				message.url,
+				interaction.guildId === process.env.GUILD_ID
+					? "Your date setup has been sent to the dating channel! You can check it out at " +
+					  message.url
+					: "もうデート始まってるよ♪ " +
+					  message.url +
+					  "チャンネルで彼女の手紙をチェックしよう！",
 			components: [],
 		});
 
