@@ -13,9 +13,6 @@ const lark = require("../../utils/lark.js");
 require("dotenv").config();
 
 const utils = path.join(__dirname, "../../utils");
-const characters = JSON.parse(
-	fs.readFileSync(path.join(utils, "characters.json"))
-);
 
 module.exports = {
 	cooldown: 10,
@@ -50,6 +47,13 @@ module.exports = {
 						process.env.DATING_CHANNEL_JP
 				  );
 
+		const charactersFile =
+			interaction.guildId === process.env.GUILD_ID
+				? path.join(utils, "characters.json")
+				: path.join(utils, "characters-jp.json");
+
+		const characters = JSON.parse(fs.readFileSync(charactersFile));
+
 		const flowers = Object.values(characters).map(
 			(character) => character.flower.name
 		);
@@ -63,17 +67,26 @@ module.exports = {
 		const questions = [
 			{
 				customId: "flower",
-				placeholder: "Pick a flower:",
+				placeholder:
+					interaction.guildId === process.env.GUILD_ID
+						? "Pick a flower:"
+						: "どの花が好きですか？",
 				options: flowers,
 			},
 			{
 				customId: "chocolate",
-				placeholder: "What's your favorite chocolate flavor?",
+				placeholder:
+					interaction.guildId === process.env.GUILD_ID
+						? "What's your favorite chocolate flavor?"
+						: "どのチョコレートが好きですか？",
 				options: chocolates,
 			},
 			{
 				customId: "date",
-				placeholder: "Where's your dream date spot?",
+				placeholder:
+					interaction.guildId === process.env.GUILD_ID
+						? "Where's your dream date spot?"
+						: "どの場所でデートしたいですか？",
 				options: dates,
 			},
 		];
@@ -157,11 +170,24 @@ module.exports = {
 				name: interaction.user.username,
 				iconURL: interaction.user.displayAvatarURL(),
 			})
-			.setTitle("Location: " + responses.date)
-			.setDescription(bold("Partner: " + preferredCharacter))
+			.setTitle(
+				(interaction.guildId === process.env.GUILD_ID
+					? "Location: "
+					: "デートの場所は: ") + responses.date
+			)
+			.setDescription(
+				bold(
+					(interaction.guildId === process.env.GUILD_ID
+						? "Partner: "
+						: "デートの彼女は: ") + preferredCharacter
+				)
+			)
 			.setColor(process.env.EMBED_COLOR)
 			.setFooter({
-				text: "This event is just for fun. Have an awesome day!",
+				text:
+					interaction.guildId === process.env.GUILD_ID
+						? "This event is just for fun. Have an awesome day!"
+						: "今回のイベントは娯楽目的でのみ提供されています。良い一日を過ごせますように～",
 			})
 			.setThumbnail(characters[preferredCharacter].thumbnail)
 			.setImage(characters[preferredCharacter].note);
@@ -169,7 +195,9 @@ module.exports = {
 		const message = await channel.send({
 			content:
 				userMention(interaction.user.id) +
-				" Happy Ventine's Day! Your date setup:",
+				(interaction.guildId === process.env.GUILD_ID
+					? " Happy Ventine's Day! Your date setup:"
+					: " バレンタインデーおめでとう！"),
 			embeds: [embed],
 		});
 

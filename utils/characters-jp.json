@@ -1,71 +1,71 @@
 {
     "シヤ": {
         "flower": {
-            "name": "Iris",
+            "name": "「アヤメ」",
             "symbolism": "Solitude, Exorcism, Blessings"
         },
-        "chocolate": "Ginger Hazelnut Chocolate",
-        "date": "Shrine",
+        "chocolate": "ジンジャー ハゼルナッツ チョコ",
+        "date": "神社",
         "thumbnail": "https://i.ibb.co/1trzts8v/5.jpg",
         "note": "https://i.ibb.co/XZK5mb5g/20250208-Discord-CP-FIX.jpg"
     },
     "ハクスリー": {
         "flower": {
-            "name": "Tulip",
+            "name": "「チューリップ」",
             "symbolism": "Elegance, Mystery, Independence"
         },
-        "chocolate": "Whiskey Truffle Chocolate",
-        "date": "Church",
+        "chocolate": "ウイスキートリュフチョコレート",
+        "date": "教会",
         "thumbnail": "https://i.ibb.co/qYcJ61y6/6.jpg",
         "note": "https://i.ibb.co/WvDqyhRn/20250208-Discord-CP-FIX.jpg"
     },
     "キラ": {
         "flower": {
-            "name": "Lisianthus",
+            "name": "「キャットテール」",
             "symbolism": "Courage, Determination, Sincere Love"
         },
-        "chocolate": "Coconut Truffle White Chocolate",
-        "date": "Arcade",
+        "chocolate": "ココナッツガナッシュトリュフのホワイトチョコレート",
+        "date": "ゲームセンター",
         "thumbnail": "https://i.ibb.co/MywpccRX/7.jpg",
         "note": "https://i.ibb.co/KcGVv6Ms/20250208-Discord-CP-FIX.jpg"
     },
     "カミール": {
         "flower": {
-            "name": "Lily of the Valley",
+            "name": "「スズラン」",
             "symbolism": "Selflessness, Nobility, Purity"
         },
-        "chocolate": "100% Dark Chocolate",
-        "date": "Quiet Garden",
+        "chocolate": "100% ダークチョコレート",
+        "date": "静かな庭園",
         "thumbnail": "https://i.ibb.co/Xf5zkdSW/8.jpg",
         "note": "https://i.ibb.co/tMwRrqBj/20250208-Discord-CP-FIX.jpg"
     },
     "ナセ": {
         "flower": {
-            "name": "Daisy",
+            "name": "「デイジー」",
             "symbolism": "Energy, Joy, Innocence"
         },
-        "chocolate": "Berry Ruby Chocolate",
-        "date": "Beach",
+        "chocolate": "ベリールビーチョコレート",
+        "date": "海辺",
         "thumbnail": "https://i.ibb.co/GSJYtNf/4.jpg",
         "note": "https://i.ibb.co/0yNwX3n1/20250208-Discord-CP-FIX.jpg"
     },
     "ソルヴェイア": {
         "flower": {
-            "name": "Bluebell",
+            "name": "「ブルーベル」",
             "symbolism": "Resilience, Fearlessness, Kindness"
         },
-        "chocolate": "Mint Dark Chocolate",
-        "date": "Mountain Top",
+        "chocolate": "ミントフィリングのダークチョコレート",
+        "date": "山頂",
         "thumbnail": "https://i.ibb.co/twxDGZkX/2.jpg",
         "note": "https://i.ibb.co/SwRDxf86/20250207-Discord-CP-FIX.jpg"
     },
     "イオス": {
         "flower": {
-            "name": "Sunflower",
+            "name": "「ひまわり」",
             "symbolism": "Radiance, Pride, Silent Love"
         },
-        "chocolate": "Coffee Cream Chocolate",
-        "date": "Lab",
+        "chocolate": "コーヒークリームチョコレート",
+        "date": "実験室",
         "thumbnail": "https://i.ibb.co/4Rs4kyFX/3.jpg",
         "note": "https://i.ibb.co/jPbnnWTh/20250207-Discord-CP-FIX.jpg"
     }
