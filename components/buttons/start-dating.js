@@ -33,6 +33,8 @@ module.exports = {
 			}
 		);
 
+		console.log(response);
+
 		if (response.total)
 			return await interaction.editReply({
 				content:
