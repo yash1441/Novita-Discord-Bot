@@ -197,7 +197,7 @@ module.exports = {
 				userMention(interaction.user.id) +
 				(interaction.guildId === process.env.GUILD_ID
 					? " Happy Ventine's Day! Your date setup:"
-					: " バレンタインデーおめでとう！"),
+					: " ハッピーバレンタイン！🍫"),
 			embeds: [embed],
 		});
 
