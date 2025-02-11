@@ -158,7 +158,7 @@ module.exports = {
 				iconURL: interaction.user.displayAvatarURL(),
 			})
 			.setTitle("Location: " + responses.date)
-			.setDescription(bold("Partner: ") + preferredCharacter)
+			.setDescription(bold("Partner: " + preferredCharacter))
 			.setColor(process.env.EMBED_COLOR)
 			.setFooter({
 				text: "This event is just for fun. Have an awesome day!",
