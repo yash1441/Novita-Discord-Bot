@@ -34,8 +34,12 @@ module.exports = {
 		if (response.total)
 			return await interaction.editReply({
 				content:
-					"You've already started dating! Check the dating channel for your date setup.\n" +
-					response.items[0].fields.Message.link,
+					interaction.guildId === process.env.GUILD_ID
+						? "You've already started dating! Check the dating channel for your date setup.\n" +
+						  response.items[0].fields.Message.link
+						: "もうデート始まってるよ♪ " +
+						  response.items[0].fields.Message.link +
+						  " チャンネルで彼女の手紙をチェックしよう！",
 			});
 
 		const channel =
