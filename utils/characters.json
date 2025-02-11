@@ -6,7 +6,8 @@
         },
         "chocolate": "Ginger Hazelnut Chocolate",
         "date": "Shrine",
-        "thumbnail": "https://i.ibb.co/1trzts8v/5.jpg"
+        "thumbnail": "https://i.ibb.co/1trzts8v/5.jpg",
+        "note": "https://i.ibb.co/bj1HFm3m/image.jpg"
     },
     "Huxley": {
         "flower": {
@@ -15,7 +16,8 @@
         },
         "chocolate": "Whiskey Truffle Chocolate",
         "date": "Church",
-        "thumbnail": "https://i.ibb.co/qYcJ61y6/6.jpg"
+        "thumbnail": "https://i.ibb.co/qYcJ61y6/6.jpg",
+        "note": "https://i.ibb.co/hJJ7ZGM0/image.jpg"
     },
     "Kira": {
         "flower": {
@@ -24,7 +26,8 @@
         },
         "chocolate": "Coconut Truffle White Chocolate",
         "date": "Arcade",
-        "thumbnail": "https://i.ibb.co/MywpccRX/7.jpg"
+        "thumbnail": "https://i.ibb.co/MywpccRX/7.jpg",
+        "note": "https://i.ibb.co/WvLpLSZq/image.jpg"
     },
     "Camille": {
         "flower": {
@@ -33,7 +36,8 @@
         },
         "chocolate": "100% Dark Chocolate",
         "date": "Quiet Garden",
-        "thumbnail": "https://i.ibb.co/Xf5zkdSW/8.jpg"
+        "thumbnail": "https://i.ibb.co/Xf5zkdSW/8.jpg",
+        "note": "https://i.ibb.co/8g7CNrR2/image.jpg"
     },
     "Nase": {
         "flower": {
@@ -42,7 +46,8 @@
         },
         "chocolate": "Berry Ruby Chocolate",
         "date": "Beach",
-        "thumbnail": "https://i.ibb.co/GSJYtNf/4.jpg"
+        "thumbnail": "https://i.ibb.co/GSJYtNf/4.jpg",
+        "note": "https://i.ibb.co/hRJHgkwb/image.jpg"
     },
     "Soarwynne": {
         "flower": {
@@ -51,7 +56,8 @@
         },
         "chocolate": "Mint Dark Chocolate",
         "date": "Mountain Top",
-        "thumbnail": "https://i.ibb.co/twxDGZkX/2.jpg"
+        "thumbnail": "https://i.ibb.co/twxDGZkX/2.jpg",
+        "note": "https://i.ibb.co/GQ5r0MLx/image.jpg"
     },
     "EOS": {
         "flower": {
@@ -60,6 +66,7 @@
         },
         "chocolate": "Coffee Cream Chocolate",
         "date": "Lab",
-        "thumbnail": "https://i.ibb.co/4Rs4kyFX/3.jpg"
+        "thumbnail": "https://i.ibb.co/4Rs4kyFX/3.jpg",
+        "note": "https://i.ibb.co/wNkNPKgt/image.jpg"
     }
 }

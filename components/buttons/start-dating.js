@@ -147,13 +147,21 @@ module.exports = {
 			.setFooter({
 				text: "This event is just for fun. Have an awesome day!",
 			})
-			.setThumbnail(characters[preferredCharacter].thumbnail);
+			.setThumbnail(characters[preferredCharacter].thumbnail)
+			.setImage(characters[preferredCharacter].note);
 
-		await channel.send({
+		const message = await channel.send({
 			content:
 				userMention(interaction.user.id) +
 				" Happy Ventine's Day! Your date setup:",
 			embeds: [embed],
+		});
+
+		await interaction.editReply({
+			content:
+				"Your date setup has been sent to the dating channel! You can check it out at " +
+				message.url,
+			components: [],
 		});
 	},
 };
