@@ -154,7 +154,6 @@ module.exports = {
 				userMention(interaction.user.id) +
 				" Happy Ventine's Day! Your date setup:",
 			embeds: [embed],
-			flags: MessageFlags.Ephemeral,
 		});
 	},
 };
