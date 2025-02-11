@@ -25,6 +25,15 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+		const channel =
+			interaction.guildId === process.env.GUILD_ID
+				? await interaction.client.channels.fetch(
+						process.env.DATING_CHANNEL
+				  )
+				: await interaction.client.channels.fetch(
+						process.env.DATING_CHANNEL_JP
+				  );
+
 		const flowers = Object.values(characters).map(
 			(character) => character.flower.name
 		);
@@ -90,7 +99,6 @@ module.exports = {
 			});
 		}
 
-		// Calculate points for each character
 		const characterPoints = {};
 		for (const [name, character] of Object.entries(characters)) {
 			characterPoints[name] = 0;
@@ -101,7 +109,6 @@ module.exports = {
 			if (character.date === responses.date) characterPoints[name]++;
 		}
 
-		// Determine the preferred character
 		let preferredCharacter = null;
 		let maxPoints = 0;
 		for (const [name, points] of Object.entries(characterPoints)) {
@@ -109,7 +116,6 @@ module.exports = {
 				maxPoints = points;
 				preferredCharacter = name;
 			} else if (points === maxPoints) {
-				// Apply priority: flower > chocolate > date
 				if (characters[name].flower.name === responses.flower) {
 					preferredCharacter = name;
 				} else if (
@@ -143,7 +149,7 @@ module.exports = {
 			})
 			.setThumbnail(characters[preferredCharacter].thumbnail);
 
-		await interaction.followUp({
+		await channel.send({
 			content:
 				userMention(interaction.user.id) +
 				" Happy Ventine's Day! Your date setup:",
