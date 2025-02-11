@@ -103,8 +103,6 @@ async function createRecord(
 		console.error(error)
 	);
 
-	console.log(response);
-
 	if (response && response.data.code === 0) {
 		return response.data.data;
 	} else {
