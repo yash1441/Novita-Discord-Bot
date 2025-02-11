@@ -1,0 +1,72 @@
+{
+    "シヤ": {
+        "flower": {
+            "name": "Iris",
+            "symbolism": "Solitude, Exorcism, Blessings"
+        },
+        "chocolate": "Ginger Hazelnut Chocolate",
+        "date": "Shrine",
+        "thumbnail": "https://i.ibb.co/1trzts8v/5.jpg",
+        "note": "https://i.ibb.co/XZK5mb5g/20250208-Discord-CP-FIX.jpg"
+    },
+    "ハクスリー": {
+        "flower": {
+            "name": "Tulip",
+            "symbolism": "Elegance, Mystery, Independence"
+        },
+        "chocolate": "Whiskey Truffle Chocolate",
+        "date": "Church",
+        "thumbnail": "https://i.ibb.co/qYcJ61y6/6.jpg",
+        "note": "https://i.ibb.co/WvDqyhRn/20250208-Discord-CP-FIX.jpg"
+    },
+    "キラ": {
+        "flower": {
+            "name": "Lisianthus",
+            "symbolism": "Courage, Determination, Sincere Love"
+        },
+        "chocolate": "Coconut Truffle White Chocolate",
+        "date": "Arcade",
+        "thumbnail": "https://i.ibb.co/MywpccRX/7.jpg",
+        "note": "https://i.ibb.co/KcGVv6Ms/20250208-Discord-CP-FIX.jpg"
+    },
+    "カミール": {
+        "flower": {
+            "name": "Lily of the Valley",
+            "symbolism": "Selflessness, Nobility, Purity"
+        },
+        "chocolate": "100% Dark Chocolate",
+        "date": "Quiet Garden",
+        "thumbnail": "https://i.ibb.co/Xf5zkdSW/8.jpg",
+        "note": "https://i.ibb.co/tMwRrqBj/20250208-Discord-CP-FIX.jpg"
+    },
+    "ナセ": {
+        "flower": {
+            "name": "Daisy",
+            "symbolism": "Energy, Joy, Innocence"
+        },
+        "chocolate": "Berry Ruby Chocolate",
+        "date": "Beach",
+        "thumbnail": "https://i.ibb.co/GSJYtNf/4.jpg",
+        "note": "https://i.ibb.co/0yNwX3n1/20250208-Discord-CP-FIX.jpg"
+    },
+    "ソルヴェイア": {
+        "flower": {
+            "name": "Bluebell",
+            "symbolism": "Resilience, Fearlessness, Kindness"
+        },
+        "chocolate": "Mint Dark Chocolate",
+        "date": "Mountain Top",
+        "thumbnail": "https://i.ibb.co/twxDGZkX/2.jpg",
+        "note": "https://i.ibb.co/SwRDxf86/20250207-Discord-CP-FIX.jpg"
+    },
+    "イオス": {
+        "flower": {
+            "name": "Sunflower",
+            "symbolism": "Radiance, Pride, Silent Love"
+        },
+        "chocolate": "Coffee Cream Chocolate",
+        "date": "Lab",
+        "thumbnail": "https://i.ibb.co/4Rs4kyFX/3.jpg",
+        "note": "https://i.ibb.co/jPbnnWTh/20250207-Discord-CP-FIX.jpg"
+    }
+}
