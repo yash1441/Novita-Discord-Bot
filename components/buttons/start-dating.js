@@ -25,6 +25,21 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+		const response = await lark.listRecords(
+			process.env.COMMUNITY_POOL_BASE,
+			process.env.DATING_TABLE,
+			{
+				filter: `CurrentValue.[Discord ID] = "${interaction.user.id}")`,
+			}
+		);
+
+		if (response.total)
+			return await interaction.editReply({
+				content:
+					"You've already started dating! Check the dating channel for your date setup.\n" +
+					response.items[0].fields.Message.link,
+			});
+
 		const channel =
 			interaction.guildId === process.env.GUILD_ID
 				? await interaction.client.channels.fetch(
@@ -163,5 +178,25 @@ module.exports = {
 				message.url,
 			components: [],
 		});
+
+		await lark.createRecord(
+			process.env.COMMUNITY_POOL_BASE,
+			process.env.DATING_TABLE,
+			{
+				fields: {
+					"Discord ID": interaction.user.id,
+					"Discord Username": interaction.user.username,
+					Flower: responses.flower,
+					Chocolate: responses.chocolate,
+					"Date Location": responses.date,
+					Character: preferredCharacter,
+					Message: {
+						text: "View",
+						link: message.url,
+					},
+					"Server ID": interaction.guildId,
+				},
+			}
+		);
 	},
 };
