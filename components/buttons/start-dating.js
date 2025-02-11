@@ -132,8 +132,8 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setAuthor({
-				name: user.username,
-				iconURL: user.displayAvatarURL(),
+				name: interaction.user.username,
+				iconURL: interaction.user.displayAvatarURL(),
 			})
 			.setTitle("Location: " + responses.date)
 			.setDescription(bold("Partner: ") + preferredCharacter)
