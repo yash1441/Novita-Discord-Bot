@@ -29,11 +29,10 @@ module.exports = {
 			process.env.COMMUNITY_POOL_BASE,
 			process.env.DATING_TABLE,
 			{
-				filter: `CurrentValue.[Discord ID] = "${interaction.user.id}")`,
+				filter:
+					'CurrentValue.[Discord ID] = "' + interaction.user.id + '"',
 			}
 		);
-
-		console.log(response);
 
 		if (response.total)
 			return await interaction.editReply({
