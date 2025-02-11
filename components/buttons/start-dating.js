@@ -3,6 +3,9 @@ const {
 	ActionRowBuilder,
 	StringSelectMenuBuilder,
 	ComponentType,
+	EmbedBuilder,
+	bold,
+	userMention,
 } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
@@ -127,8 +130,24 @@ module.exports = {
 			}
 		}
 
+		const embed = new EmbedBuilder()
+			.setAuthor({
+				name: user.username,
+				iconURL: user.displayAvatarURL(),
+			})
+			.setTitle("Location: " + responses.date)
+			.setDescription(bold("Partner: ") + preferredCharacter)
+			.setColor(process.env.EMBED_COLOR)
+			.setFooter({
+				text: "This event is just for fun. Have an awesome day!",
+			})
+			.setThumbnail(characters[preferredCharacter].thumbnail);
+
 		await interaction.followUp({
-			content: "Your preferred character is: " + preferredCharacter,
+			content:
+				userMention(interaction.user.id) +
+				" Happy Ventine's Day! Your date setup:",
+			embeds: [embed],
 			flags: MessageFlags.Ephemeral,
 		});
 	},
