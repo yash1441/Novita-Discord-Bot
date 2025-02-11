@@ -34,14 +34,14 @@ module.exports = {
 
 		const questions = [
 			{
-				customId: "chocolate",
-				placeholder: "What's your favorite chocolate flavor?",
-				options: chocolates,
-			},
-			{
 				customId: "flower",
 				placeholder: "Pick a flower:",
 				options: flowers,
+			},
+			{
+				customId: "chocolate",
+				placeholder: "What's your favorite chocolate flavor?",
+				options: chocolates,
 			},
 			{
 				customId: "date",
@@ -87,8 +87,48 @@ module.exports = {
 			});
 		}
 
+		// Calculate points for each character
+		const characterPoints = {};
+		for (const [name, character] of Object.entries(characters)) {
+			characterPoints[name] = 0;
+			if (character.flower.name === responses.flower)
+				characterPoints[name]++;
+			if (character.chocolate === responses.chocolate)
+				characterPoints[name]++;
+			if (character.date === responses.date) characterPoints[name]++;
+		}
+
+		// Determine the preferred character
+		let preferredCharacter = null;
+		let maxPoints = 0;
+		for (const [name, points] of Object.entries(characterPoints)) {
+			if (points > maxPoints) {
+				maxPoints = points;
+				preferredCharacter = name;
+			} else if (points === maxPoints) {
+				// Apply priority: flower > chocolate > date
+				if (characters[name].flower.name === responses.flower) {
+					preferredCharacter = name;
+				} else if (
+					characters[name].chocolate === responses.chocolate &&
+					characters[preferredCharacter].flower.name !==
+						responses.flower
+				) {
+					preferredCharacter = name;
+				} else if (
+					characters[name].date === responses.date &&
+					characters[preferredCharacter].flower.name !==
+						responses.flower &&
+					characters[preferredCharacter].chocolate !==
+						responses.chocolate
+				) {
+					preferredCharacter = name;
+				}
+			}
+		}
+
 		await interaction.followUp({
-			content: `You selected:\nFlower: ${responses.chocolate}\nChocolate: ${responses.flower}\nDate Location: ${responses.date}`,
+			content: "Your preferred character is: " + preferredCharacter,
 			flags: MessageFlags.Ephemeral,
 		});
 	},
