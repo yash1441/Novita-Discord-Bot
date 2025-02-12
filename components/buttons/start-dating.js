@@ -118,18 +118,29 @@ module.exports = {
 			const filter = (i) =>
 				i.user.id === interaction.user.id &&
 				i.customId === question.customId;
-			const collected = await interaction.channel.awaitMessageComponent({
-				filter,
-				componentType: ComponentType.StringSelect,
-				time: 60000,
-			});
+			try {
+				const collected =
+					await interaction.channel.awaitMessageComponent({
+						filter,
+						componentType: ComponentType.StringSelect,
+						time: 60000,
+					});
 
-			responses[question.customId] = collected.values[0];
+				responses[question.customId] = collected.values[0];
 
-			await collected.update({
-				content: `You selected: ${collected.values[0]}`,
-				components: [],
-			});
+				await collected.update({
+					content: `You selected: ${collected.values[0]}`,
+					components: [],
+				});
+			} catch (error) {
+				return await interaction.editReply({
+					content:
+						interaction.guildId === process.env.GUILD_ID
+							? "You took too long to respond. Please try again."
+							: "時間切れです。もう一度やり直してください。",
+					components: [],
+				});
+			}
 		}
 
 		const characterPoints = {};
