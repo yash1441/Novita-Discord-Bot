@@ -70,12 +70,14 @@ module.exports = {
 
 				const buttonRow = new ActionRowBuilder().addComponents(guildButton);
 
-				await client.users.send(userId, {
-					content:
-						"Your suggestion has been denied with the following reason: " +
-						inlineCode(reason),
-					components: [buttonRow],
-				});
+				await client.users
+					.send(userId, {
+						content:
+							"Your suggestion has been denied with the following reason: " +
+							inlineCode(reason),
+						components: [buttonRow],
+					})
+					.catch(console.log("Failed to send DM to user " + userId));
 
 				await modalInteraction
 					.reply({
