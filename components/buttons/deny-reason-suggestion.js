@@ -2,10 +2,13 @@ const {
 	EmbedBuilder,
 	ModalBuilder,
 	TextInputBuilder,
+	ButtonBuilder,
+	ButtonStyle,
 	TextInputStyle,
 	ActionRowBuilder,
 	userMention,
 	MessageFlags,
+	inlineCode,
 } = require("discord.js");
 require("dotenv").config();
 
@@ -50,13 +53,28 @@ module.exports = {
 						{
 							name: "Reason",
 							value: reason,
-							inline: false,
+							inline: true,
 						}
 					);
 
 				await interaction.message.edit({
 					embeds: [deniedEmbed],
 					components: [],
+				});
+
+				const guildButton = new ButtonBuilder()
+					.setCustomId("guild-disabled")
+					.setLabel(interaction.guild.name)
+					.setStyle(ButtonStyle.Success)
+					.setDisabled(true);
+
+				const buttonRow = new ActionRowBuilder().addComponents(guildButton);
+
+				await client.users.send(userId, {
+					content:
+						"Your suggestion has been denied with the following reason: " +
+						inlineCode(reason),
+					components: [buttonRow],
 				});
 
 				await modalInteraction
