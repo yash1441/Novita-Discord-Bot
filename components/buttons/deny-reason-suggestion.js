@@ -70,7 +70,7 @@ module.exports = {
 
 				const buttonRow = new ActionRowBuilder().addComponents(guildButton);
 
-				await client.users
+				await interaction.client.users
 					.send(userId, {
 						content:
 							"Your suggestion has been denied with the following reason: " +
