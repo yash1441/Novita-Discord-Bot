@@ -54,9 +54,17 @@ module.exports = {
 						}
 					);
 
-				await interaction.message
-					.edit({ embeds: [deniedEmbed], components: [] })
-					.then(() => interaction.deleteReply());
+				await interaction.message.edit({
+					embeds: [deniedEmbed],
+					components: [],
+				});
+
+				await modalInteraction
+					.reply({
+						content: "The suggestion has been denied.",
+						flags: MessageFlags.Ephemeral,
+					})
+					.then(() => modalInteraction.deleteReply());
 			})
 			.catch(console.error);
 	},
