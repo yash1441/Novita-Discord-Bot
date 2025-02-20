@@ -62,6 +62,13 @@ module.exports = {
 					components: [],
 				});
 
+				await modalInteraction
+					.reply({
+						content: "The suggestion has been denied.",
+						flags: MessageFlags.Ephemeral,
+					})
+					.then(() => modalInteraction.deleteReply());
+
 				const guildButton = new ButtonBuilder()
 					.setCustomId("guild-disabled")
 					.setLabel(interaction.guild.name)
@@ -78,13 +85,6 @@ module.exports = {
 						components: [buttonRow],
 					})
 					.catch(console.log("Failed to send DM to user " + userId));
-
-				await modalInteraction
-					.reply({
-						content: "The suggestion has been denied.",
-						flags: MessageFlags.Ephemeral,
-					})
-					.then(() => modalInteraction.deleteReply());
 			})
 			.catch(console.error);
 	},
