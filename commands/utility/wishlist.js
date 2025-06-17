@@ -42,7 +42,9 @@ module.exports = {
 			}
 		);
 
-		if (response && response.total) {
+		console.log(response);
+
+		if (response.total) {
 			return await interaction.editReply({
 				content: "You have already submitted a wishlist proof.",
 			});
