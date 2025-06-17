@@ -37,12 +37,8 @@ module.exports = {
 		const response = await lark.listRecords(
 			process.env.COMMUNITY_POOL_BASE,
 			process.env.WISHLIST_TABLE,
-			{
-				filter: `CurrentValue.[Discord ID] = "${discordId}"`,
-			}
+			{ filter: 'CurrentValue.[Discord ID] = "' + discordId + '"' }
 		);
-
-		console.log(response);
 
 		if (response.total) {
 			return await interaction.editReply({
