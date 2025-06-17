@@ -36,7 +36,9 @@ module.exports = {
 			`Received wishlist proof from ${interaction.user.tag} (${discordId})`
 		);
 
-		const fileName = "./attachments/" + discordId + "_wishlist.jpg";
+		const attachmentsDir = path.join(__dirname, "../../attachments");
+
+		const fileName = path.join(attachmentsDir, `${discordId}_wishlist.jpg`);
 
 		await download(attachment.url, fileName);
 
