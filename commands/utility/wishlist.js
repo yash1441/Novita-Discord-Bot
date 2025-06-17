@@ -17,6 +17,8 @@ module.exports = {
 
 		const attachment = interaction.options.getAttachment("proof");
 
+		console.log(attachment);
+
 		await interaction.editReply({
 			content: `Thank you for submitting your wishlist proof! Please wait while we verify it.`,
 		});
