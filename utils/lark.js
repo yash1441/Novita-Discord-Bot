@@ -161,14 +161,14 @@ async function uploadFile(app_token, file_name, type) {
 				"multipart/form-data; boundary=---011000010111000001101001",
 		},
 		data: {
-			file_name: file,
+			file_name: file_name,
 			parent_type: type,
 			parent_node: app_token,
-			size: fs.statSync(file).size,
+			size: fs.statSync(file_name).size,
 			file: {
-				value: fs.createReadStream(file),
+				value: fs.createReadStream(file_name),
 				options: {
-					filename: file,
+					filename: file_name,
 					contentType: null,
 				},
 			},
