@@ -36,17 +36,16 @@ module.exports = {
 			`Received wishlist proof from ${interaction.user.tag} (${discordId})`
 		);
 
-		const attachmentsDir = path.join(__dirname, "../../attachments");
+		// const attachmentsDir = path.join(__dirname, "../../attachments");
 
 		const fileName = `${discordId}_wishlist.jpg`;
-		const filePath = path.join(attachmentsDir, fileName);
+		// const filePath = path.join(attachmentsDir, fileName);
 
-		await download(attachment.url, filePath);
+		await download(attachment.url, fileName);
 
 		const imageToken = await lark.uploadFile(
 			process.env.COMMUNITY_POOL_BASE,
 			fileName,
-			filePath,
 			"bitable_image"
 		);
 
