@@ -147,7 +147,7 @@ async function updateRecord(
 	}
 }
 
-async function uploadFile(app_token, file_name, type) {
+async function uploadFile(app_token, file_name, file_path, type) {
 	const tenantAccessToken = await authorize();
 
 	if (!tenantAccessToken) return false;
@@ -164,9 +164,9 @@ async function uploadFile(app_token, file_name, type) {
 			file_name: file_name,
 			parent_type: type,
 			parent_node: app_token,
-			size: fs.statSync(file_name).size,
+			size: fs.statSync(file_path).size,
 			file: {
-				value: fs.createReadStream(file_name),
+				value: fs.createReadStream(file_path),
 				options: {
 					filename: file_name,
 					contentType: null,

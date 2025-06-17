@@ -38,13 +38,15 @@ module.exports = {
 
 		const attachmentsDir = path.join(__dirname, "../../attachments");
 
-		const fileName = path.join(attachmentsDir, `${discordId}_wishlist.jpg`);
+		const fileName = `${discordId}_wishlist.jpg`;
+		const filePath = path.join(attachmentsDir, fileName);
 
-		await download(attachment.url, fileName);
+		await download(attachment.url, filePath);
 
 		const imageToken = await lark.uploadFile(
 			process.env.COMMUNITY_POOL_BASE,
 			fileName,
+			filePath,
 			"bitable_image"
 		);
 
