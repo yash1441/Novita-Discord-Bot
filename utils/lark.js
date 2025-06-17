@@ -180,8 +180,8 @@ async function uploadFile(app_token, file_name, type) {
 		console.error(error)
 	);
 
-	if (response && response.data.code === 0) {
-		return response.data.data;
+	if (response) {
+		return response;
 	} else {
 		return false;
 	}
