@@ -1,4 +1,5 @@
 const axios = require("axios");
+const fs = require("fs");
 
 async function authorize(
 	id = process.env.FEISHU_ID,
@@ -16,9 +17,7 @@ async function authorize(
 		},
 	};
 
-	const response = await axios(options).catch((error) =>
-		console.error(error)
-	);
+	const response = await axios(options).catch((error) => console.error(error));
 
 	if (response.status === 200) {
 		return response.data.tenant_access_token;
@@ -57,9 +56,7 @@ async function listRecords(
 		options.params = parameters;
 	}
 
-	const response = await axios(options).catch((error) =>
-		console.error(error)
-	);
+	const response = await axios(options).catch((error) => console.error(error));
 
 	if (response && response.data.code === 0) {
 		return response.data.data;
@@ -99,9 +96,7 @@ async function createRecord(
 		options.params = parameters;
 	}
 
-	const response = await axios(options).catch((error) =>
-		console.error(error)
-	);
+	const response = await axios(options).catch((error) => console.error(error));
 
 	if (response && response.data.code === 0) {
 		return response.data.data;
@@ -143,9 +138,7 @@ async function updateRecord(
 		options.params = parameters;
 	}
 
-	const response = await axios(options).catch((error) =>
-		console.error(error)
-	);
+	const response = await axios(options).catch((error) => console.error(error));
 
 	if (response && response.data.code === 0) {
 		return response.data.data;
@@ -154,4 +147,41 @@ async function updateRecord(
 	}
 }
 
-module.exports = { listRecords, createRecord, updateRecord };
+async function uploadFile(app_token, file_name, type) {
+	const tenantAccessToken = await authorize();
+
+	if (!tenantAccessToken) return false;
+
+	const options = {
+		method: "POST",
+		url: "https://open.feishu.cn/open-apis/drive/v1/medias/upload_all",
+		headers: {
+			Authorization: "Bearer " + tenantAccessToken,
+			"Content-Type":
+				"multipart/form-data; boundary=---011000010111000001101001",
+		},
+		data: {
+			file_name: file,
+			parent_type: type,
+			parent_node: app_token,
+			size: fs.statSync(file).size,
+			file: {
+				value: fs.createReadStream(file),
+				options: {
+					filename: file,
+					contentType: null,
+				},
+			},
+		},
+	};
+
+	const response = await axios(options).catch((error) => console.error(error));
+
+	if (response && response.data.code === 0) {
+		return response.data.data;
+	} else {
+		return false;
+	}
+}
+
+module.exports = { listRecords, createRecord, updateRecord, uploadFile };
