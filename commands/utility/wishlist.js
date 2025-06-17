@@ -36,7 +36,10 @@ module.exports = {
 			`Received wishlist proof from ${interaction.user.tag} (${discordId})`
 		);
 
-		await download(attachment.url, discordId + "_wishlist.jpg");
+		await download(
+			attachment.url,
+			"./attachments/" + discordId + "_wishlist.jpg"
+		);
 
 		console.log(`Downloaded wishlist proof for ${discordId}`);
 
