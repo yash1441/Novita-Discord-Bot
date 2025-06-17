@@ -19,6 +19,8 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		const discordId = interaction.user.id;
+		const discordUsername = interaction.user.username;
+		const serverId = interaction.guild.id;
 
 		const attachment = interaction.options.getAttachment("proof");
 
@@ -32,14 +34,21 @@ module.exports = {
 			});
 		}
 
-		console.log(
-			`Received wishlist proof from ${interaction.user.tag} (${discordId})`
+		const response = await lark.listRecords(
+			process.env.COMMUNITY_POOL_BASE,
+			process.env.WISHLIST_TABLE,
+			{
+				filter: `CurrentValue.[Discord ID] = "${discordId}"`,
+			}
 		);
 
-		// const attachmentsDir = path.join(__dirname, "../../attachments");
+		if (response && response.total) {
+			return await interaction.editReply({
+				content: "You have already submitted a wishlist proof.",
+			});
+		}
 
 		const fileName = `${discordId}_wishlist.jpg`;
-		// const filePath = path.join(attachmentsDir, fileName);
 
 		await download(attachment.url, fileName);
 
@@ -49,15 +58,29 @@ module.exports = {
 			"bitable_image"
 		);
 
-		console.log(
-			`Uploaded wishlist proof for ${discordId} to Lark with token: ${imageToken}`
+		const data = {
+			"Discord ID": discordId,
+			"Discord Username": discordUsername,
+			Server: serverId,
+			Screenshot: [{ file_token: imageToken }],
+		};
+
+		const success = await lark.createRecord(
+			process.env.COMMUNITY_POOL_BASE,
+			process.env.WISHLIST_TABLE,
+			{ fields: data }
 		);
 
-		console.log(`Downloaded wishlist proof for ${discordId}`);
-
-		await interaction.editReply({
-			content: `Thank you for submitting your wishlist proof! Please wait while we verify it.`,
-		});
+		if (success) {
+			return await interaction.editReply({
+				content: `Thank you for submitting your wishlist proof! Please wait while we verify it.`,
+			});
+		} else {
+			return await interaction.editReply({
+				content:
+					"There was an error submitting your wishlist proof. Please try again later.",
+			});
+		}
 	},
 };
 
