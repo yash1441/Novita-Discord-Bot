@@ -176,11 +176,9 @@ async function uploadFile(app_token, file_name, type) {
 		},
 	};
 
-	const response = await request(options).catch((error) =>
-		console.error(error)
-	);
+	let response = await request(options).catch((error) => console.error(error));
 
-	console.log(response);
+	response = JSON.parse(response);
 
 	if (response && response.code === 0) {
 		return response.data.file_token;
