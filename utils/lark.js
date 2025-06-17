@@ -1,5 +1,6 @@
 const axios = require("axios");
 const fs = require("fs");
+const request = require("request-promise");
 
 async function authorize(
 	id = process.env.FEISHU_ID,
@@ -160,7 +161,7 @@ async function uploadFile(app_token, file_name, type) {
 			"Content-Type":
 				"multipart/form-data; boundary=---011000010111000001101001",
 		},
-		data: {
+		formData: {
 			file_name: file_name,
 			parent_type: type,
 			parent_node: app_token,
@@ -175,7 +176,9 @@ async function uploadFile(app_token, file_name, type) {
 		},
 	};
 
-	const response = await axios(options).catch((error) => console.error(error));
+	const response = await request(options).catch((error) =>
+		console.error(error)
+	);
 
 	if (response && response.data.code === 0) {
 		return response.data.data;
