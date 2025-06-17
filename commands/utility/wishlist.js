@@ -58,8 +58,6 @@ module.exports = {
 			"bitable_image"
 		);
 
-		console.log(`Image uploaded with token: ${imageToken}`);
-
 		const data = {
 			"Discord ID": discordId,
 			"Discord Username": discordUsername,
