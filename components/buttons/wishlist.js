@@ -20,7 +20,7 @@ module.exports = {
 		if (!response.total)
 			return await interaction.editReply({
 				content:
-					"You have not submitted your wishlist yet. Use the `/wishlist` command to submit your wishlist first.",
+					"You have not submitted your wishlist yet. Use the </wishlist:1384573611041361964> command to submit your wishlist first.",
 			});
 
 		const activationCode = response.data[0].fields["Activation Code"];
