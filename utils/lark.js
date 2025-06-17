@@ -160,7 +160,7 @@ async function uploadFile(app_token, file_name, file_path, type) {
 			"Content-Type":
 				"multipart/form-data; boundary=---011000010111000001101001",
 		},
-		data: {
+		formData: {
 			file_name: file_name,
 			parent_type: type,
 			parent_node: app_token,
