@@ -36,9 +36,18 @@ module.exports = {
 			`Received wishlist proof from ${interaction.user.tag} (${discordId})`
 		);
 
-		await download(
-			attachment.url,
-			"./attachments/" + discordId + "_wishlist.jpg"
+		const fileName = "./attachments/" + discordId + "_wishlist.jpg";
+
+		await download(attachment.url, fileName);
+
+		const imageToken = await lark.uploadFile(
+			process.env.COMMUNITY_POOL_BASE,
+			fileName,
+			"bitable_image"
+		);
+
+		console.log(
+			`Uploaded wishlist proof for ${discordId} to Lark with token: ${imageToken}`
 		);
 
 		console.log(`Downloaded wishlist proof for ${discordId}`);
