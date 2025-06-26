@@ -30,9 +30,10 @@ module.exports = {
 				? process.env.LFG_CHANNEL
 				: process.env.LFG_CHANNEL_JP
 		);
+		data.tags = data.forumChannel.availableTags;
 		data.region = "JP";
 
-		const selectMenuRow = generateSelectMenu(data.forumChannel);
+		const selectMenuRow = generateSelectMenu(data);
 		const modal = generateModal(data.serverId);
 
 		if (data.serverId === process.env.GUILD_ID)
@@ -46,8 +47,6 @@ module.exports = {
 };
 
 function generateSelectMenu(data) {
-	console.log(data);
-	data.tags = data.forumChannel.availableTags;
 	const selectMenu = new StringSelectMenuBuilder()
 		.setCustomId("lfg-region-select")
 		.setPlaceholder("Which Region Do You Play From?");
