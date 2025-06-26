@@ -7,6 +7,7 @@ const {
 	StringSelectMenuBuilder,
 	StringSelectMenuOptionBuilder,
 	ActionRowBuilder,
+	ComponentType,
 	bold,
 	inlineCode,
 	userMention,
@@ -131,6 +132,13 @@ async function showSelectMenu(interaction, selectMenuRow, modal) {
 	await interaction.editReply({
 		content: "Region Selection",
 		components: [selectMenuRow],
+	});
+
+	const botReply = await interaction.fetchReply();
+
+	const collector = botReply.createMessageComponentCollector({
+		time: 20_000,
+		componentType: ComponentType.StringSelect,
 	});
 
 	collector.on("collect", async (selectMenuInteraction) => {
