@@ -272,6 +272,8 @@ async function sendLFGData(data) {
 		}
 	}
 
+	console.log(data);
+
 	const thread = await data.forumChannel.threads.create({
 		name: "LFG: " + data.modal.fields.getTextInputValue("game-mode-input"),
 		reason: "Submitted by " + data.modal.user.username,
