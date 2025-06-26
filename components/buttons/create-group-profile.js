@@ -172,7 +172,7 @@ async function showSelectMenu(interaction, selectMenuRow, modal, data) {
 		if (!modalReply) return;
 
 		await modalReply.reply({
-			content: bold(data.character.name),
+			content: "Your form has been submitted successfully!",
 			flags: MessageFlags.Ephemeral,
 		});
 
