@@ -39,7 +39,7 @@ module.exports = {
 		const modal = generateModal(data.serverId);
 
 		if (data.serverId === process.env.GUILD_ID)
-			await showSelectMenu(interaction, selectMenuRow, modal);
+			await showSelectMenu(interaction, selectMenuRow, modal, data);
 
 		// const response = await lark.listRecords(
 		// 	process.env.COMMUNITY_POOL_BASE,
@@ -128,7 +128,7 @@ function generateModal(serverId) {
 	return modal;
 }
 
-async function showSelectMenu(interaction, selectMenuRow, modal) {
+async function showSelectMenu(interaction, selectMenuRow, modal, data) {
 	await interaction.editReply({
 		content: "Region Selection",
 		components: [selectMenuRow],
