@@ -268,7 +268,7 @@ async function sendLFGData(data) {
 
 	for (const tag of data.tags) {
 		if (tag.name == data.region) {
-			data.region.id = tag.id;
+			data.regionId = tag.id;
 		}
 	}
 
@@ -278,7 +278,7 @@ async function sendLFGData(data) {
 		name: "LFG: " + data.modal.fields.getTextInputValue("game-mode-input"),
 		reason: "Submitted by " + data.modal.user.username,
 		message: { embeds: [embed] },
-		appliedTags: [data.region.id],
+		appliedTags: [data.regionId],
 	});
 
 	const message = await thread.fetchStarterMessage();
