@@ -46,6 +46,7 @@ module.exports = {
 };
 
 function generateSelectMenu(data) {
+	console.log(data);
 	data.tags = data.forumChannel.availableTags;
 	const selectMenu = new StringSelectMenuBuilder()
 		.setCustomId("lfg-region-select")
