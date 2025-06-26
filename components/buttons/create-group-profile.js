@@ -20,6 +20,7 @@ module.exports = {
 		name: "create-group-profile",
 	},
 	async execute(interaction) {
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		const data = {
 			interaction: interaction,
 			discordId: interaction.user.id,
