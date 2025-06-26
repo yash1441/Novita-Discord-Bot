@@ -272,7 +272,7 @@ async function sendLFGData(data) {
 		}
 	}
 
-	const thread = await data.channel.threads.create({
+	const thread = await data.forumChannel.threads.create({
 		name: title,
 		reason: "Submitted by " + data.modal.user.username,
 		message: { embeds: [embed] },
