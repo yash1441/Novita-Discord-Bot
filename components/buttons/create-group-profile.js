@@ -45,8 +45,8 @@ module.exports = {
 	},
 };
 
-function generateSelectMenu(lfgForumChannel) {
-	data.tags = lfgForumChannel.availableTags;
+function generateSelectMenu(data) {
+	data.tags = data.forumChannel.availableTags;
 	const selectMenu = new StringSelectMenuBuilder()
 		.setCustomId("lfg-region-select")
 		.setPlaceholder("Which Region Do You Play From?");
