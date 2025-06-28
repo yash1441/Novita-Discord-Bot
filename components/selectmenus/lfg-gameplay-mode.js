@@ -100,7 +100,6 @@ module.exports = {
 			flags: MessageFlags.Ephemeral,
 		});
 
-		await modalReply.deleteReply();
 		const data = {
 			discordId: discordId,
 			serverId: serverId,
