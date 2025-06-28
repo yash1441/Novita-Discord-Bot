@@ -155,11 +155,16 @@ module.exports = {
 		});
 
 		const threadMessage = await forumThread.fetchStarterMessage();
+		const threadLink = messageLink(threadMessage.channel.id, threadMessage.id);
+
+		const updatedEmbed = EmbedBuilder.from(lfgEmbed).setDescription(
+			`${lfgEmbed.data.description}\n**Thread Link:** ${threadLink}`
+		);
+
+		await threadMessage.edit({ embeds: [updatedEmbed] });
 
 		await modalReply.editReply({
-			content:
-				"Your LFG thread has been created: " +
-				messageLink(threadMessage.channel.id, threadMessage.id),
+			content: "Your LFG thread has been created: " + threadLink,
 			components: [],
 		});
 	},
