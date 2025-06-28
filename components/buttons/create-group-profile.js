@@ -15,8 +15,10 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
+		const serverId = interaction.guildId;
+
 		const forumChannel = await interaction.client.channels.fetch(
-			data.serverId === process.env.GUILD_ID
+			serverId === process.env.GUILD_ID
 				? process.env.LFG_CHANNEL
 				: process.env.LFG_CHANNEL_JP
 		);
