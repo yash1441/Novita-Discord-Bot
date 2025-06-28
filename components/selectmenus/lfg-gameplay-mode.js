@@ -70,9 +70,8 @@ module.exports = {
 
 		const actionRows = [];
 
-		if (serverId === process.env.GUILD_ID) {
-			actionRows.push(firstActionRow);
-		}
+		serverId === process.env.GUILD_ID ? actionRows.push(firstActionRow) : null;
+
 		actionRows.push(secondActionRow, thirdActionRow, fourthActionRow);
 
 		modal.addComponents(...actionRows);
@@ -104,13 +103,16 @@ module.exports = {
 			discordId: discordId,
 			serverId: serverId,
 			gameplayMode: gameplayMode,
-			region: modalReply.fields.getTextInputValue("region-input"),
 			teamDescription: modalReply.fields.getTextInputValue(
 				"team-description-input"
 			),
 			language: modalReply.fields.getTextInputValue("language-input"),
 			time: modalReply.fields.getTextInputValue("time-input"),
 		};
+
+		serverId === process.env.GUILD_ID
+			? (data.region = modalReply.fields.getTextInputValue("region-input"))
+			: (data.region = "JP");
 
 		await modalReply.editReply({
 			content: `**Gameplay Mode:** ${data.gameplayMode}\n**Region:** ${data.region}\n**Team Description:** ${data.teamDescription}\n**Language:** ${data.language}\n**Time:** ${data.time}`,
