@@ -146,7 +146,7 @@ module.exports = {
 			});
 
 		const forumThread = await forumChannel.threads.create({
-			name: `${data.gameplayMode} | ${interaction.user.username}`,
+			name: `LFG | ${data.gameplayMode} | ${interaction.user.username}`,
 			reason: interaction.user.username + " created a LFG thread",
 			message: {
 				embeds: [lfgEmbed],
