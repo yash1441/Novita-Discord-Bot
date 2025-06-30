@@ -20,7 +20,7 @@ module.exports = {
 		if (!response.total)
 			return await interaction.editReply({
 				content:
-					"You have not submitted your wishlist yet. Use the </wishlist:1384573611041361964> command to submit your wishlist first.",
+					"You have not submitted your Steam Wishlist screenshot yet. Use the </wishlist:1384573611041361964> command to submit your screenshot first. Make sure it follows all the rules posted in the channel.",
 			});
 
 		const activationCode = response.items[0].fields["Activation Code"] ?? null;
@@ -28,11 +28,11 @@ module.exports = {
 		if (!activationCode)
 			return await interaction.editReply({
 				content:
-					"Please wait for us to verify your wishlist. You will receive an activation code once your wishlist is verified.",
+					"Please wait for us to verify your Steam Wishlist screenshot. You will receive an activation code once your screenshot is verified.",
 			});
 
 		await interaction.editReply({
-			content: `Your activation code is: \`${activationCode}\`. Please keep it safe.`,
+			content: `🎉 Congratulations! Here is your Beta Key: \`${activationCode}\`. To get started, please download the game launcher from our official website and use this key to activate it.\nOfficial Website: https://fatetrigger.com/\nSee you in the game, Awakeners!`,
 		});
 	},
 };

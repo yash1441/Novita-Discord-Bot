@@ -71,7 +71,7 @@ module.exports = {
 
 		if (success) {
 			return await interaction.editReply({
-				content: `Thank you for submitting your wishlist proof! Please wait while we verify it.`,
+				content: `✅ Submission successful! We are now processing your entry. You can check your status here again on July 23rd.`,
 			});
 		} else {
 			return await interaction.editReply({
