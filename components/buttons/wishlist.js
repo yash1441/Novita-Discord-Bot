@@ -28,7 +28,7 @@ module.exports = {
 		if (!activationCode)
 			return await interaction.editReply({
 				content:
-					"Please wait for us to verify your Steam Wishlist screenshot. You will receive an activation code once your screenshot is verified.",
+					"Please wait for us to verify your Steam Wishlist screenshot. You will receive a Beta Key once your screenshot is verified.",
 			});
 
 		await interaction.editReply({
