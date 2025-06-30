@@ -71,7 +71,10 @@ module.exports = {
 
 		if (success) {
 			return await interaction.editReply({
-				content: `✅ Submission successful! We are now processing your entry. You can check your status here again on July 23rd.`,
+				content:
+					serverId === process.env.GUILD_ID
+						? `✅ Submission successful! We are now processing your entry. You can check your status here again on July 23rd.`
+						: `提出完了！<t:1753272000:d>以降に本チャンネルで、下記の『チェック』ボタンを押し、抽選結果を確認してください！`,
 			});
 		} else {
 			return await interaction.editReply({

@@ -7,6 +7,7 @@ const {
 	messageLink,
 	EmbedBuilder,
 	inlineCode,
+	codeBlock,
 } = require("discord.js");
 const lark = require("../../utils/lark");
 require("dotenv").config();
@@ -159,7 +160,9 @@ module.exports = {
 		const threadLink = messageLink(threadMessage.channel.id, threadMessage.id);
 
 		const updatedEmbed = EmbedBuilder.from(lfgEmbed).setDescription(
-			`${lfgEmbed.data.description}\n**Thread Link:** ${inlineCode(threadLink)}`
+			`${lfgEmbed.data.description}\n**Thread Link:** \n${codeBlock(
+				threadLink
+			)}`
 		);
 
 		await threadMessage.edit({ embeds: [updatedEmbed] });
