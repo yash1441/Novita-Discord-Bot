@@ -32,8 +32,8 @@ module.exports = {
 			return await interaction.editReply({
 				content:
 					serverId === process.env.GUILD_ID
-						? "Please wait for us to verify your Steam Wishlist screenshot. You will receive a Beta Key once your screenshot is verified."
-						: "Steamウィッシュリストのスクリーンショットの確認が完了するまでお待ちください。スクリーンショットの確認が完了すると、ベータキーが送信されます。",
+						? "Thank you so much for participating in our Wishlist Event!\nWhile your entry wasn't chosen in this random giveaway, please don't be discouraged! You still have other great chances to get into the game:\n➡️ **Request Access on Steam:** Head to our official Steam page and click the **'Request Access'** button for another chance at direct entry.\n➡️ **Future Events:** Keep an eye on our official social media for more giveaways and community activities!\nSteam Page: <https://bit.ly/fttnsteam>\nOfficial Website: <https://fatetrigger.com/>\nWe truly appreciate your support and hope to see you in the game soon, Awakeners!\n- Follow us on X: <https://x.com/FateTrigger_EN>\n- Follow us on Facebook: <https://www.facebook.com/FateTrigger>\n- Follow us on Instagram:  <https://www.instagram.com/fatetrigger_eng/>"
+						: "「βテスト参加資格抽選」イベントにご参加いただきありがとうございました。残念ながら今回のイベントではご当選されませんでした。ですが、他にも参加資格を獲得できる方法があります！\n➡️**Steamでのアクセスをリクエスト**\n公式Steamページにアクセスし、「アクセスリクエスト」ボタンをクリックすることで、βテストに参加できるチャンスがあります\n➡️ **公式SNSをフォロー:**\n運命のトリガー公式SNSのキャンペーンでも参加資格や豪華景品が当たるチャンスがありますので、ぜひ運命のトリガー公式SNSをフォローしてください!\n- 公式サイト： <https://fatetrigger.com/>\n- 公式Ｘ（旧Twitter）: <https://x.com/FateTrigger_JP>\n- 公式YouTube: <https://www.youtube.com/@FateTrigger_JP>",
 			});
 
 		await interaction.editReply({
