@@ -69,6 +69,8 @@ module.exports = {
 			{ fields: data }
 		);
 
+		fs.unlinkSync(fileName);
+
 		if (success) {
 			return await interaction.editReply({
 				content:
