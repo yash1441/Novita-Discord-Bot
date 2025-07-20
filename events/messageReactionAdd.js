@@ -43,7 +43,7 @@ module.exports = {
 
 		const response = await lark.listRecords(base, table, { filter });
 
-		if (!response) {
+		if (!response || !response.items || !response.items.length) {
 			return console.warn(
 				`Could not fetch record for: ${reaction.message.channel.name}`
 			);
@@ -56,8 +56,7 @@ module.exports = {
 			{
 				fields: {
 					[reaction.emoji.name]:
-						reaction.emoji.name === "✅" ||
-						reaction.emoji.name === "❤️"
+						reaction.emoji.name === "✅" || reaction.emoji.name === "❤️"
 							? acceptCount
 							: rejectCount,
 				},
