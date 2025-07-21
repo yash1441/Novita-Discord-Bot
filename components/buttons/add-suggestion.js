@@ -110,7 +110,7 @@ module.exports = {
 					return null;
 				});
 
-			if (!modalReply) return;
+			if (!modalReply || modalReply.replied || modalReply.deferred) return;
 
 			await modalReply.reply({
 				content: bold(modal.data.title),
