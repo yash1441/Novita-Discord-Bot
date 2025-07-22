@@ -128,7 +128,7 @@ module.exports = {
 							bold(modal.data.title) +
 							"\n" +
 							codeBlock(
-								modalReply.fields.getTextInputValue("description").length < 2000
+								modalReply.fields.getTextInputValue("description").length < 1000
 									? modalReply.fields.getTextInputValue("description")
 									: modalReply.fields
 											.getTextInputValue("description")
