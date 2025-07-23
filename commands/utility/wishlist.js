@@ -4,6 +4,8 @@ const path = require("path");
 const request = require("request-promise");
 const lark = require("../../utils/lark.js");
 
+const serverCooldowns = new Map(); // key: serverId, value: timestamp
+
 module.exports = {
 	cooldown: 5,
 	category: "utility",
@@ -21,6 +23,20 @@ module.exports = {
 		const discordId = interaction.user.id;
 		const discordUsername = interaction.user.username;
 		const serverId = interaction.guildId;
+
+		// --- Server-wide cooldown check ---
+		const SERVER_COOLDOWN_SECONDS = 5; // Set your desired cooldown (in seconds)
+		const now = Date.now();
+		const lastUsed = serverCooldowns.get(serverId) || 0;
+		if (now - lastUsed < SERVER_COOLDOWN_SECONDS * 1000) {
+			const waitTime = Math.ceil(
+				(SERVER_COOLDOWN_SECONDS * 1000 - (now - lastUsed)) / 1000
+			);
+			return await interaction.editReply({
+				content: `⏳ The wishlist command is on cooldown for this server. Please wait ${waitTime} more seconds.`,
+			});
+		}
+		serverCooldowns.set(serverId, now);
 
 		const attachment = interaction.options.getAttachment("proof");
 
