@@ -20,7 +20,7 @@ module.exports = {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 		const discordId = interaction.user.id;
 		const discordUsername = interaction.user.username;
-		const serverId = interaction.guild.id;
+		const serverId = interaction.guildId;
 
 		const attachment = interaction.options.getAttachment("proof");
 
