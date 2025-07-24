@@ -171,10 +171,14 @@ async function sendReward(client, record) {
 	const eventName = record.fields["Event Name"];
 	const user = await client.users.fetch(discordId);
 	const region = record.fields.Region;
+
 	const channel =
 		region === "Japan"
 			? await client.channels.fetch(process.env.REWARD_CHANNEL_JP)
 			: await client.channels.fetch(process.env.REWARD_CHANNEL);
+
+	const guild = channel.guild;
+
 	const threadName =
 		region === "Japan" ? "報酬: " + user.username : "Reward: " + user.username;
 
@@ -202,8 +206,30 @@ async function sendReward(client, record) {
 		reason: "Reward sent to user " + discordId,
 	});
 
-	await thread.join();
-	await thread.members.add(discordId);
+	let isMember = false;
+	try {
+		await guild.members.fetch(discordId);
+		await thread.join();
+		await thread.members.add(discordId);
+		isMember = true;
+	} catch (err) {
+		console.log(`User ${discordId} is not a member of the server.`);
+	}
+
+	if (!isMember) {
+		await thread.delete({ reason: discordId + " is not a member" });
+		return await lark.updateRecord(
+			process.env.COMMUNITY_POOL_BASE,
+			process.env.REWARD_TABLE,
+			recordId,
+			{
+				fields: {
+					"Discord Username": user.username,
+					Status: "Member Not Found",
+				},
+			}
+		);
+	}
 
 	await thread.send({
 		content: threadContent,
