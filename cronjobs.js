@@ -38,10 +38,34 @@ async function sendRegionSelect(client, record) {
 	const user = await client.users.fetch(discordId);
 	const eventName = record.fields["Event Name"];
 	const region = record.fields.Region;
+
 	const channel =
 		region === "Japan"
 			? await client.channels.fetch(process.env.REWARD_CHANNEL_JP)
 			: await client.channels.fetch(process.env.REWARD_CHANNEL);
+
+	const guild = channel.guild;
+	let isMember = false;
+	try {
+		await guild.members.fetch(discordId);
+		isMember = true;
+	} catch (err) {
+		console.log(`User ${discordId} is not a member of the server.`);
+	}
+
+	if (!isMember) {
+		return await lark.updateRecord(
+			process.env.COMMUNITY_POOL_BASE,
+			process.env.REWARD_TABLE,
+			recordId,
+			{
+				fields: {
+					"Discord Username": user.username,
+					Status: "Member Not Found",
+				},
+			}
+		);
+	}
 
 	const thread = await channel.threads.create({
 		name: "Region: " + user.username,
