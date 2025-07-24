@@ -45,15 +45,27 @@ async function sendRegionSelect(client, record) {
 			: await client.channels.fetch(process.env.REWARD_CHANNEL);
 
 	const guild = channel.guild;
+
+	const thread = await channel.threads.create({
+		name: "Region: " + user.username,
+		autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
+		type: ChannelType.PrivateThread,
+		inviteable: false,
+		reason: "User " + discordId + " needs to select a region",
+	});
+
 	let isMember = false;
 	try {
 		await guild.members.fetch(discordId);
+		await thread.join();
+		await thread.members.add(discordId);
 		isMember = true;
 	} catch (err) {
 		console.log(`User ${discordId} is not a member of the server.`);
 	}
 
 	if (!isMember) {
+		await thread.delete({ reason: discordId + " is not a member" });
 		return await lark.updateRecord(
 			process.env.COMMUNITY_POOL_BASE,
 			process.env.REWARD_TABLE,
@@ -66,17 +78,6 @@ async function sendRegionSelect(client, record) {
 			}
 		);
 	}
-
-	const thread = await channel.threads.create({
-		name: "Region: " + user.username,
-		autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
-		type: ChannelType.PrivateThread,
-		inviteable: false,
-		reason: "User " + discordId + " needs to select a region",
-	});
-
-	await thread.join();
-	await thread.members.add(discordId);
 
 	const stringSelectMenu = new StringSelectMenuBuilder()
 		.setCustomId("region-select")
