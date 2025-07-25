@@ -24,11 +24,16 @@ module.exports = {
 			return;
 		}
 
+		console.log("Channel type:", channel.type); // Should be 0 (TextChannel) or 15 (ForumChannel)
+
 		let deletedCount = 0;
 
 		// Fetch all active threads in the channel
-		const threads = await channel.threads.fetch({ force: true });
-		console.log(channel, threads);
+		const threads = await channel.threads.fetch();
+		const archivedThreads = await channel.threads.fetchArchived();
+		console.log("Threads fetched:", threads.threads.size);
+		console.log("Archived threads fetched:", archivedThreads.threads.size);
+
 		for (const [, thread] of threads.threads) {
 			try {
 				// Fetch up to 1 message to check if thread is empty
