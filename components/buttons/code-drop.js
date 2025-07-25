@@ -24,28 +24,25 @@ module.exports = {
 		);
 
 		if (response.total) {
-			// Collect all activation codes for this user
-			const codes = response.items
-				.map((item) => item.fields["Activation Code"])
-				.filter((code) => !!code);
+			const code = response.items[0].fields["Activation Code"];
 
-			if (codes.length && serverId === process.env.GUILD_ID)
+			if (code && serverId === process.env.GUILD_ID)
 				return await interaction.editReply({
 					content:
-						"Congratulations, your Alpha keys are:\n" +
-						codes.map(inlineCode).join("\n") +
-						"\nPlease check " +
+						"Congratulations, your Alpha key is " +
+						inlineCode(code) +
+						". Please check " +
 						hyperlink(
 							"Activating a Product on Steam",
 							"https://help.steampowered.com/en/faqs/view/2A12-9D79-C3D7-F870"
 						) +
 						" to activate the game. Have fun!",
 				});
-			else if (codes.length)
+			else if (code)
 				return await interaction.editReply({
 					content:
-						"参加資格取得おめでとうございます！\n" +
-						codes.map(inlineCode).join("\n") +
+						"参加資格取得おめでとうございます！ " +
+						inlineCode(code) +
 						"、" +
 						hyperlink(
 							"をチェックして",
@@ -53,14 +50,14 @@ module.exports = {
 						) +
 						"、ゲームを追加しましょう！",
 				});
-			else if (!codes.length && serverId === process.env.GUILD_ID)
+			else if (!code && serverId === process.env.GUILD_ID)
 				return await interaction.editReply({
 					content:
 						"At the moment, you have no Alpha key assigned to you. Don't worry; you can check the " +
 						channelMention("1280845688305090570") +
 						" and wait for the next batch of keys.",
 				});
-			else if (!codes.length)
+			else if (!code)
 				return await interaction.editReply({
 					content:
 						"今回『運命のトリガー: The Novita』クローズドαテストの参加資格に応募いただきありがとうございました。申し訳ありませんが、抽選の結果落選となりました。" +

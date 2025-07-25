@@ -26,9 +26,11 @@ module.exports = {
 						: "Steamのストアページで「運命のトリガー」をウィッシュリストに追加したことを示すスクリーンショットをアップロードしてください。チャンネルに記載されたすべてのルールに従っていることを確認してください。</wishlist:1384573611041361964>",
 			});
 
-		const activationCode = response.items[0].fields["Activation Code"] ?? null;
+		const codes = response.items
+			.map((item) => item.fields["Activation Code"])
+			.filter((code) => !!code);
 
-		if (!activationCode)
+		if (!codes.length)
 			return await interaction.editReply({
 				content:
 					serverId === process.env.GUILD_ID
@@ -39,12 +41,20 @@ module.exports = {
 		await interaction.editReply({
 			content:
 				serverId === process.env.GUILD_ID
-					? `🎉 Congratulations! Here is your Beta Key: ${inlineCode(
-							activationCode
-					  )}. To get started, please download the game launcher from our official website and use this key to activate it.\nOfficial Website: https://fatetrigger.com/\nSee you in the game, Awakeners!`
-					: `ご入選おめでとうございます！\nこれは参加資格のコードです: ${inlineCode(
-							activationCode
-					  )}。公式サイトからゲームをダウンロードし、このコードを使ってゲームを有効化しましょう！\n公式サイトはこちらです: https://fatetrigger.com/`,
+					? `🎉 Congratulations! Here ${
+							codes.length > 1 ? "are your Beta Keys" : "is your Beta Key"
+					  }:\n${codes
+							.map(inlineCode)
+							.join(
+								"\n"
+							)}\nTo get started, please download the game launcher from our official website and use these key(s) to activate it.\nOfficial Website: https://fatetrigger.com/\nSee you in the game, Awakeners!`
+					: `ご入選おめでとうございます！\nこれは参加資格のコード${
+							codes.length > 1 ? "一覧です" : "です"
+					  }:\n${codes
+							.map(inlineCode)
+							.join(
+								"\n"
+							)}\n公式サイトからゲームをダウンロードし、このコードを使ってゲームを有効化しましょう！\n公式サイトはこちらです: https://fatetrigger.com/`,
 		});
 	},
 };
