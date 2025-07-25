@@ -1,6 +1,7 @@
 const {
 	SlashCommandBuilder,
 	PermissionFlagsBits,
+	ChannelType,
 	MessageFlags,
 } = require("discord.js");
 
@@ -10,32 +11,53 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("delete-threads")
 		.setDescription(
-			"Delete all threads in this channel that don't have a starter message"
+			"Delete all private threads in REWARD_CHANNEL with no messages"
 		)
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads),
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-		let deletedCount = 0;
+		const channelId = process.env.REWARD_CHANNEL;
+		const channel = await interaction.guild.channels.fetch(channelId);
+		if (!channel) {
+			await interaction.editReply({ content: "Reward channel not found." });
+			return;
+		}
 
-		// Fetch all threads in the channel
-		const threads = await interaction.channel.threads.fetchActive();
+		let deletedCount = 0;
+		let log = "";
+
+		// Fetch all active threads in the channel
+		const threads = await channel.threads.fetchActive();
 		for (const [, thread] of threads.threads) {
+			if (thread.type !== ChannelType.PrivateThread) continue;
+
 			try {
-				const starterMessage = await thread.fetchStarterMessage();
-				if (!starterMessage) {
-					await thread.delete("No starter message found");
-					// deletedCount++;
+				// Fetch up to 1 message to check if thread is empty
+				const messages = await thread.messages.fetch({ limit: 1 });
+				if (messages.size === 0) {
+					await thread.delete("No messages in thread");
+					deletedCount++;
+					console.log(
+						`Deleted thread: ${thread.name} (${thread.id}) - No messages`
+					);
+				} else {
+					console.log(
+						`Kept thread: ${thread.name} (${thread.id}) - Has messages`
+					);
 				}
 			} catch (err) {
-				// If fetchStarterMessage throws, treat as no starter message
-				await thread.delete("No starter message found (error)");
-				// deletedCount++;
+				console.error(
+					`Error with thread: ${thread.name} (${thread.id}) - ${err.message}`
+				);
 			}
 		}
 
 		await interaction.editReply({
-			content: `Deleted ${deletedCount} threads without a starter message.`,
+			content: `Deleted ${deletedCount} private threads with no messages.\n\nLog:\n${log.slice(
+				0,
+				1900
+			)}`,
 		});
 	},
 };
