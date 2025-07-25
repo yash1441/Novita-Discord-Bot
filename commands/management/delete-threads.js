@@ -18,9 +18,7 @@ module.exports = {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const channelId = process.env.REWARD_CHANNEL;
-		const channel = await interaction.guild.channels.fetch(
-			"1323108564922925127" // Replace with your channel ID
-		);
+		const channel = await interaction.guild.channels.fetch(channelId);
 		if (!channel) {
 			await interaction.editReply({ content: "Reward channel not found." });
 			return;
@@ -59,7 +57,7 @@ module.exports = {
 		}
 
 		await interaction.editReply({
-			content: `Deleted ${deletedCount} private threads with no messages.`,
+			content: `Deleted ${deletedCount} threads with no messages.`,
 		});
 	},
 };
