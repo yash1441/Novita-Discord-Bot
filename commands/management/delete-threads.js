@@ -28,7 +28,8 @@ module.exports = {
 		let log = "";
 
 		// Fetch all active threads in the channel
-		const threads = await channel.threads.fetchActive();
+		const threads = await channel.threads.fetchActive(false);
+		console.log(threads.threads);
 		for (const [, thread] of threads.threads) {
 			if (thread.type !== ChannelType.PrivateThread) continue;
 
