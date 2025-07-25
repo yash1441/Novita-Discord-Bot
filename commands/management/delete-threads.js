@@ -28,7 +28,7 @@ module.exports = {
 
 		// Fetch all active threads in the channel
 		const threads = await channel.threads.fetch({ force: true });
-		console.log(threads.threads);
+		console.log(channel, threads);
 		for (const [, thread] of threads.threads) {
 			try {
 				// Fetch up to 1 message to check if thread is empty
@@ -52,7 +52,7 @@ module.exports = {
 		}
 
 		await interaction.editReply({
-			content: `Deleted ${deletedCount} private threads with no messages.}`,
+			content: `Deleted ${deletedCount} private threads with no messages.`,
 		});
 	},
 };
