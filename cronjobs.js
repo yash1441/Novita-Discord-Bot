@@ -12,6 +12,7 @@ const lark = require("./utils/lark");
 require("dotenv").config();
 
 module.exports = async (client) => {
+	return console.log("Cronjobs is disabled.");
 	const records = await lark.listRecords(
 		process.env.COMMUNITY_POOL_BASE,
 		process.env.REWARD_TABLE,
