@@ -17,7 +17,11 @@ module.exports = {
 	async execute(interaction) {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
-		const channelId = process.env.REWARD_CHANNEL;
+		const serverId = interaction.guildId;
+		const channelId =
+			serverId === process.env.GUILD_ID
+				? process.env.REWARD_CHANNEL
+				: process.env.REWARD_CHANNEL_JP;
 		const channel = await interaction.guild.channels.fetch(channelId);
 		if (!channel) {
 			await interaction.editReply({ content: "Reward channel not found." });
