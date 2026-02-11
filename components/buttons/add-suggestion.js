@@ -29,11 +29,15 @@ module.exports = {
 		const channel =
 			interaction.guildId === process.env.GUILD_ID
 				? await interaction.client.channels.fetch(
-						process.env.VOTE_SUGGESTION_ID
-				  )
-				: await interaction.client.channels.fetch(
-						process.env.VOTE_SUGGESTION_ID_JP
-				  );
+						process.env.VOTE_SUGGESTION_ID,
+					)
+				: interaction.guildId === process.env.GUILD_ID_JP
+					? await interaction.client.channels.fetch(
+							process.env.VOTE_SUGGESTION_ID_JP,
+						)
+					: await interaction.client.channels.fetch(
+							process.env.VOTE_SUGGESTION_ID_KR,
+						);
 		const availableTags = channel.availableTags;
 
 		const selectMenu = new StringSelectMenuBuilder()
@@ -44,7 +48,7 @@ module.exports = {
 			selectMenu.addOptions(
 				new StringSelectMenuOptionBuilder()
 					.setLabel(tag.name)
-					.setValue(tag.name)
+					.setValue(tag.name),
 			);
 		}
 
@@ -57,14 +61,14 @@ module.exports = {
 				.setCustomId("title")
 				.setLabel("Title")
 				.setStyle(TextInputStyle.Short)
-				.setPlaceholder("Give your suggestion a short title")
+				.setPlaceholder("Give your suggestion a short title"),
 		);
 		const modalRow2 = new ActionRowBuilder().addComponents(
 			new TextInputBuilder()
 				.setCustomId("description")
 				.setLabel("Description")
 				.setStyle(TextInputStyle.Paragraph)
-				.setPlaceholder("Explain your suggestion in detail here")
+				.setPlaceholder("Explain your suggestion in detail here"),
 		);
 
 		modal.addComponents(modalRow1, modalRow2);
@@ -132,9 +136,9 @@ module.exports = {
 									? modalReply.fields.getTextInputValue("description")
 									: modalReply.fields
 											.getTextInputValue("description")
-											.slice(0, 1000) + "..."
+											.slice(0, 1000) + "...",
 							),
-				  })
+					})
 				: await interaction.editReply({
 						content:
 							"あなたの提案はすでに送信されました。問題なければ、" +
@@ -147,9 +151,9 @@ module.exports = {
 									? modalReply.fields.getTextInputValue("description")
 									: modalReply.fields
 											.getTextInputValue("description")
-											.slice(0, 1000) + "..."
+											.slice(0, 1000) + "...",
 							),
-				  });
+					});
 
 			collector.stop();
 
@@ -199,16 +203,18 @@ async function sendSuggestionAdmin(interaction, category) {
 	const row = new ActionRowBuilder().addComponents(
 		approveButton,
 		denyButton,
-		denyReasonButton
+		denyReasonButton,
 	);
 
 	const channel =
 		interaction.guildId === process.env.GUILD_ID
-			? await interaction.client.channels.fetch(
-					process.env.DECIDE_SUGGESTION_ID
-			  )
-			: await interaction.client.channels.fetch(
-					process.env.DECIDE_SUGGESTION_ID_JP
-			  );
+			? await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID)
+			: interaction.guildId === process.env.GUILD_ID_JP
+				? await interaction.client.channels.fetch(
+						process.env.VOTE_SUGGESTION_ID_JP,
+					)
+				: await interaction.client.channels.fetch(
+						process.env.VOTE_SUGGESTION_ID_KR,
+					);
 	await channel.send({ embeds: [embed], components: [row] });
 }

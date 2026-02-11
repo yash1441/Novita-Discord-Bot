@@ -1,7 +1,6 @@
 const {
 	SlashCommandBuilder,
 	PermissionFlagsBits,
-	ChannelType,
 	MessageFlags,
 } = require("discord.js");
 
@@ -11,7 +10,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("delete-threads")
 		.setDescription(
-			"Delete all private threads in REWARD_CHANNEL with no messages"
+			"Delete all private threads in REWARD_CHANNEL with no messages",
 		)
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageThreads),
 	async execute(interaction) {
@@ -46,16 +45,16 @@ module.exports = {
 					await thread.delete("No messages in thread");
 					deletedCount++;
 					console.log(
-						`Deleted thread: ${thread.name} (${thread.id}) - No messages`
+						`Deleted thread: ${thread.name} (${thread.id}) - No messages`,
 					);
 				} else {
 					console.log(
-						`Kept thread: ${thread.name} (${thread.id}) - Has messages`
+						`Kept thread: ${thread.name} (${thread.id}) - Has messages`,
 					);
 				}
 			} catch (err) {
 				console.error(
-					`Error with thread: ${thread.name} (${thread.id}) - ${err.message}`
+					`Error with thread: ${thread.name} (${thread.id}) - ${err.message}`,
 				);
 			}
 		}

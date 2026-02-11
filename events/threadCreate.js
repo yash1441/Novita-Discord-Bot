@@ -8,7 +8,8 @@ module.exports = {
 		if (thread.parent.type != ChannelType.GuildForum) return;
 		if (
 			thread.parentId != process.env.VOTE_SUGGESTION_ID &&
-			thread.parentId != process.env.VOTE_SUGGESTION_ID_JP
+			thread.parentId != process.env.VOTE_SUGGESTION_ID_JP &&
+			thread.parentId != process.env.VOTE_SUGGESTION_ID_KR
 		)
 			return;
 
@@ -20,7 +21,7 @@ module.exports = {
 		await message.react("✅").then(message.react("❌"));
 
 		const tag = thread.parent.availableTags.find(
-			(tag) => tag.id == thread.appliedTags[0]
+			(tag) => tag.id == thread.appliedTags[0],
 		);
 
 		const data = {
@@ -36,7 +37,7 @@ module.exports = {
 		const success = await lark.createRecord(
 			process.env.FEEDBACK_POOL_BASE,
 			process.env.SUGGESTIONS_TABLE,
-			{ fields: data }
+			{ fields: data },
 		);
 
 		if (!success) console.log("Failed to create record in lark");
