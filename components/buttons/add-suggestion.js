@@ -208,13 +208,15 @@ async function sendSuggestionAdmin(interaction, category) {
 
 	const channel =
 		interaction.guildId === process.env.GUILD_ID
-			? await interaction.client.channels.fetch(process.env.VOTE_SUGGESTION_ID)
+			? await interaction.client.channels.fetch(
+					process.env.DECIDE_SUGGESTION_ID,
+				)
 			: interaction.guildId === process.env.GUILD_ID_JP
 				? await interaction.client.channels.fetch(
-						process.env.VOTE_SUGGESTION_ID_JP,
+						process.env.DECIDE_SUGGESTION_ID_JP,
 					)
 				: await interaction.client.channels.fetch(
-						process.env.VOTE_SUGGESTION_ID_KR,
+						process.env.DECIDE_SUGGESTION_ID_KR,
 					);
 	await channel.send({ embeds: [embed], components: [row] });
 }
