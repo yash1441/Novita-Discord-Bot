@@ -17,7 +17,9 @@ module.exports = {
 			flags: MessageFlags.Ephemeral,
 		});
 
-		const channel = await client.channels.fetch(process.env.LOG_CHANNEL);
+		const channel = await interaction.client.channels.fetch(
+			process.env.LOG_CHANNEL,
+		);
 
 		if (!channel) return;
 
