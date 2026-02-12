@@ -12,14 +12,13 @@ const lark = require("./utils/lark");
 require("dotenv").config();
 
 module.exports = async (client) => {
-	return console.log("Cronjobs is disabled.");
 	const records = await lark.listRecords(
 		process.env.COMMUNITY_POOL_BASE,
 		process.env.REWARD_TABLE,
 		{
 			filter:
 				'OR(CurrentValue.[Status] = "Start", CurrentValue.[Status] = "Ready to Send")',
-		}
+		},
 	);
 
 	if (!records || !records.total)
@@ -76,7 +75,7 @@ async function sendRegionSelect(client, record) {
 					"Discord Username": user.username,
 					Status: "Member Not Found",
 				},
-			}
+			},
 		);
 	}
 
@@ -132,7 +131,7 @@ async function sendRegionSelect(client, record) {
 				.setLabel("Finland")
 				.setValue("Finland")
 				.setEmoji("🇫🇮"),
-			new StringSelectMenuOptionBuilder().setLabel("Others").setValue("Others")
+			new StringSelectMenuOptionBuilder().setLabel("Others").setValue("Others"),
 		);
 
 	const row = new ActionRowBuilder().addComponents(stringSelectMenu);
@@ -141,10 +140,10 @@ async function sendRegionSelect(client, record) {
 		region === "Japan"
 			? "お手数ですが、住んでいる国・地域の情報を教えてください"
 			: "Congrats on winning the " +
-			  bold(eventName) +
-			  "! Your reward is " +
-			  bold(record.fields["Reward Type"]) +
-			  ".\nPlease choose your region below.";
+				bold(eventName) +
+				"! Your reward is " +
+				bold(record.fields["Reward Type"]) +
+				".\nPlease choose your region below.";
 
 	await thread.send({
 		content: threadContent,
@@ -160,7 +159,7 @@ async function sendRegionSelect(client, record) {
 				"Discord Username": user.username,
 				Status: "Region Required",
 			},
-		}
+		},
 	);
 }
 
@@ -186,18 +185,18 @@ async function sendReward(client, record) {
 	const threadContent =
 		region === "Japan"
 			? userMention(discordId) +
-			  " 様は当選されました！\nおめでとうございます！\n賞品内容：" +
-			  bold(rewardType) +
-			  ": " +
-			  inlineCode(reward)
+				" 様は当選されました！\nおめでとうございます！\n賞品内容：" +
+				bold(rewardType) +
+				": " +
+				inlineCode(reward)
 			: "Well done! " +
-			  userMention(discordId) +
-			  " You have won the " +
-			  inlineCode(eventName) +
-			  ".\n\nPlease check your " +
-			  bold(rewardType) +
-			  ": " +
-			  inlineCode(reward);
+				userMention(discordId) +
+				" You have won the " +
+				inlineCode(eventName) +
+				".\n\nPlease check your " +
+				bold(rewardType) +
+				": " +
+				inlineCode(reward);
 
 	const thread = await channel.threads.create({
 		name: threadName,
@@ -228,7 +227,7 @@ async function sendReward(client, record) {
 					"Discord Username": user.username,
 					Status: "Member Not Found",
 				},
-			}
+			},
 		);
 	}
 
@@ -248,6 +247,6 @@ async function sendReward(client, record) {
 					text: "Visit Channel",
 				},
 			},
-		}
+		},
 	);
 }
