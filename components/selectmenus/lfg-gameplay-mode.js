@@ -132,9 +132,14 @@ module.exports = {
 			: korean
 				? process.env.LFG_CHANNEL_KR
 				: process.env.LFG_CHANNEL_JP;
+
 		const forumChannel =
 			await interaction.client.channels.fetch(forumChannelId);
+
 		const availableTags = forumChannel.availableTags;
+
+		console.log(availableTags);
+
 		for (const tag of availableTags) {
 			if (tag.name == data.gameplayMode) {
 				data.tagId = tag.id;
