@@ -16,12 +16,16 @@ module.exports = {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const serverId = interaction.guildId;
+		const english = serverId === process.env.GUILD_ID ? true : false;
 		const korean = serverId === process.env.GUILD_ID_KR ? true : false;
+		const japanese = serverId === process.env.GUILD_ID_JP ? true : false;
 
 		const forumChannel = await interaction.client.channels.fetch(
-			serverId === process.env.GUILD_ID
+			english
 				? process.env.LFG_CHANNEL
-				: process.env.LFG_CHANNEL_JP,
+				: korean
+					? process.env.LFG_CHANNEL_KR
+					: process.env.LFG_CHANNEL_JP,
 		);
 
 		const availableTags = forumChannel.availableTags;

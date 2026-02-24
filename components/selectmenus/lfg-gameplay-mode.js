@@ -55,7 +55,11 @@ module.exports = {
 		const languageInput = new TextInputBuilder()
 			.setCustomId("language-input")
 			.setLabel(
-				english ? "What Language Do You Prefer?" : "ボイスチャットの可否:",
+				english
+					? "What Language Do You Prefer?"
+					: korean
+						? "규칙 준수 및 바른 말 사용에 동의하시나요?"
+						: "ボイスチャットの可否:",
 			)
 			.setStyle(TextInputStyle.Short)
 			.setRequired(true);
@@ -137,8 +141,6 @@ module.exports = {
 			await interaction.client.channels.fetch(forumChannelId);
 
 		const availableTags = forumChannel.availableTags;
-
-		console.log(availableTags);
 
 		for (const tag of availableTags) {
 			if (tag.name == data.gameplayMode) {
