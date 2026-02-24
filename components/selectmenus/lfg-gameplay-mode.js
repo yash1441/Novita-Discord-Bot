@@ -46,7 +46,7 @@ module.exports = {
 				english
 					? "General Description About the Team"
 					: korean
-						? "게임 시작 시간:"
+						? "파티 소개:"
 						: "募集条件:",
 			)
 			.setStyle(TextInputStyle.Paragraph)
@@ -62,7 +62,13 @@ module.exports = {
 
 		const timeInput = new TextInputBuilder()
 			.setCustomId("time-input")
-			.setLabel(english ? "Expected Online Times:" : "プレイできる時間帯:")
+			.setLabel(
+				english
+					? "Expected Online Times:"
+					: korean
+						? "게임 시작 시간:"
+						: "プレイできる時間帯:",
+			)
 			.setStyle(TextInputStyle.Short)
 			.setRequired(true);
 
@@ -158,7 +164,7 @@ module.exports = {
 			message: {
 				embeds: [lfgEmbed],
 			},
-			appliedTags: [data.tagId],
+			...(data.tagId && { appliedTags: [data.tagId] }),
 		});
 
 		const threadMessage = await forumThread.fetchStarterMessage();
