@@ -20,27 +20,34 @@ module.exports = {
 		const gameplayMode = interaction.values[0];
 		const discordId = interaction.user.id;
 		const serverId = interaction.guildId;
+		const english = serverId === process.env.GUILD_ID ? true : false;
+		const korean = serverId === process.env.GUILD_ID_KR ? true : false;
+		const japanese = serverId === process.env.GUILD_ID_JP ? true : false;
 
 		const modal = new ModalBuilder()
 			.setCustomId("create-group-profile-modal")
 			.setTitle(
-				serverId === process.env.GUILD_ID
+				english
 					? "Looking for Teammates"
-					: "チームメンバー募集"
+					: korean
+						? "팀원 모집"
+						: "チームメンバー募集",
 			);
 
 		const regionInput = new TextInputBuilder()
 			.setCustomId("region-input")
-			.setLabel("Which Region Do You Play From?")
+			.setLabel(korean ? "파티 소개" : "Which Region Do You Play From?")
 			.setStyle(TextInputStyle.Short)
 			.setRequired(true);
 
 		const teamDescriptionInput = new TextInputBuilder()
 			.setCustomId("team-description-input")
 			.setLabel(
-				serverId === process.env.GUILD_ID
+				english
 					? "General Description About the Team"
-					: "募集条件:"
+					: korean
+						? "게임 시작 시간:"
+						: "募集条件:",
 			)
 			.setStyle(TextInputStyle.Paragraph)
 			.setRequired(true);
@@ -48,26 +55,20 @@ module.exports = {
 		const languageInput = new TextInputBuilder()
 			.setCustomId("language-input")
 			.setLabel(
-				serverId === process.env.GUILD_ID
-					? "What Language Do You Prefer?"
-					: "ボイスチャットの可否:"
+				english ? "What Language Do You Prefer?" : "ボイスチャットの可否:",
 			)
 			.setStyle(TextInputStyle.Short)
 			.setRequired(true);
 
 		const timeInput = new TextInputBuilder()
 			.setCustomId("time-input")
-			.setLabel(
-				serverId === process.env.GUILD_ID
-					? "Expected Online Times:"
-					: "プレイできる時間帯:"
-			)
+			.setLabel(english ? "Expected Online Times:" : "プレイできる時間帯:")
 			.setStyle(TextInputStyle.Short)
 			.setRequired(true);
 
 		const firstActionRow = new ActionRowBuilder().addComponents(regionInput);
 		const secondActionRow = new ActionRowBuilder().addComponents(
-			teamDescriptionInput
+			teamDescriptionInput,
 		);
 		const thirdActionRow = new ActionRowBuilder().addComponents(languageInput);
 		const fourthActionRow = new ActionRowBuilder().addComponents(timeInput);
@@ -108,23 +109,25 @@ module.exports = {
 			serverId: serverId,
 			gameplayMode: gameplayMode,
 			teamDescription: modalReply.fields.getTextInputValue(
-				"team-description-input"
+				"team-description-input",
 			),
 			language: modalReply.fields.getTextInputValue("language-input"),
 			time: modalReply.fields.getTextInputValue("time-input"),
 		};
 
-		serverId === process.env.GUILD_ID
+		english
 			? (data.region = modalReply.fields.getTextInputValue("region-input"))
-			: (data.region = "JP");
+			: korean
+				? (data.region = "KR")
+				: (data.region = "JP");
 
-		const forumChannelId =
-			serverId === process.env.GUILD_ID
-				? process.env.LFG_CHANNEL
+		const forumChannelId = english
+			? process.env.LFG_CHANNEL
+			: korean
+				? process.env.LFG_CHANNEL_KR
 				: process.env.LFG_CHANNEL_JP;
-		const forumChannel = await interaction.client.channels.fetch(
-			forumChannelId
-		);
+		const forumChannel =
+			await interaction.client.channels.fetch(forumChannelId);
 		const availableTags = forumChannel.availableTags;
 		for (const tag of availableTags) {
 			if (tag.name == data.gameplayMode) {
@@ -135,12 +138,14 @@ module.exports = {
 		const lfgEmbed = new EmbedBuilder()
 			.setColor(process.env.EMBED_COLOR)
 			.setTitle(
-				serverId === process.env.GUILD_ID
+				english
 					? "Looking for Teammates"
-					: "チームメンバー募集"
+					: korean
+						? "팀원 모집"
+						: "チームメンバー募集",
 			)
 			.setDescription(
-				`**Gameplay Mode:** ${data.gameplayMode}\n**Region:** ${data.region}\n**Team Description:** ${data.teamDescription}\n**Language:** ${data.language}\n**Time:** ${data.time}`
+				`**Gameplay Mode:** ${data.gameplayMode}\n**Region:** ${data.region}\n**Team Description:** ${data.teamDescription}\n**Language:** ${data.language}\n**Time:** ${data.time}`,
 			)
 			.setFooter({
 				text: `Posted by ${interaction.user.username}`,
@@ -161,8 +166,8 @@ module.exports = {
 
 		const updatedEmbed = EmbedBuilder.from(lfgEmbed).setDescription(
 			`${lfgEmbed.data.description}\n**Thread Link:** \n${codeBlock(
-				threadLink
-			)}`
+				threadLink,
+			)}`,
 		);
 
 		await threadMessage.edit({ embeds: [updatedEmbed] });

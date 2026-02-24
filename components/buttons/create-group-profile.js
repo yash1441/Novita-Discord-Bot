@@ -16,31 +16,36 @@ module.exports = {
 		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const serverId = interaction.guildId;
+		const korean = serverId === process.env.GUILD_ID_KR ? true : false;
 
 		const forumChannel = await interaction.client.channels.fetch(
 			serverId === process.env.GUILD_ID
 				? process.env.LFG_CHANNEL
-				: process.env.LFG_CHANNEL_JP
+				: process.env.LFG_CHANNEL_JP,
 		);
 
 		const availableTags = forumChannel.availableTags;
 
 		const selectMenu = new StringSelectMenuBuilder()
 			.setCustomId("lfg-gameplay-mode")
-			.setPlaceholder("What gameplay mode do you play?");
+			.setPlaceholder(
+				korean
+					? "원하시는 플레이 모드를 선택하세요"
+					: "What gameplay mode do you play?",
+			);
 
 		for (const tag of availableTags) {
 			selectMenu.addOptions(
 				new StringSelectMenuOptionBuilder()
 					.setLabel(tag.name)
-					.setValue(tag.name)
+					.setValue(tag.name),
 			);
 		}
 
 		const row = new ActionRowBuilder().addComponents(selectMenu);
 
 		await interaction.editReply({
-			content: "Gameplay Mode Selection",
+			content: korean ? "게임 모드 선택" : "Gameplay Mode Selection",
 			components: [row],
 		});
 	},
