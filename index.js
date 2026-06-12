@@ -14,10 +14,7 @@ const client = new Client({
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildPresences,
 		GatewayIntentBits.DirectMessages,
-		GatewayIntentBits.MessageContent,
 	],
 	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
@@ -43,7 +40,7 @@ for (const folder of commandFolders) {
 			console.log(`[INFO] Command ${command.data.name} loaded.`);
 		} else {
 			console.log(
-				`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+				`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
 			);
 		}
 	}
@@ -67,7 +64,7 @@ for (const folder of componentFolders) {
 				console.log(`[INFO] Button ${button.data.name} loaded.`);
 			} else {
 				console.log(
-					`[WARNING] The button at ${filePath} is missing a required "data" or "execute" property.`
+					`[WARNING] The button at ${filePath} is missing a required "data" or "execute" property.`,
 				);
 			}
 		}
@@ -83,7 +80,7 @@ for (const folder of componentFolders) {
 				console.log(`[INFO] Select menu ${stringSelectMenu.data.name} loaded.`);
 			} else {
 				console.log(
-					`[WARNING] The select menu at ${filePath} is missing a required "data" or "execute" property.`
+					`[WARNING] The select menu at ${filePath} is missing a required "data" or "execute" property.`,
 				);
 			}
 		}
