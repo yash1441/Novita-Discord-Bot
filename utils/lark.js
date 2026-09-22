@@ -4,7 +4,7 @@ const request = require("request-promise");
 
 async function authorize(
 	id = process.env.FEISHU_ID,
-	secret = process.env.FEISHU_SECRET
+	secret = process.env.FEISHU_SECRET,
 ) {
 	const options = {
 		method: "POST",
@@ -33,7 +33,7 @@ async function listRecords(
 	table_id,
 	parameters = null,
 	id = process.env.FEISHU_ID,
-	secret = process.env.FEISHU_SECRET
+	secret = process.env.FEISHU_SECRET,
 ) {
 	const tenantAccessToken = await authorize(id, secret);
 
@@ -72,7 +72,7 @@ async function createRecord(
 	body,
 	parameters = null,
 	id = process.env.FEISHU_ID,
-	secret = process.env.FEISHU_SECRET
+	secret = process.env.FEISHU_SECRET,
 ) {
 	const tenantAccessToken = await authorize(id, secret);
 
@@ -99,6 +99,8 @@ async function createRecord(
 
 	const response = await axios(options).catch((error) => console.error(error));
 
+	console.log(response);
+
 	if (response && response.data.code === 0) {
 		return response.data.data;
 	} else {
@@ -113,7 +115,7 @@ async function updateRecord(
 	body,
 	parameters = null,
 	id = process.env.FEISHU_ID,
-	secret = process.env.FEISHU_SECRET
+	secret = process.env.FEISHU_SECRET,
 ) {
 	const tenantAccessToken = await authorize(id, secret);
 
